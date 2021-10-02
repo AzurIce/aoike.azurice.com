@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://aoike.azurice.com</id>
     <title>Gridea</title>
-    <updated>2021-10-02T03:34:05.610Z</updated>
+    <updated>2021-10-02T03:34:59.456Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://aoike.azurice.com"/>
     <link rel="self" href="https://aoike.azurice.com/atom.xml"/>
@@ -11,35 +11,446 @@
     <icon>https://aoike.azurice.com/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://aoike.azurice.com/post/hello-gridea/</id>
-        <link href="https://aoike.azurice.com/post/hello-gridea/">
+        <title type="html"><![CDATA[快速读入、输出]]></title>
+        <id>https://aoike.azurice.com/post/快速读入、输出/</id>
+        <link href="https://aoike.azurice.com/post/快速读入、输出/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <updated>2021-10-01T14:01:38.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-iossync_with_stdiofalse">一、ios::sync_with_stdio(false)</h3>
+<p>消除iostream与stdio的同步，提高速度。<strong>但关闭后时同时使用iostream和stdio会出现顺序混乱。</strong></p>
+<h3 id="二-cintie0-couttie0">二、cin.tie(0) cout.tie(0)</h3>
+<p>C++11 以后建议使用cin.tie(nullptr)。</p>
+<p>tie函数可用istream或ostream对象调用，使用一个指向ostream对象的指针形参。调用tie函数时，将实参流绑在调用该函数的对象上。如果一个流调用tie函数将其本身绑在传递给tie的ostream实参对象上，则该流上的任何IO操作都会刷新实参所关联的缓冲区。</p>
+<p>解除绑定，提高速度。</p>
+<h3 id="三-fread和fwrite">三、fread()和fwrite()</h3>
+<pre><code class="language-cpp">std::size_t fread(void* buffer, std::size_t size, std::size_t count,
+                  std::FILE* stream);
+std::size_t fwrite(const void* buffer, std::size_t size, std::size_t count,
+                   std::FILE* stream);
+</code></pre>
+<p>使用示例：fread(Buf, 1, SIZE, stdin) ，表示从 stdin 文件流中读入 SIZE 个大小为 1 byte 的数据块到 Buf 中。</p>
+<p>Bit 为二进制位，1个0或1。10011101↑ 1ByteByte 为字节，8个二进制位组成一个字节</p>
+<p>（1 Byte = 8 bit）</p>
+<p>类 型大  小范围char1  Byte范围int4  Byte范围float4  Byte范围double8  Byte范围long long8  Byte范围string24 Byte范围</p>
+<pre><code class="language-cpp">numeric_limits&lt;type&gt;::max
+numeric_limits&lt;type&gt;::min
+</code></pre>
+<p>使用numeric_limits获取type类型数据范围</p>
+<pre><code class="language-cpp">sizeof(x)
+</code></pre>
+<p>使用sizeof获取x所占空间字节数</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[LCA问题]]></title>
+        <id>https://aoike.azurice.com/post/LCA问题/</id>
+        <link href="https://aoike.azurice.com/post/LCA问题/">
+        </link>
+        <updated>2021-10-01T14:00:57.000Z</updated>
+        <content type="html"><![CDATA[<p>给定一棵树，M次询问，每次给定两个节点x，y。</p>
+<p><strong>fa[i][j]</strong> 表示点i向上走 <strong>2****i</strong> 步达到的点</p>
+<p><strong>fa[i][j] = fa[fa[i][j-1]][j-1]</strong></p>
+<p>处理询问</p>
+<ol>
+<li>
+<p>将x，y调整到同一深度</p>
+</li>
+<li>
+<ol>
+<li>a -&gt; 1，b -&gt; 6</li>
+<li>差值为(101)2，使用fa先跳4再跳1</li>
+</ol>
+</li>
+<li>
+<p>求LCA</p>
+</li>
+<li>
+<ol>
+<li>从 <strong>log<strong><strong>2</strong></strong>N</strong> 开始，若向上跳 <strong>2****c</strong> 到达同一点，则不跳。最终停在LCA下方。</li>
+</ol>
+</li>
+</ol>
+<p>a到b路径上权值最小的点。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[RMQ问题]]></title>
+        <id>https://aoike.azurice.com/post/RMQ问题/</id>
+        <link href="https://aoike.azurice.com/post/RMQ问题/">
+        </link>
+        <updated>2021-10-01T13:57:21.000Z</updated>
+        <content type="html"><![CDATA[<p>有N个数，M次询问，每次给定区间[L,R]， 求区间内的最大(小)值。 (N,M &lt;= 105)</p>
+<h2 id="朴素算法">朴素算法</h2>
+<blockquote>
+<p>普通预处理   预处理时间 <strong>O(n^2)</strong>      f(l,r)表示区间[l,r]中的最大数</p>
+</blockquote>
+<p><strong>f(l,r) = max(f(l,r-1),a[r]);</strong></p>
+<h2 id="st表">ST表</h2>
+<blockquote>
+<p>ST表预处理   预处理时间 <strong>O(N·log****2N)</strong>  洛谷P3865 【模板】ST表ST(s,t)表示从s位起的2t个数中的最大数</p>
+</blockquote>
+<ol>
+<li>
+<p>显然可得</p>
+<p><strong>ST(i,0) = a[i]</strong></p>
+</li>
+<li>
+<p>设<strong>a&lt;b&lt;c</strong>，可知</p>
+<p><strong>f(a,c) = max(f(a,b),f(b,c))</strong></p>
+</li>
+<li>
+<p>所以可以进行分治</p>
+<p><strong>ST(s,t) = max(ST(s,t-1),ST(s+2****t-1,t-1))</strong></p>
+</li>
+</ol>
+<p>由于预处理出的区间长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span> 所以难以得到刚好覆盖询问区间的结果。 因此, 我们要想得到区间[l,r]里面的最大值，就要使预处理出的范围 <em>不超过[l,r]又能够覆盖[l,r]。</em></p>
+<p>可知询问区间长度length为r-l+1，那么要求预处理区间长度<strong>L = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span> &lt;= length</strong> ，即<strong>k = [<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>log</mi><mo>⁡</mo><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\log_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span></span></span></span>]</strong>(向下取整)。</p>
+<p>所以我们选取[l,l+L-1]和[r-L+1,r]来讲询问区间覆盖。</p>
+<p>-&gt; 计算<strong>ST(l,k)<strong>和</strong>ST(r-(1&lt;&lt;k)+1,k)</strong></p>
+<p>-&gt; <strong>ans = cmp(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>T</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">ST_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">ST_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</strong></p>
+<pre><code class="language-plain">int main(){
+  log2[0] = -1;
+  for(int i=1;i&lt;=n;i++){
+    getInt(st[i][0]);
+    log2[i] = log2[i&gt;&gt;1]+1;
+  }
+  
+  for(int i=1;i&lt;=log2[n];i++){
+    for(int j=1;j&lt;=n &amp;&amp; j+1&lt;&lt;i&lt;=n;j++){
+      st[j][i] = max(st[j][i-1],st[j+1&lt;&lt;(i-1)][i-1]);
+    }
+  }
+  
+  return 0;
+}
+</code></pre>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[最小生成树]]></title>
+        <id>https://aoike.azurice.com/post/最小生成树/</id>
+        <link href="https://aoike.azurice.com/post/最小生成树/">
+        </link>
+        <updated>2021-10-01T13:55:42.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一-kruskal算法-加边">一、Kruskal算法 [加边]</h1>
+<blockquote>
+<p>Minimum Spanning Tree  MST</p>
+</blockquote>
+<h3 id="思路">思路</h3>
+<p>为了造出一颗最小生成树，<strong>由小到大向图中加边</strong>，若某次加边<strong>产生了环就舍弃这条边</strong>，直至加入了n-1条边(将所有边“试图加入”完毕），形成一颗最小生成树。</p>
+<h3 id="证明">证明 <a href="https://oi-wiki.org/graph/mst/#_3">¶</a></h3>
+<p>使用归纳法，证明任何时候 K 算法选择的边集都被某棵 MST 所包含。</p>
+<p>基础：对于算法刚开始时，显然成立（最小生成树存在）。</p>
+<p>归纳：假设某时刻成立，当前边集为 F ，令 T 为这棵 MST，考虑下一条加入的边  。</p>
+<p>如果 e 属于 T ，那么成立。</p>
+<p>否则， T+e 一定存在一个环，考虑这个环上不属于 F 的另一条边 f （一定只有一条）。</p>
+<p>首先， f 的权值一定不会比 e 小，不然 f 会在 e 之前被选取。</p>
+<p>然后， f 的权值一定不会比 e 大，不然 T+e-f 就是一棵比 T 还优的生成树了。</p>
+<p>所以， T+e-f 包含了 F ，并且也是一棵最小生成树，归纳成立。</p>
+<p>所以为了实现该算法，我们需要两样东西：</p>
+<ol>
+<li>
+<p>将边从小到大排列。</p>
+<p>（重载运算符，按照边权大小排列）</p>
+</li>
+<li>
+<p>判断一条边左右两端点是否已在同一棵树中。</p>
+<p>（维护并查集，当连了一条由a至b的边时，将a，b所处的集合合并，每次连边检查两端点是否位于同一集合）</p>
+</li>
+</ol>
+<h3 id="时间复杂度">时间复杂度</h3>
+<p>若使用<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ce5ba1d8f39ac73d40fa011db8348f2c3.svg" alt="img" loading="lazy">排序 + <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C89a31b8b219d6e4a74e727ce6c32ce29.svg" alt="img" loading="lazy">并查集，</p>
+<p>即可得<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ce5ba1d8f39ac73d40fa011db8348f2c3.svg" alt="img" loading="lazy">的Kruskal算法。</p>
+<h3 id="code">code</h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+#include &lt;algorithm&gt;
+
+#define MAXM (int)2E5 + 6
+#define MAXN (int)5000 + 6
+
+using namespace std;
+
+void fread(int &amp;x){
+	char c; x=0; bool neg=0;
+	while((c=getchar())&lt;'0' || c&gt;'9') if(c == '-') neg = 1;
+	while('0'&lt;=c &amp;&amp; c&lt;='9'){
+		x = x*10 + c-'0';
+		c = getchar();
+	}
+	if(neg) x = -x;
+}
+
+struct node{
+	int a,b,w;
+}e[MAXM];
+int tot=0;
+
+bool cmp(const node&amp; a,const node&amp; b){
+	return a.w&lt;b.w;
+}
+
+int fa[MAXN];
+void init(int n){
+	for(int i=1;i&lt;=n;i++) fa[i] = i;
+}
+inline int find(int x){
+	return fa[x]==x ? x : fa[x]=find(fa[x]);
+}
+
+int main(){
+	int N,M; fread(N); fread(M); init(N);
+	
+	int a,b,w;
+	for(int i=1;i&lt;=M;i++){
+		fread(e[++tot].a);
+		fread(e[  tot].b);
+		fread(e[  tot].w);
+	}
+	
+	int ans=0;
+	sort(e+1,e+1+M,cmp);
+	for(int i=1;i&lt;=M;i++){
+		a=find(e[i].a); b=find(e[i].b);
+		if(a == b) continue;
+		ans += e[i].w; fa[a] = b;
+	}
+	printf(&quot;%d\n&quot;,ans);
+	
+	return 0;
+}
+</code></pre>
+<h1 id="二-prim算法-加点">二、Prim算法 [加点]</h1>
+<p>类似于DJ的松弛。</p>
+<p>将节点分成两个集合：已加入的，未加入的。</p>
+<p>先任意选择一个节点加入，后每次遍历所有由<strong>已加入节点</strong>连接到<strong>未加入节点</strong>的边，找到一条<strong>最小的边</strong>，将对应的未加入结点加入，直至节点全部加入（n-1次）。</p>
+<h3 id="证明-2">证明 <a href="https://oi-wiki.org/graph/mst/#_5">¶</a></h3>
+<p>还是说明在每一步，都存在一棵最小生成树包含已选边集。</p>
+<p>基础：只有一个结点的时候，显然成立。</p>
+<p>归纳：如果某一步成立，当前边集为 F ，属于 T 这棵 MST，接下来要加入边 e 。</p>
+<p>如果 e 属于 T ，那么成立。</p>
+<p>否则考虑 T+e 中环上另一条可以加入当前边集的边 f 。</p>
+<p>首先， f 的权值一定不小于  的权值，否则就会选择 f 而不是 e 了。</p>
+<p>然后， f 的权值一定不大于  的权值，否则 T+e-f 就是一棵更小的生成树了。</p>
+<p>因此， e 和 f 的权值相等， T+e-f 也是一棵最小生成树，且包含了 F 。</p>
+<p>可以使用堆优化（类似DJ）但是不太好优化，常数比较大。</p>
+<p>在稠密图（尤其是完全图）上，暴力Prim的复杂度优于Kruskal，但不一定实际跑得更快。</p>
+<h3 id="时间复杂度-2">时间复杂度</h3>
+<p>暴力：  <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ca41dd7611c572dd735c97017f79d4ad0.svg" alt="img" loading="lazy"></p>
+<p>二叉堆： <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C7a4b964e0e4bce3b84b4ac10635e1492.svg" alt="img" loading="lazy"></p>
+<p>Fib堆：  <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C88f28038b5411595af9df984fa64f450.svg" alt="img" loading="lazy"></p>
+<h3 id="code-2">code</h3>
+<h1 id="三-boruvka算法">三、Boruvka算法</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[背包问题]]></title>
+        <id>https://aoike.azurice.com/post/背包问题/</id>
+        <link href="https://aoike.azurice.com/post/背包问题/">
+        </link>
+        <updated>2021-10-01T13:54:37.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一-01背包">一、01背包</h1>
+<figure data-type="image" tabindex="1"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C1573898974864-7055e997-adc4-4f80-ac90-4ea441e5e338.png" alt="img" loading="lazy"></figure>
+<h2 id="1-朴素算法">1. 朴素算法</h2>
+<figure data-type="image" tabindex="2"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cbabb39d5985ff11c861f2722126451fa.svg" alt="img" loading="lazy"></figure>
+<h2 id="2-优化">2. 优化</h2>
+<p>降维，滚动数组。</p>
+<figure data-type="image" tabindex="3"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C7005e438f0ab413ba79af94f1b784b20.svg" alt="img" loading="lazy"></figure>
+<h1 id="二-完全背包">二、完全背包</h1>
+<h2 id="1-朴素算法-2">1. 朴素算法</h2>
+<h2 id="2-优化-2">2. 优化</h2>
+<figure data-type="image" tabindex="4"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C8e9ab797002d999732ca28388fb04a8b.svg" alt="img" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C32db605b1947d629e94477423ccfb52a.svg" alt="img" loading="lazy"></figure>
+<p>进行降维</p>
+<figure data-type="image" tabindex="6"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C7005e438f0ab413ba79af94f1b784b20.svg" alt="img" loading="lazy"></figure>
+<p>更新顺序顺序由左到右</p>
+<h1 id="三-多重背包">三、多重背包</h1>
+<figure data-type="image" tabindex="7"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C1572435948581-db6aabfe-2f07-4933-8714-ce9cc0fe6d29.png" alt="img" loading="lazy"></figure>
+<h2 id="1-朴素算法-3">1. 朴素算法<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C4633b7aff1c4990b5158c31ea4357336.svg" alt="img" loading="lazy"></h2>
+<figure data-type="image" tabindex="8"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cdf2eb5bfbe27b81da1978cbc5373d739.svg" alt="img" loading="lazy"></figure>
+<pre><code class="language-cpp">for(int i=1; i&lt;=N; i++)
+    for(int j=0; j&lt;=V; j++)
+        for(int k=0; k&lt;=s[i] &amp;&amp; k*v[i]&lt;=j; k++)//枚举个数，&lt;=s[i]的同时还要&lt;=当前限制的价值
+            f[i][j] = max(f[i][j],f[i-1][j-k*v[i]] + k*w[i]);
+</code></pre>
+<h2 id="2-优化-3">2. 优化</h2>
+<h3 id="1-二进制优化倍增思想合并物品转化为01背包">1&gt; 二进制优化（倍增思想合并物品，转化为01背包）<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C9efe84ff666c1ee2008389a3b60920fb.svg" alt="img" loading="lazy"></h3>
+<figure data-type="image" tabindex="9"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Ca208f8be2e425f060124e300f6192b78.svg" alt="img" loading="lazy"></figure>
+<p>可借助倍增的思想，优化一个log级别。</p>
+<p>可以想到将取的次数用若干<strong>不重复</strong>的数的<strong>和</strong>来表示，并保证用这些数的和能够表示出<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cc07d887f87395dd856bd4e374c6bd7c6.svg" alt="img" loading="lazy">中任意一个数。</p>
+<h4 id="优化思路">| 优化思路</h4>
+<p>根据**二进制表示原理，**设<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C0c0fa91df291e89b33d903f2d0f326eb.svg" alt="img" loading="lazy">，其中<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C39c6d44c8807892c1bbe819fb56c1c5c.svg" alt="img" loading="lazy">。那么其中每一项就是一个新物品。</p>
+<p>将<strong>取****物品</strong><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cab45084f10addfa5f0b1d8ee4e37c0c2.svg" alt="img" loading="lazy"><strong>最多取</strong><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C40fb96f7ccb6f25e84db95089ee6511c.svg" alt="img" loading="lazy"><strong>次</strong>化解为<strong>取若干个新物品</strong><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C19bf38dd6f1f50ef440a3bbafaadc8df.svg" alt="img" loading="lazy"><strong>每个物品最多选一次</strong>。</p>
+<p>1 - 保证这若干物品的和恰好为<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C40fb96f7ccb6f25e84db95089ee6511c.svg" alt="img" loading="lazy">。</p>
+<p>2 - 保证用这些数可以表示出<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cc07d887f87395dd856bd4e374c6bd7c6.svg" alt="img" loading="lazy">中任意一个数。</p>
+<h4 id="新物品的表示">| 新物品的表示</h4>
+<p>分别将取<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C739cf89c746f934cd3e3a94c7e3f662b.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C4b297ae98a4faeb7c16411f18b9f107f.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C41d798b35dc5687feead5c49a77b1c7e.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cff02809e94230ae628b2caa478485402.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cfad55d0349ea859708e02d06baa85702.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C9417ad4107755a5eead4f351235ea029.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cf16d92dfc6a0586f7aa0d19f425b5a7d.svg" alt="img" loading="lazy">个物品合并成</p>
+<p>体积为<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C33ad0dd55d0fa62a5be7dfb7748d216c.svg" alt="img" loading="lazy"> ,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C13fbc497ce06686ab3410d50755a71f6.svg" alt="img" loading="lazy"> ,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Ca099e276fbd560dffe90b4fdb259731d.svg" alt="img" loading="lazy"> ,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C82838375ffe1da125dbecca4e042c646.svg" alt="img" loading="lazy"> ,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cfad55d0349ea859708e02d06baa85702.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cafef952f3f9ab03435aa5762b781b5f1.svg" alt="img" loading="lazy"> ,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cdb2234cef968a58e15302efc318c49c7.svg" alt="img" loading="lazy"> ，</p>
+<p>价值为<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C8cc307725113c6425185f976dd02239c.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C444fece52c311fe553e42a1c41be8b26.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cf9d251b15033473cb8697f17b33aae5d.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cf6826dba2afd8321b534925326c97257.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cfad55d0349ea859708e02d06baa85702.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cdcb123f53a41621bc90770e2dea3dd37.svg" alt="img" loading="lazy">,<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5Cb1288b1a8f8d0625eaa13b4a89e71e22.svg" alt="img" loading="lazy">的</p>
+<p>共<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C17b5966f9a0353628fd6d5a2eab50494.svg" alt="img" loading="lazy">个物品</p>
+<p>将时间复杂度由<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C0402aeda9f40822a173fcdbaabfc9496.svg" alt="img" loading="lazy">优化为</p>
+<p>由此，经过预处理，多重背包完全转化为01背包问题。</p>
+<h4 id="代码实现">| 代码实现</h4>
+<pre><code class="language-cpp">int cnt=0;
+for(int i=1,_v,_w,s; i&lt;=N; i++){
+    fread(_v); fread(_w); fread(s); int k=1;
+    while(k &lt;= s){
+        v[++cnt] = _v*k;
+        w[cnt]   = _w*k;
+        s -= k; k &lt;&lt;= 1;
+    }
+    if(s &gt; 0){
+        v[++cnt] = _v*s;
+        w[cnt]   = _w*s;
+    }
+}
+</code></pre>
+<h1 id="四-混合背包">四、混合背包</h1>
+<p>遇到一个物品判断下，是01就01推（01也是特殊的多重），多重就多重（可以提前二进制优化），完全就完全。</p>
+<h1 id="五-分组背包">五、分组背包</h1>
+<figure data-type="image" tabindex="10"><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%5C1573899088703-beee3be5-0ee7-480f-a93e-cb1ede0697d9.png" alt="img" loading="lazy"></figure>
+<h2 id="1-朴素算法-4">1. 朴素算法</h2>
+<h2 id="2-优化-4">2. 优化</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[「基础算法」归并排序]]></title>
+        <id>https://aoike.azurice.com/post/「数学」最大公因数/</id>
+        <link href="https://aoike.azurice.com/post/「数学」最大公因数/">
+        </link>
+        <updated>2021-10-01T13:40:31.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="函数">函数</h2>
+<p>函数，是一坨已经写好的代码。</p>
+<p>可以有 <strong>参数</strong> 和 <strong>返回值</strong> 。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[「C语言」二、分支结构]]></title>
+        <id>https://aoike.azurice.com/post/「C语言」三、循环结构/</id>
+        <link href="https://aoike.azurice.com/post/「C语言」三、循环结构/">
+        </link>
+        <updated>2021-10-01T09:47:18.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-c">for (initializing list; tested expression; alerting list)
+	statement
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[「基础算法」归并排序]]></title>
+        <id>https://aoike.azurice.com/post/「基础算法」归并排序/</id>
+        <link href="https://aoike.azurice.com/post/「基础算法」归并排序/">
+        </link>
+        <updated>2021-10-01T06:58:31.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="基础算法归并排序">「基础算法」归并排序</h2>
+<h3 id="算法核心">算法核心</h3>
+<p>分治算法：</p>
+<p>分别排序左右，再合并</p>
+<h4 id="关键-合并-双指针-辅助数组">关键 - 合并 - 双指针 + 辅助数组</h4>
+<p>原数组 -&gt; 辅助数组 -&gt; 原数组</p>
+<h3 id="code">Code</h3>
+<pre><code class="language-c">int tmp[MAXN];
+void mergeSort(int *a, int l, int r) {
+	if (l == r) return;
+	
+	int mid = l + r &gt;&gt; 1;
+	mergeSort(a, l, mid);
+	mergeSort(a, mid+1, r);
+	
+	int t = 0, i = l, j = mid+1;
+	while (i &lt;= mid &amp;&amp; j &lt;= r) {
+		if(a[i] &lt; a[j]) {
+			tmp[t++] = a[i++];
+		} else {
+			tmp[t++] = a[j++];
+			// cnt += mid-i+1;
+		}
+	}
+    while (i &lt;= mid) tmp[t++] = a[i++];
+	while (j &lt;= r)   tmp[t++] = a[j++];
+	
+	for (int i = 0; i &lt; t; i++) a[l+i] = tmp[i];
+}
+</code></pre>
+<h4 id="逆序对">逆序对</h4>
+<p>当做合并操作时左&gt;右，<code>mid-i+1</code> 为</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Archlinux 之 网络连接]]></title>
+        <id>https://aoike.azurice.com/post/Archlinux 之 网络连接/</id>
+        <link href="https://aoike.azurice.com/post/Archlinux 之 网络连接/">
+        </link>
+        <updated>2021-09-21T03:25:57.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="archlinux-之-网络连接">Archlinux 之 网络连接</h2>
+<h3 id="iproute2">iproute2</h3>
+<p><strong>iproute2</strong> 是一个 <code>base</code> 包的依赖，提供 <code>ip</code> 命令行接口，用于管理网络接口、IP地址和路由表。</p>
+<h3 id="network-interfaces">Network interfaces</h3>
+<h4 id="前缀含义">前缀含义：</h4>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Desctiption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>en</code></td>
+<td>Wired / Ethernet</td>
+</tr>
+<tr>
+<td><code>wl</code></td>
+<td>Wireless / WLAN</td>
+</tr>
+<tr>
+<td><code>ww</code></td>
+<td>WWAN</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>lo</code> 是 <a href="https://en.wikipedia.org/wiki/Loopback#Virtual_loopback_interface">virtual loopback interface</a> 不用于建立网络连接。</p>
+</blockquote>
+<h4 id="列出-network-interfaces">列出 Network interfaces</h4>
+<pre><code class="language-bash">ip link
+</code></pre>
+<h4 id="启用禁用网络接口">启用/禁用网络接口</h4>
+<pre><code class="language-bash">ip link set 接口名 up或down
+</code></pre>
+<h3 id="dhcp">DHCP</h3>
+<p>安装 <strong>dhcpcd</strong> 后启动服务</p>
+<pre><code class="language-bash">systemctl start dhcpcd
+</code></pre>
+<h3 id="network-manager">Network Manager</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[有关 iwd]]></title>
+        <id>https://aoike.azurice.com/post/有关 iwd/</id>
+        <link href="https://aoike.azurice.com/post/有关 iwd/">
+        </link>
+        <updated>2021-09-19T12:23:27.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="有关-iwd">有关 iwd</h2>
+<h4 id="断开网络连接">断开网络连接</h4>
+<pre><code class="language-bash">station device disconnect
+</code></pre>
+<h4 id="显示设备和连接信息">显示设备和连接信息</h4>
+<p>要显示 WiFi 设备详细情况，比如 MAC 地址：</p>
+<pre><code>[iwd]# device device show
+</code></pre>
+<p>要显示包括 WiFi 设备的连接网络在内的连接状态：</p>
+<pre><code>[iwd]# station device show
+</code></pre>
+<h4 id="管理已知网络">管理已知网络</h4>
+<p>要列出以前连接过的网络：</p>
+<pre><code>[iwd]# known-networks list
+</code></pre>
+<p>要忘记已知的网络：</p>
+<pre><code>[iwd]# known-networks SSID forget
+</code></pre>
 ]]></content>
     </entry>
 </feed>

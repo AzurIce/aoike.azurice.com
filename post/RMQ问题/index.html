@@ -1,0 +1,253 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RMQ问题 | Gridea</title>
+<link rel="shortcut icon" href="https://aoike.azurice.com/favicon.ico?v=1633145696062">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="RMQ问题 | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="有N个数，M次询问，每次给定区间[L,R]， 求区间内的最大(小)值。 (N,M &lt;= 105)
+朴素算法
+
+普通预处理   预处理时间 O(n^2)      f(l,r)表示区间[l,r]中的最大数
+
+f(l,r) = max(f..." />
+    <meta name="keywords" content="OI" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://aoike.azurice.com">
+  <img class="avatar" src="https://aoike.azurice.com/images/avatar.png?v=1633145696062" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              RMQ问题
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-10-01
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://aoike.azurice.com/tag/e0fTyYWda/" class="post-tag">
+                  # OI
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>有N个数，M次询问，每次给定区间[L,R]， 求区间内的最大(小)值。 (N,M &lt;= 105)</p>
+<h2 id="朴素算法">朴素算法</h2>
+<blockquote>
+<p>普通预处理   预处理时间 <strong>O(n^2)</strong>      f(l,r)表示区间[l,r]中的最大数</p>
+</blockquote>
+<p><strong>f(l,r) = max(f(l,r-1),a[r]);</strong></p>
+<h2 id="st表">ST表</h2>
+<blockquote>
+<p>ST表预处理   预处理时间 <strong>O(N·log****2N)</strong>  洛谷P3865 【模板】ST表ST(s,t)表示从s位起的2t个数中的最大数</p>
+</blockquote>
+<ol>
+<li>
+<p>显然可得</p>
+<p><strong>ST(i,0) = a[i]</strong></p>
+</li>
+<li>
+<p>设<strong>a&lt;b&lt;c</strong>，可知</p>
+<p><strong>f(a,c) = max(f(a,b),f(b,c))</strong></p>
+</li>
+<li>
+<p>所以可以进行分治</p>
+<p><strong>ST(s,t) = max(ST(s,t-1),ST(s+2****t-1,t-1))</strong></p>
+</li>
+</ol>
+<p>由于预处理出的区间长度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span> 所以难以得到刚好覆盖询问区间的结果。 因此, 我们要想得到区间[l,r]里面的最大值，就要使预处理出的范围 <em>不超过[l,r]又能够覆盖[l,r]。</em></p>
+<p>可知询问区间长度length为r-l+1，那么要求预处理区间长度<strong>L = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">2^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span> &lt;= length</strong> ，即<strong>k = [<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>log</mi><mo>⁡</mo><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\log_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span></span></span></span>]</strong>(向下取整)。</p>
+<p>所以我们选取[l,l+L-1]和[r-L+1,r]来讲询问区间覆盖。</p>
+<p>-&gt; 计算<strong>ST(l,k)<strong>和</strong>ST(r-(1&lt;&lt;k)+1,k)</strong></p>
+<p>-&gt; <strong>ans = cmp(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>T</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">ST_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">ST_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</strong></p>
+<pre><code class="language-plain">int main(){
+  log2[0] = -1;
+  for(int i=1;i&lt;=n;i++){
+    getInt(st[i][0]);
+    log2[i] = log2[i&gt;&gt;1]+1;
+  }
+  
+  for(int i=1;i&lt;=log2[n];i++){
+    for(int j=1;j&lt;=n &amp;&amp; j+1&lt;&lt;i&lt;=n;j++){
+      st[j][i] = max(st[j][i-1],st[j+1&lt;&lt;(i-1)][i-1]);
+    }
+  }
+  
+  return 0;
+}
+</code></pre>
+<hr>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%9C%B4%E7%B4%A0%E7%AE%97%E6%B3%95">朴素算法</a></li>
+<li><a href="#st%E8%A1%A8">ST表</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://aoike.azurice.com/post/最小生成树/">
+              <h3 class="post-title">
+                最小生成树
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'Iv1.eedd9d9d21fb22f9',
+    clientSecret: 'fa534b25f204c0f7cf87f8df023ffd45834a7a36',
+    repo: 'azurice.github.io',
+    owner: 'AzurIce',
+    admin: ['AzurIce'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://aoike.azurice.com/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

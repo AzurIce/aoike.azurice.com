@@ -2,24 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hello Gridea | Gridea</title>
+<title>快速读入、输出 | Gridea</title>
 <link rel="shortcut icon" href="https://aoike.azurice.com/favicon.ico?v=1633145696062">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Hello Gridea | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="快速读入、输出 | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="👏  欢迎使用 Gridea ！
-✍️  Gridea 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...
-
-Github
-Gridea 主页
-示例网站
-特性👇
-📝  你可以使用最酷的 Markdo..." />
-    <meta name="keywords" content="Gridea" />
+    <meta name="description" content="一、ios::sync_with_stdio(false)
+消除iostream与stdio的同步，提高速度。但关闭后时同时使用iostream和stdio会出现顺序混乱。
+二、cin.tie(0) cout.tie(0)
+C++11 以后..." />
+    <meta name="keywords" content="OI" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -81,54 +77,60 @@ Gridea 主页
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Hello Gridea
+              快速读入、输出
             </h2>
             <div class="post-info">
               <span>
-                2018-12-12
+                2021-10-01
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://aoike.azurice.com/tag/-f1dRaag2/" class="post-tag">
-                  # Gridea
+                <a href="https://aoike.azurice.com/tag/e0fTyYWda/" class="post-tag">
+                  # OI
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://aoike.azurice.com/post-images/hello-gridea.png" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                <h3 id="一-iossync_with_stdiofalse">一、ios::sync_with_stdio(false)</h3>
+<p>消除iostream与stdio的同步，提高速度。<strong>但关闭后时同时使用iostream和stdio会出现顺序混乱。</strong></p>
+<h3 id="二-cintie0-couttie0">二、cin.tie(0) cout.tie(0)</h3>
+<p>C++11 以后建议使用cin.tie(nullptr)。</p>
+<p>tie函数可用istream或ostream对象调用，使用一个指向ostream对象的指针形参。调用tie函数时，将实参流绑在调用该函数的对象上。如果一个流调用tie函数将其本身绑在传递给tie的ostream实参对象上，则该流上的任何IO操作都会刷新实参所关联的缓冲区。</p>
+<p>解除绑定，提高速度。</p>
+<h3 id="三-fread和fwrite">三、fread()和fwrite()</h3>
+<pre><code class="language-cpp">std::size_t fread(void* buffer, std::size_t size, std::size_t count,
+                  std::FILE* stream);
+std::size_t fwrite(const void* buffer, std::size_t size, std::size_t count,
+                   std::FILE* stream);
+</code></pre>
+<p>使用示例：fread(Buf, 1, SIZE, stdin) ，表示从 stdin 文件流中读入 SIZE 个大小为 1 byte 的数据块到 Buf 中。</p>
+<p>Bit 为二进制位，1个0或1。10011101↑ 1ByteByte 为字节，8个二进制位组成一个字节</p>
+<p>（1 Byte = 8 bit）</p>
+<p>类 型大  小范围char1  Byte范围int4  Byte范围float4  Byte范围double8  Byte范围long long8  Byte范围string24 Byte范围</p>
+<pre><code class="language-cpp">numeric_limits&lt;type&gt;::max
+numeric_limits&lt;type&gt;::min
+</code></pre>
+<p>使用numeric_limits获取type类型数据范围</p>
+<pre><code class="language-cpp">sizeof(x)
+</code></pre>
+<p>使用sizeof获取x所占空间字节数</p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li>
+<ul>
+<li><a href="#%E4%B8%80-iossync_with_stdiofalse">一、ios::sync_with_stdio(false)</a></li>
+<li><a href="#%E4%BA%8C-cintie0-couttie0">二、cin.tie(0) cout.tie(0)</a></li>
+<li><a href="#%E4%B8%89-fread%E5%92%8Cfwrite">三、fread()和fwrite()</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -138,6 +140,15 @@ Gridea 主页
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://aoike.azurice.com/post/LCA问题/">
+              <h3 class="post-title">
+                LCA问题
+              </h3>
+            </a>
+          </div>
         
 
         

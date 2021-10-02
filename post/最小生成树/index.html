@@ -1,0 +1,334 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>最小生成树 | Gridea</title>
+<link rel="shortcut icon" href="https://aoike.azurice.com/favicon.ico?v=1633145696062">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="最小生成树 | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="一、Kruskal算法 [加边]
+
+Minimum Spanning Tree  MST
+
+思路
+为了造出一颗最小生成树，由小到大向图中加边，若某次加边产生了环就舍弃这条边，直至加入了n-1条边(将所有边“试图加入”完毕），形成一颗最小生成..." />
+    <meta name="keywords" content="OI,图论" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://aoike.azurice.com">
+  <img class="avatar" src="https://aoike.azurice.com/images/avatar.png?v=1633145696062" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              最小生成树
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-10-01
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://aoike.azurice.com/tag/e0fTyYWda/" class="post-tag">
+                  # OI
+                </a>
+              
+                <a href="https://aoike.azurice.com/tag/dnVNkc4cFG/" class="post-tag">
+                  # 图论
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="一-kruskal算法-加边">一、Kruskal算法 [加边]</h1>
+<blockquote>
+<p>Minimum Spanning Tree  MST</p>
+</blockquote>
+<h3 id="思路">思路</h3>
+<p>为了造出一颗最小生成树，<strong>由小到大向图中加边</strong>，若某次加边<strong>产生了环就舍弃这条边</strong>，直至加入了n-1条边(将所有边“试图加入”完毕），形成一颗最小生成树。</p>
+<h3 id="证明">证明 <a href="https://oi-wiki.org/graph/mst/#_3">¶</a></h3>
+<p>使用归纳法，证明任何时候 K 算法选择的边集都被某棵 MST 所包含。</p>
+<p>基础：对于算法刚开始时，显然成立（最小生成树存在）。</p>
+<p>归纳：假设某时刻成立，当前边集为 F ，令 T 为这棵 MST，考虑下一条加入的边  。</p>
+<p>如果 e 属于 T ，那么成立。</p>
+<p>否则， T+e 一定存在一个环，考虑这个环上不属于 F 的另一条边 f （一定只有一条）。</p>
+<p>首先， f 的权值一定不会比 e 小，不然 f 会在 e 之前被选取。</p>
+<p>然后， f 的权值一定不会比 e 大，不然 T+e-f 就是一棵比 T 还优的生成树了。</p>
+<p>所以， T+e-f 包含了 F ，并且也是一棵最小生成树，归纳成立。</p>
+<p>所以为了实现该算法，我们需要两样东西：</p>
+<ol>
+<li>
+<p>将边从小到大排列。</p>
+<p>（重载运算符，按照边权大小排列）</p>
+</li>
+<li>
+<p>判断一条边左右两端点是否已在同一棵树中。</p>
+<p>（维护并查集，当连了一条由a至b的边时，将a，b所处的集合合并，每次连边检查两端点是否位于同一集合）</p>
+</li>
+</ol>
+<h3 id="时间复杂度">时间复杂度</h3>
+<p>若使用<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ce5ba1d8f39ac73d40fa011db8348f2c3.svg" alt="img" loading="lazy">排序 + <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C89a31b8b219d6e4a74e727ce6c32ce29.svg" alt="img" loading="lazy">并查集，</p>
+<p>即可得<img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ce5ba1d8f39ac73d40fa011db8348f2c3.svg" alt="img" loading="lazy">的Kruskal算法。</p>
+<h3 id="code">code</h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+#include &lt;algorithm&gt;
+
+#define MAXM (int)2E5 + 6
+#define MAXN (int)5000 + 6
+
+using namespace std;
+
+void fread(int &amp;x){
+	char c; x=0; bool neg=0;
+	while((c=getchar())&lt;'0' || c&gt;'9') if(c == '-') neg = 1;
+	while('0'&lt;=c &amp;&amp; c&lt;='9'){
+		x = x*10 + c-'0';
+		c = getchar();
+	}
+	if(neg) x = -x;
+}
+
+struct node{
+	int a,b,w;
+}e[MAXM];
+int tot=0;
+
+bool cmp(const node&amp; a,const node&amp; b){
+	return a.w&lt;b.w;
+}
+
+int fa[MAXN];
+void init(int n){
+	for(int i=1;i&lt;=n;i++) fa[i] = i;
+}
+inline int find(int x){
+	return fa[x]==x ? x : fa[x]=find(fa[x]);
+}
+
+int main(){
+	int N,M; fread(N); fread(M); init(N);
+	
+	int a,b,w;
+	for(int i=1;i&lt;=M;i++){
+		fread(e[++tot].a);
+		fread(e[  tot].b);
+		fread(e[  tot].w);
+	}
+	
+	int ans=0;
+	sort(e+1,e+1+M,cmp);
+	for(int i=1;i&lt;=M;i++){
+		a=find(e[i].a); b=find(e[i].b);
+		if(a == b) continue;
+		ans += e[i].w; fa[a] = b;
+	}
+	printf(&quot;%d\n&quot;,ans);
+	
+	return 0;
+}
+</code></pre>
+<h1 id="二-prim算法-加点">二、Prim算法 [加点]</h1>
+<p>类似于DJ的松弛。</p>
+<p>将节点分成两个集合：已加入的，未加入的。</p>
+<p>先任意选择一个节点加入，后每次遍历所有由<strong>已加入节点</strong>连接到<strong>未加入节点</strong>的边，找到一条<strong>最小的边</strong>，将对应的未加入结点加入，直至节点全部加入（n-1次）。</p>
+<h3 id="证明-2">证明 <a href="https://oi-wiki.org/graph/mst/#_5">¶</a></h3>
+<p>还是说明在每一步，都存在一棵最小生成树包含已选边集。</p>
+<p>基础：只有一个结点的时候，显然成立。</p>
+<p>归纳：如果某一步成立，当前边集为 F ，属于 T 这棵 MST，接下来要加入边 e 。</p>
+<p>如果 e 属于 T ，那么成立。</p>
+<p>否则考虑 T+e 中环上另一条可以加入当前边集的边 f 。</p>
+<p>首先， f 的权值一定不小于  的权值，否则就会选择 f 而不是 e 了。</p>
+<p>然后， f 的权值一定不大于  的权值，否则 T+e-f 就是一棵更小的生成树了。</p>
+<p>因此， e 和 f 的权值相等， T+e-f 也是一棵最小生成树，且包含了 F 。</p>
+<p>可以使用堆优化（类似DJ）但是不太好优化，常数比较大。</p>
+<p>在稠密图（尤其是完全图）上，暴力Prim的复杂度优于Kruskal，但不一定实际跑得更快。</p>
+<h3 id="时间复杂度-2">时间复杂度</h3>
+<p>暴力：  <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5Ca41dd7611c572dd735c97017f79d4ad0.svg" alt="img" loading="lazy"></p>
+<p>二叉堆： <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C7a4b964e0e4bce3b84b4ac10635e1492.svg" alt="img" loading="lazy"></p>
+<p>Fib堆：  <img src="H:__BlogHexo__%5Csource%5Cimages%5C%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%5C88f28038b5411595af9df984fa64f450.svg" alt="img" loading="lazy"></p>
+<h3 id="code-2">code</h3>
+<h1 id="三-boruvka算法">三、Boruvka算法</h1>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%80-kruskal%E7%AE%97%E6%B3%95-%E5%8A%A0%E8%BE%B9">一、Kruskal算法 [加边]</a><br>
+*
+<ul>
+<li><a href="#%E6%80%9D%E8%B7%AF">思路</a></li>
+<li><a href="#%E8%AF%81%E6%98%8E">证明 ¶</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">时间复杂度</a></li>
+<li><a href="#code">code</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-prim%E7%AE%97%E6%B3%95-%E5%8A%A0%E7%82%B9">二、Prim算法 [加点]</a><br>
+*
+<ul>
+<li><a href="#%E8%AF%81%E6%98%8E-2">证明 ¶</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6-2">时间复杂度</a></li>
+<li><a href="#code-2">code</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-boruvka%E7%AE%97%E6%B3%95">三、Boruvka算法</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://aoike.azurice.com/post/背包问题/">
+              <h3 class="post-title">
+                背包问题
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'Iv1.eedd9d9d21fb22f9',
+    clientSecret: 'fa534b25f204c0f7cf87f8df023ffd45834a7a36',
+    repo: 'azurice.github.io',
+    owner: 'AzurIce',
+    admin: ['AzurIce'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://aoike.azurice.com/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

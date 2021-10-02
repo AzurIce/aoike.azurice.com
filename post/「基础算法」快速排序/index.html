@@ -2,24 +2,25 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hello Gridea | Gridea</title>
+<title>「基础算法」快速排序 | Gridea</title>
 <link rel="shortcut icon" href="https://aoike.azurice.com/favicon.ico?v=1633145696062">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Hello Gridea | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="「基础算法」快速排序 | Gridea - Atom Feed" href="https://aoike.azurice.com/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="👏  欢迎使用 Gridea ！
-✍️  Gridea 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...
+    <meta name="description" content="「基础算法」快速排序
+板子：
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
 
-Github
-Gridea 主页
-示例网站
-特性👇
-📝  你可以使用最酷的 Markdo..." />
-    <meta name="keywords" content="Gridea" />
+#define MAXN (int)(1E6 + 7)
+
+..." />
+    <meta name="keywords" content="OI,基础算法,排序" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -81,54 +82,96 @@ Gridea 主页
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Hello Gridea
+              「基础算法」快速排序
             </h2>
             <div class="post-info">
               <span>
-                2018-12-12
+                2021-08-27
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://aoike.azurice.com/tag/-f1dRaag2/" class="post-tag">
-                  # Gridea
+                <a href="https://aoike.azurice.com/tag/e0fTyYWda/" class="post-tag">
+                  # OI
+                </a>
+              
+                <a href="https://aoike.azurice.com/tag/a0L4ko7ihr/" class="post-tag">
+                  # 基础算法
+                </a>
+              
+                <a href="https://aoike.azurice.com/tag/xomlHvVogD/" class="post-tag">
+                  # 排序
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://aoike.azurice.com/post-images/hello-gridea.png" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+                <h2 id="基础算法快速排序">「基础算法」快速排序</h2>
+<h3 id="板子">板子：</h3>
+<pre><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+#define MAXN (int)(1E6 + 7)
+
+using namespace std;
+
+void qRead(int &amp;x) {
+	char c; x = 0;
+    while ((c = getchar()) &lt; '0' || c &gt; '9');
+    while ('0' &lt;= c &amp;&amp; c &lt;= '9') {
+        x = x*10 + c - '0';
+        c = getchar();
+    }
+}
+
+void qSort(int *a, int l, int r) {
+    if (l == r) return ;
+    int x = a[rand()%(r-l) + l];
+    int i = l-1, j = r+1;
+    while (i &lt; j) {
+        do i++; while (a[i] &lt; x);
+        do j--; while (a[j] &gt; x);
+        if (i &lt; j) swap(a[i], a[j]);
+    }
+    qSort(a, l, j);
+    qSort(a, j+1, r);
+}
+
+int a[MAXN];
+int main() {
+    int n; scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 1; i &lt;= n; i++) qRead(a[i]);
+    qSort(a, 1, n);
+    for (int i = 1; i &lt;= n; i++) printf(&quot;%d &quot;, a[i]); puts(&quot;&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="几个关键点">几个关键点</h3>
+<ol>
+<li>
+<p><code>int x = a[rand()%(r-l) + l]</code> 中使用 <code>r-l</code> 而非 <code>r-l+1</code> 。</p>
+<p>由于划分为 <code>[l, j]</code> 和 <code>[j+1, r]</code> ，若 <code>x</code> 取到 <code>a[r]</code> 则会使 <code>j == r</code> 无限循环。</p>
+</li>
+<li>
+<p>在 <code>do i++</code> 和 <code>do j--</code> 处使用 <code>do...while</code></p>
+<p>为了确保 <code>a[i] == x</code> 或 <code>a[j] == x</code> 时，<code>i</code> 与 <code>j</code> 均会移动。</p>
+</li>
+</ol>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F">「基础算法」快速排序</a>
+<ul>
+<li><a href="#%E6%9D%BF%E5%AD%90">板子：</a></li>
+<li><a href="#%E5%87%A0%E4%B8%AA%E5%85%B3%E9%94%AE%E7%82%B9">几个关键点</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -138,6 +181,15 @@ Gridea 主页
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://aoike.azurice.com/post/『伊始』/">
+              <h3 class="post-title">
+                『伊始』
+              </h3>
+            </a>
+          </div>
         
 
         
