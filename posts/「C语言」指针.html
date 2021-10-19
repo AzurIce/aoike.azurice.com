@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title> Aoike青池 </title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              「C语言」指针.md
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-10-18 04:40:12
+              </span>
+              <span>
+                2021-10-19 02:44:16
+              </span>
+            </div>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2>「C语言」指针</h2>
+<blockquote>
+<p>指针是一种特殊的变量类型，有 <code>int*</code> <code>double*</code> 等类型。</p>
+</blockquote>
+<p>声明指针变量：</p>
+<pre><code class="language-C">int *a; // 声明一个 int 的指针变量，名为 a
+</code></pre>
+<blockquote>
+<p>或 int* a 或 int    *    a 都可，随意空格</p>
+</blockquote>
+<h3>一、指针变量可以存一个变量地址（指针的第一句话）</h3>
+<pre><code class="language-C">int x = 1;
+
+int *p = &amp;x; // 声明一个 int 的指针变量，名为p。并将x的地址赋给p
+</code></pre>
+<blockquote>
+<p><code>&amp;</code> 在此是取址运算符，<code>&amp;varriable</code> 可以得到 <code>varriable</code> 变量的地址。</p>
+</blockquote>
+<pre><code>printf(&quot;%d\n&quot;, p);
+</code></pre>
+<p>如果我们使用 <code>%d</code> 输出 p 的值（p的值是一个地址），它会输出地址对应的整数。</p>
+<blockquote>
+<p>在我的电脑上编译运行得到：<code>6487572</code></p>
+</blockquote>
+<h3>二、指针变量的特殊操作 <code>*</code> （指针的第二句话）</h3>
+<p>使用 <code>*p</code> 可以访问指针变量 <code>p</code> 所存地址对应的变量。</p>
+<pre><code class="language-c">int x = 1;
+
+int *p = &amp;x;
+
+printf(&quot;%d %d\n&quot;, x, *p);
+x = 5;
+printf(&quot;%d %d\n&quot;, x, *p);
+*p = 1;
+printf(&quot;%d %d\n&quot;, x, *p);
+</code></pre>
+<blockquote>
+<p>输出：</p>
+<pre><code>1 1
+5 5
+1 1
+</code></pre>
+</blockquote>
+<h3>三、一些例子</h3>
+<h4>3.1 交换两个数的函数</h4>
+<pre><code class="language-c">int swap(int a, int b) {
+    int t = a;
+    a = b;
+    b = t;
+}
+</code></pre>
+<pre><code class="language-c">int main() {
+	int x = 1, y =2;
+    
+    printf(&quot;%d %d\n&quot;, x, y);
+	swap(x, y);
+    printf(&quot;%d %d\n&quot;, x, y);
+    
+	return 0;
+}
+</code></pre>
+<blockquote>
+<p>输出：</p>
+<pre><code>1 2
+1 2
+</code></pre>
+</blockquote>
+<p>在使用 <code>swap(x, y)</code> 调用 <code>swap</code> 函数的时候，是将 <code>x</code> 和 <code>y</code> 的值取出来，分别交给 <code>a</code> <code>b</code> 。</p>
+<p>也就是说 <code>a</code> <code>b</code> 与 <code>x</code> <code>y</code> 是不同的变量。</p>
+<p>我们可以通过输出其地址来判断是否是同一个变量：</p>
+<ol>
+<li>
+<p>在 <code>swap</code> 中输出 <code>a</code> 和 <code>b</code> 的地址：</p>
+<pre><code class="language-c">printf(&quot;In swap: %d %d\n&quot;, &amp;a, &amp;b);
+</code></pre>
+</li>
+<li>
+<p>在 <code>main</code> 中输出 <code>x</code> 和 <code>y</code> 的地址：</p>
+<pre><code class="language-c">printf(&quot;In main: %d %d\n&quot;, &amp;x, &amp;y);
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>在我的电脑上编译运行得到：</p>
+<p><code>In main: 6487580 6487576</code></p>
+<p><code>In swap: 6487536 6487544</code></p>
+</blockquote>
+<p>所以 <code>a</code> <code>b</code> 与 <code>x</code> <code>y</code> 并不是相同的变量，只是在调用的时候将 <code>x</code> <code>y</code> 的值赋给了 <code>a</code> <code>b</code> 而已。</p>
+<p>对 <code>a</code> <code>b</code> 的操作就只是对 <code>a</code> <code>b</code> 操作，而不是对 <code>x</code> <code>y</code> 操作。</p>
+<p>所以上述函数并不能交换 <code>x</code> <code>y</code> 的值，只是将参数变量 <code>a</code> <code>b</code> 的值交换了。</p>
+<p>那么我们可以使用指针来实现交换两个变量：</p>
+<pre><code class="language-c">int swap(int *a, int *b) {
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+</code></pre>
+<pre><code class="language-c">int main() {
+	int x = 1, y = 2;
+	swap(&amp;x, &amp;y);
+	return 0;
+}
+</code></pre>
+<blockquote>
+<p>函数的参数为指针变量，所以在调用的时候要对应地传入变量地址。</p>
+<p>在这个例子中传入了 <code>x</code> 和 <code>y</code> 的地址，也就是将 <code>x</code> <code>y</code> 地址的值赋给了 <code>a</code> 和 <code>b</code> 指针变量。（指针的第一句话）</p>
+<p>随后我们使用的 <code>*a</code> <code>*b</code> 就分别是访问 <code>a</code> <code>b</code> 所存地址对应的变量，也就是想到于对原本的 <code>x</code> <code>y</code> 进行操作。（指针的第二句话）</p>
+</blockquote>
+<p>这样就可以达到交换 <code>x</code> <code>y</code> 变量的值了。</p>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

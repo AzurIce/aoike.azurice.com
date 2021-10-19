@@ -19,22 +19,62 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              「C语言」三、循环结构.md
+              2021.10.18 程序课.md
             </h2>
             <div class="post-info">
               <span>
-                2021-09-27 02:15:17
+                2021-10-18 03:32:42
               </span>
               <span>
-                2021-10-18 02:13:45
+                2021-10-18 03:57:52
               </span>
             </div>
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2>「C语言」三、循环结构</h2>
-<pre><code class="language-c">for (initializing list; tested expression; alerting list)
-	statement
+                <p><a href="https://zhuanlan.zhihu.com/p/100158885">C语言变量的存储类别 - 知乎 (zhihu.com)</a></p>
+<p>Local Variable Storage Classes</p>
+<p>存储类别</p>
+<pre><code>auto
+static
+extern
+register
 </code></pre>
+<p><code>auto</code> 只能用在函数中。</p>
+<p>局部变量只能是 <code>auto</code>、<code>static</code> 或 <code>register</code> 。</p>
+<ul>
+<li>
+<p><code>register</code> 存在 CPU寄存器中的 <code>auto</code> 变量</p>
+<blockquote>
+<p>若无寄存器则为 <code>auto</code>。</p>
+</blockquote>
+</li>
+<li>
+<p><code>auto</code> 是默认的类型</p>
+<p>动态存储区</p>
+<p>短生命周期变量。自动申请、释放。</p>
+<p>is automatically reserved each time a function declaring automatic variables is called</p>
+<p>As long as the function has not returned control to its calling function, all automatic variables local to the function are alive</p>
+</li>
+<li>
+<p><code>static</code></p>
+<p>静态存储区</p>
+<p>长生命周期变量。从程序运行开始到整个程序结束始终存在。</p>
+<p>在程序被初次编译的时候被初始化，有些编译器在第一次定义语句执行的时候初始化。</p>
+<blockquote>
+<p>depend on compiler</p>
+</blockquote>
+</li>
+</ul>
+<p>全局变量：</p>
+<ul>
+<li>
+<p><code>static</code> 只能在当前文件中使用</p>
+</li>
+<li>
+<p><code>extern</code> 引用其他文件的变量</p>
+<p>可不写变量类型</p>
+</li>
+</ul>
 
               </div>
             </div>
