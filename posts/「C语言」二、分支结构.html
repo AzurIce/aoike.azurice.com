@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
 
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
@@ -58,7 +58,7 @@ tags:</p>
 </thead>
 <tbody>
 <tr>
-<td><code>&gt;</code></td>
+<td><code><span class="hljs-meta">&gt;</span></code></td>
 <td>大于</td>
 </tr>
 <tr>
@@ -66,7 +66,7 @@ tags:</p>
 <td>小于</td>
 </tr>
 <tr>
-<td><code>&gt;=</code></td>
+<td><code><span class="hljs-meta">&gt;</span><span class="bash">=</span></code></td>
 <td>大于等于</td>
 </tr>
 <tr>
@@ -74,11 +74,11 @@ tags:</p>
 <td>小于等于</td>
 </tr>
 <tr>
-<td><code>==</code></td>
+<td><code>=<span class="ruby">=</span></code></td>
 <td>等于</td>
 </tr>
 <tr>
-<td><code>!=</code></td>
+<td><code><span class="hljs-addition">!=</span></code></td>
 <td>不等于</td>
 </tr>
 </tbody>
@@ -95,7 +95,7 @@ tags:</p>
 </thead>
 <tbody>
 <tr>
-<td><code>&amp;&amp;</code></td>
+<td><code><span class="hljs-meta">&amp;&amp;</span></code></td>
 <td>与</td>
 <td>左右都满足时为真，否则为假</td>
 <td>（并且）</td>
@@ -107,19 +107,19 @@ tags:</p>
 <td>或</td>
 </tr>
 <tr>
-<td><code>!</code></td>
+<td><code><span class="hljs-addition">!</span></code></td>
 <td>非</td>
 <td>右侧值为假时为真，否则为假</td>
 <td>（真变假，假变真 <s>假作真时真亦假</s>）</td>
 </tr>
 </tbody>
 </table>
-<h3>二、<code>if</code> 语句</h3>
-<p><code>if</code> 语句是最常用的分支语句，可以搭配 <code>else</code> 实现复杂的分支结构。</p>
+<h3>二、<code><span class="hljs-attribute">if</span></code> 语句</h3>
+<p><code><span class="hljs-attribute">if</span></code> 语句是最常用的分支语句，可以搭配 <code><span class="hljs-keyword">else</span></code> 实现复杂的分支结构。</p>
 <h4>1.1 用法</h4>
-<pre><code class="language-C">if (/* expression */)
-	// Do something...
-// ...
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+	<span class="hljs-comment">// Do something...</span>
+<span class="hljs-comment">// ...</span>
 </code></pre>
 <blockquote>
 <p><strong>expression</strong> （表达式）</p>
@@ -129,120 +129,120 @@ tags:</p>
 </ul>
 </blockquote>
 <ul>
-<li>当 <code>expression</code> 的值为真时，执行 <code>if()</code> 之后紧随的一个句子，随后继续执行下方语句（<code>...</code> 处）</li>
-<li>当 <code>expression</code> 的值为假时，直接继续执行下方语句（<code>...</code> 处）</li>
+<li>当 <code><span class="hljs-attribute">expression</span></code> 的值为真时，执行 <code><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">()</span></span></code> 之后紧随的一个句子，随后继续执行下方语句（<code><span class="hljs-meta">...</span></code> 处）</li>
+<li>当 <code><span class="hljs-attribute">expression</span></code> 的值为假时，直接继续执行下方语句（<code><span class="hljs-meta">...</span></code> 处）</li>
 </ul>
-<p>还可以配合 <code>else</code> 使用</p>
-<pre><code class="language-C">if (/* expression */)
-	// Do something...
-else
-	// Do some other thing...
-// ...
+<p>还可以配合 <code><span class="hljs-keyword">else</span></code> 使用</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+	<span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+<span class="hljs-comment">// ...</span>
 </code></pre>
 <ul>
-<li>当 <code>expression</code> 的值为真时，执行 <code>if()</code> 之后紧随的一个句子，随后继续执行下方语句（<code>...</code> 处）</li>
-<li>当 <code>expression</code> 的值为假时，执行 <code>else</code> 之后紧随的一个句子，随后继续执行下方语句（<code>...</code> 处）</li>
+<li>当 <code><span class="hljs-attribute">expression</span></code> 的值为真时，执行 <code><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">()</span></span></code> 之后紧随的一个句子，随后继续执行下方语句（<code><span class="hljs-meta">...</span></code> 处）</li>
+<li>当 <code><span class="hljs-attribute">expression</span></code> 的值为假时，执行 <code><span class="hljs-keyword">else</span></code> 之后紧随的一个句子，随后继续执行下方语句（<code><span class="hljs-meta">...</span></code> 处）</li>
 </ul>
 <p>所谓 <strong>紧随的一个句子</strong> 即意为以下写法都是等价的，不受空格、换行、制表符、缩进影响：</p>
-<pre><code class="language-C">if (/* expression */) // Do something...
-else // Do some other thing...
-// ...
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>) <span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span> <span class="hljs-comment">// Do some other thing...</span>
+<span class="hljs-comment">// ...</span>
 
-if (/* expression */) // Do something...
-else                  // Do some other thing...
-// ...
+<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>) <span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span>                  <span class="hljs-comment">// Do some other thing...</span>
+<span class="hljs-comment">// ...</span>
 
-if (/* expression */)
-	// Do something...
-else
-	// Do some other thing...
-// ...
+<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+	<span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+<span class="hljs-comment">// ...</span>
 </code></pre>
 <p>当需要做的事情不止有一句话时可以用大括号括起来：</p>
-<pre><code class="language-C">if (/* expression */) {
-	// Do something...
-	// Do something...
-	// Do something...
-} else {
-	// Do some other thing...
-	// Do some other thing...
-	// Do some other thing...
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>) {
+	<span class="hljs-comment">// Do something...</span>
+	<span class="hljs-comment">// Do something...</span>
+	<span class="hljs-comment">// Do something...</span>
+} <span class="hljs-keyword">else</span> {
+	<span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
 }
-// ...
+<span class="hljs-comment">// ...</span>
 </code></pre>
 <p>同时也可以进行嵌套：</p>
-<pre><code class="language-C">if (/* expression */) {
-	// Do something...
-	if (/* expression */)
-		// Do something...
-	// Do something...
-} else {
-	if (/* expression */)
-		// Do something...
-	else
-		// Do some other thing...
-	// Do some other thing...
-	// Do some other thing...
-	// Do some other thing...
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>) {
+	<span class="hljs-comment">// Do something...</span>
+	<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+		<span class="hljs-comment">// Do something...</span>
+	<span class="hljs-comment">// Do something...</span>
+} <span class="hljs-keyword">else</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+		<span class="hljs-comment">// Do something...</span>
+	<span class="hljs-keyword">else</span>
+		<span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
 }
-// ...
+<span class="hljs-comment">// ...</span>
 </code></pre>
-<p><code>else{ if... }</code> 这种写法也可以用 <code>else if()</code> 来写（可以将 <code>if...</code> 整体当作一句话 ），即下面的写法是等价的：</p>
-<pre><code class="language-C">if (/* expression */) {
-	// Do something...
-} else {
-	if (/* expression */)
-        // Do something...
-    else
-        // Do some other thing...
-	// Do some other thing...
+<p><code><span class="hljs-keyword">else</span>{ <span class="hljs-keyword">if</span><span class="hljs-params">...</span> }</code> 这种写法也可以用 <code><span class="hljs-variable"><span class="hljs-keyword">else</span></span> <span class="hljs-function"><span class="hljs-title">if</span>()</span></code> 来写（可以将 <code><span class="hljs-function"><span class="hljs-title">if</span></span>...</code> 整体当作一句话 ），即下面的写法是等价的：</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>) {
+	<span class="hljs-comment">// Do something...</span>
+} <span class="hljs-keyword">else</span> {
+	<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+        <span class="hljs-comment">// Do something...</span>
+    <span class="hljs-keyword">else</span>
+        <span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
 }
-// ...
+<span class="hljs-comment">// ...</span>
 
-if (/* expression */)
-	// Do something...
-else if (/* expression */)
-    // Do something...
-else
-    // Do some other thing...
-	// Do some other thing...
-// ...
+<span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+	<span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-comment">/* expression */</span>)
+    <span class="hljs-comment">// Do something...</span>
+<span class="hljs-keyword">else</span>
+    <span class="hljs-comment">// Do some other thing...</span>
+	<span class="hljs-comment">// Do some other thing...</span>
+<span class="hljs-comment">// ...</span>
 </code></pre>
 <p>可以无限这样写下去...</p>
 <h4>1.2 例</h4>
 <blockquote>
-<p>输入：两个整数 <code>a</code> ，<code>b</code></p>
-<p>输出：<code>x is bigger</code> ，其中 <code>x</code> 为代表更大的一个的数的字母（ <code>a</code> 或 <code>b</code> ）</p>
+<p>输入：两个整数 <code><span class="hljs-selector-tag">a</span></code> ，<code><span class="hljs-selector-tag">b</span></code></p>
+<p>输出：<code>x <span class="hljs-keyword">is</span> bigger</code> ，其中 <code><span class="hljs-attribute">x</span></code> 为代表更大的一个的数的字母（ <code><span class="hljs-selector-tag">a</span></code> 或 <code><span class="hljs-selector-tag">b</span></code> ）</p>
 </blockquote>
-<pre><code class="language-C">#include &lt;stdio.h&gt;
+<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 
-int main() {
-    int a, b; scanf(&quot;%d%d&quot;, &amp;a, &amp;b);
-    if (a &gt; b) printf(&quot;a&quot;);
-    else       printf(&quot;b&quot;);
-    printf(&quot; is bigger.\n&quot;);
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> a, b; <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>, &amp;a, &amp;b);
+    <span class="hljs-keyword">if</span> (a &gt; b) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a&quot;</span>);
+    <span class="hljs-keyword">else</span>       <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;b&quot;</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; is bigger.\n&quot;</span>);
 }
 </code></pre>
 <blockquote>
-<p>输入：一个整数 <code>y</code> 表示年份</p>
-<p>输出：判断 <code>y</code> 是否为闰年，是则输出 <code>yes</code>  否则输出 <code>no</code></p>
+<p>输入：一个整数 <code><span class="hljs-attribute">y</span></code> 表示年份</p>
+<p>输出：判断 <code><span class="hljs-attribute">y</span></code> 是否为闰年，是则输出 <code><span class="hljs-literal">yes</span></code>  否则输出 <code><span class="hljs-literal">no</span></code></p>
 </blockquote>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 
-// 闰年判断：是 4 的倍数，且不是 100 的倍数 或者 是 400 的倍数
+<span class="hljs-comment">// 闰年判断：是 4 的倍数，且不是 100 的倍数 或者 是 400 的倍数</span>
 
-int main() {
-    int y; scanf(&quot;%d&quot;, &amp;y);
-    if (y % 400 == 0 || y%4 == 0 &amp;&amp; y%100 != 0) printf(&quot;yes\n&quot;);
-    else                                        printf(&quot;no\n&quot;)
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> y; <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;y);
+    <span class="hljs-keyword">if</span> (y % <span class="hljs-number">400</span> == <span class="hljs-number">0</span> || y%<span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; y%<span class="hljs-number">100</span> != <span class="hljs-number">0</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;yes\n&quot;</span>);
+    <span class="hljs-keyword">else</span>                                        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;no\n&quot;</span>)
 }
 </code></pre>
-<h3>三、<code>switch</code> 语句</h3>
+<h3>三、<code><span class="hljs-keyword">switch</span></code> 语句</h3>
 <h4>1.1 用法</h4>
-<pre><code class="language-C">switch(integer_expression) {
-	case integer_constant1:
-	case integer_constant2:
-	default:
+<pre><code class="hljs language-C"><span class="hljs-keyword">switch</span>(integer_expression) {
+	<span class="hljs-keyword">case</span> integer_constant1:
+	<span class="hljs-keyword">case</span> integer_constant2:
+	<span class="hljs-keyword">default</span>:
 }
 </code></pre>
 <blockquote>
@@ -252,9 +252,9 @@ int main() {
 <blockquote>
 <p>Tip: 由于 <strong>char</strong> 类型实际存储的也是个整数，所以也可以使用 <strong>char</strong> 。</p>
 </blockquote>
-<p>考察 <strong>整形表达式</strong> 的值，与哪个 <code>case</code> 后的<strong>整型常量</strong> 则进入哪个 <code>case</code> ，若没有相等的则进入 <code>deafult</code>。</p>
+<p>考察 <strong>整形表达式</strong> 的值，与哪个 <code><span class="hljs-keyword">case</span></code> 后的<strong>整型常量</strong> 则进入哪个 <code><span class="hljs-keyword">case</span></code> ，若没有相等的则进入 <code><span class="hljs-attribute">deafult</span></code>。</p>
 <blockquote>
-<p>注意：一个 <code>case</code> 内的语句执行完成后会继续执行下一个 <code>case</code> 中的语句，若想执行完一个 <code>case</code> 后退出则需要添加 <code>break;</code> 来跳出 <code>switch</code>。</p>
+<p>注意：一个 <code><span class="hljs-keyword">case</span></code> 内的语句执行完成后会继续执行下一个 <code><span class="hljs-keyword">case</span></code> 中的语句，若想执行完一个 <code><span class="hljs-keyword">case</span></code> 后退出则需要添加 <code><span class="hljs-keyword">break</span>;</code> 来跳出 <code><span class="hljs-keyword">switch</span></code>。</p>
 </blockquote>
 <p>（懒得写太详细了）</p>
 

@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
 
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
@@ -39,113 +39,113 @@
                 <div class="post-content">
                     <h2>「C语言」指针</h2>
 <blockquote>
-<p>指针是一种特殊的变量类型，有 <code>int*</code> <code>double*</code> 等类型。</p>
+<p>指针是一种特殊的变量类型，有 <code><span class="hljs-built_in">int</span>*</code> <code><span class="hljs-built_in">double</span>*</code> 等类型。</p>
 </blockquote>
 <p>声明指针变量：</p>
-<pre><code class="language-C">int *a; // 声明一个 int 的指针变量，名为 a
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> *a; <span class="hljs-comment">// 声明一个 int 的指针变量，名为 a</span>
 </code></pre>
 <blockquote>
 <p>或 int* a 或 int    *    a 都可，随意空格</p>
 </blockquote>
 <h3>一、指针变量可以存一个变量地址（指针的第一句话）</h3>
-<pre><code class="language-C">int x = 1;
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
 
-int *p = &amp;x; // 声明一个 int 的指针变量，名为p。并将x的地址赋给p
+<span class="hljs-keyword">int</span> *p = &amp;x; <span class="hljs-comment">// 声明一个 int 的指针变量，名为p。并将x的地址赋给p</span>
 </code></pre>
 <blockquote>
-<p><code>&amp;</code> 在此是取址运算符，<code>&amp;varriable</code> 可以得到 <code>varriable</code> 变量的地址。</p>
+<p><code><span class="hljs-meta">&amp;</span></code> 在此是取址运算符，<code><span class="hljs-meta">&amp;varriable</span></code> 可以得到 <code><span class="hljs-attribute">varriable</span></code> 变量的地址。</p>
 </blockquote>
-<pre><code>printf(&quot;%d\n&quot;, p);
+<pre><code class="hljs"><span class="hljs-keyword">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, p);
 </code></pre>
-<p>如果我们使用 <code>%d</code> 输出 p 的值（p的值是一个地址），它会输出地址对应的整数。</p>
+<p>如果我们使用 <code><span class="hljs-tag">%<span class="hljs-selector-tag">d</span></span></code> 输出 p 的值（p的值是一个地址），它会输出地址对应的整数。</p>
 <blockquote>
-<p>在我的电脑上编译运行得到：<code>6487572</code></p>
+<p>在我的电脑上编译运行得到：<code><span class="hljs-number">6487572</span></code></p>
 </blockquote>
-<h3>二、指针变量的特殊操作 <code>*</code> （指针的第二句话）</h3>
-<p>使用 <code>*p</code> 可以访问指针变量 <code>p</code> 所存地址对应的变量。</p>
-<pre><code class="language-c">int x = 1;
+<h3>二、指针变量的特殊操作 <code><span class="hljs-comment">*</span></code> （指针的第二句话）</h3>
+<p>使用 <code>*<span class="hljs-selector-tag">p</span></code> 可以访问指针变量 <code><span class="hljs-selector-tag">p</span></code> 所存地址对应的变量。</p>
+<pre><code class="hljs language-c"><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
 
-int *p = &amp;x;
+<span class="hljs-keyword">int</span> *p = &amp;x;
 
-printf(&quot;%d %d\n&quot;, x, *p);
-x = 5;
-printf(&quot;%d %d\n&quot;, x, *p);
-*p = 1;
-printf(&quot;%d %d\n&quot;, x, *p);
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, *p);
+x = <span class="hljs-number">5</span>;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, *p);
+*p = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, *p);
 </code></pre>
 <blockquote>
 <p>输出：</p>
-<pre><code>1 1
-5 5
-1 1
+<pre><code class="hljs"><span class="hljs-symbol">1 </span><span class="hljs-number">1</span>
+<span class="hljs-symbol">5 </span><span class="hljs-number">5</span>
+<span class="hljs-symbol">1 </span><span class="hljs-number">1</span>
 </code></pre>
 </blockquote>
 <h3>三、一些例子</h3>
 <h4>3.1 交换两个数的函数</h4>
-<pre><code class="language-c">int swap(int a, int b) {
-    int t = a;
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+    <span class="hljs-keyword">int</span> t = a;
     a = b;
     b = t;
 }
 </code></pre>
-<pre><code class="language-c">int main() {
-	int x = 1, y =2;
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>, y =<span class="hljs-number">2</span>;
     
-    printf(&quot;%d %d\n&quot;, x, y);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
 	swap(x, y);
-    printf(&quot;%d %d\n&quot;, x, y);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
     
-	return 0;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre>
 <blockquote>
 <p>输出：</p>
-<pre><code>1 2
-1 2
+<pre><code class="hljs"><span class="hljs-symbol">1 </span><span class="hljs-number">2</span>
+<span class="hljs-symbol">1 </span><span class="hljs-number">2</span>
 </code></pre>
 </blockquote>
-<p>在使用 <code>swap(x, y)</code> 调用 <code>swap</code> 函数的时候，是将 <code>x</code> 和 <code>y</code> 的值取出来，分别交给 <code>a</code> <code>b</code> 。</p>
-<p>也就是说 <code>a</code> <code>b</code> 与 <code>x</code> <code>y</code> 是不同的变量。</p>
+<p>在使用 <code><span class="hljs-function"><span class="hljs-title">swap</span><span class="hljs-params">(x, y)</span></span></code> 调用 <code><span class="hljs-keyword">swap</span></code> 函数的时候，是将 <code><span class="hljs-attribute">x</span></code> 和 <code><span class="hljs-attribute">y</span></code> 的值取出来，分别交给 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 。</p>
+<p>也就是说 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 与 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 是不同的变量。</p>
 <p>我们可以通过输出其地址来判断是否是同一个变量：</p>
 <ol>
 <li>
-<p>在 <code>swap</code> 中输出 <code>a</code> 和 <code>b</code> 的地址：</p>
-<pre><code class="language-c">printf(&quot;In swap: %d %d\n&quot;, &amp;a, &amp;b);
+<p>在 <code><span class="hljs-keyword">swap</span></code> 中输出 <code><span class="hljs-selector-tag">a</span></code> 和 <code><span class="hljs-selector-tag">b</span></code> 的地址：</p>
+<pre><code class="hljs language-c"><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In swap: %d %d\n&quot;</span>, &amp;a, &amp;b);
 </code></pre>
 </li>
 <li>
-<p>在 <code>main</code> 中输出 <code>x</code> 和 <code>y</code> 的地址：</p>
-<pre><code class="language-c">printf(&quot;In main: %d %d\n&quot;, &amp;x, &amp;y);
+<p>在 <code><span class="hljs-selector-tag">main</span></code> 中输出 <code><span class="hljs-attribute">x</span></code> 和 <code><span class="hljs-attribute">y</span></code> 的地址：</p>
+<pre><code class="hljs language-c"><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In main: %d %d\n&quot;</span>, &amp;x, &amp;y);
 </code></pre>
 </li>
 </ol>
 <blockquote>
 <p>在我的电脑上编译运行得到：</p>
-<p><code>In main: 6487580 6487576</code></p>
-<p><code>In swap: 6487536 6487544</code></p>
+<p><code><span class="hljs-attribute">In</span> main: <span class="hljs-number">6487580</span> <span class="hljs-number">6487576</span></code></p>
+<p><code><span class="hljs-attribute">In</span> swap: <span class="hljs-number">6487536</span> <span class="hljs-number">6487544</span></code></p>
 </blockquote>
-<p>所以 <code>a</code> <code>b</code> 与 <code>x</code> <code>y</code> 并不是相同的变量，只是在调用的时候将 <code>x</code> <code>y</code> 的值赋给了 <code>a</code> <code>b</code> 而已。</p>
-<p>对 <code>a</code> <code>b</code> 的操作就只是对 <code>a</code> <code>b</code> 操作，而不是对 <code>x</code> <code>y</code> 操作。</p>
-<p>所以上述函数并不能交换 <code>x</code> <code>y</code> 的值，只是将参数变量 <code>a</code> <code>b</code> 的值交换了。</p>
+<p>所以 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 与 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 并不是相同的变量，只是在调用的时候将 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 的值赋给了 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 而已。</p>
+<p>对 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 的操作就只是对 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 操作，而不是对 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 操作。</p>
+<p>所以上述函数并不能交换 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 的值，只是将参数变量 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 的值交换了。</p>
 <p>那么我们可以使用指针来实现交换两个变量：</p>
-<pre><code class="language-c">int swap(int *a, int *b) {
-	int t = *a;
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *a, <span class="hljs-keyword">int</span> *b)</span> </span>{
+	<span class="hljs-keyword">int</span> t = *a;
 	*a = *b;
 	*b = t;
 }
 </code></pre>
-<pre><code class="language-c">int main() {
-	int x = 1, y = 2;
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>, y = <span class="hljs-number">2</span>;
 	swap(&amp;x, &amp;y);
-	return 0;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre>
 <blockquote>
 <p>函数的参数为指针变量，所以在调用的时候要对应地传入变量地址。</p>
-<p>在这个例子中传入了 <code>x</code> 和 <code>y</code> 的地址，也就是将 <code>x</code> <code>y</code> 地址的值赋给了 <code>a</code> 和 <code>b</code> 指针变量。（指针的第一句话）</p>
-<p>随后我们使用的 <code>*a</code> <code>*b</code> 就分别是访问 <code>a</code> <code>b</code> 所存地址对应的变量，也就是想到于对原本的 <code>x</code> <code>y</code> 进行操作。（指针的第二句话）</p>
+<p>在这个例子中传入了 <code><span class="hljs-attribute">x</span></code> 和 <code><span class="hljs-attribute">y</span></code> 的地址，也就是将 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 地址的值赋给了 <code><span class="hljs-selector-tag">a</span></code> 和 <code><span class="hljs-selector-tag">b</span></code> 指针变量。（指针的第一句话）</p>
+<p>随后我们使用的 <code><span class="hljs-comment">*a</span></code> <code>*<span class="hljs-selector-tag">b</span></code> 就分别是访问 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 所存地址对应的变量，也就是想到于对原本的 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 进行操作。（指针的第二句话）</p>
 </blockquote>
-<p>这样就可以达到交换 <code>x</code> <code>y</code> 变量的值了。</p>
+<p>这样就可以达到交换 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 变量的值了。</p>
 
                 </div>
             </article>

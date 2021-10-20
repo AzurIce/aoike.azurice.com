@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
 
 <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
@@ -40,29 +40,29 @@
                     <p><a href="https://zhuanlan.zhihu.com/p/100158885">C语言变量的存储类别 - 知乎 (zhihu.com)</a></p>
 <p>Local Variable Storage Classes</p>
 <p>存储类别</p>
-<pre><code>auto
-static
-extern
-register
+<pre><code class="hljs"><span class="hljs-keyword">auto</span>
+<span class="hljs-keyword">static</span>
+<span class="hljs-keyword">extern</span>
+<span class="hljs-keyword">register</span>
 </code></pre>
-<p><code>auto</code> 只能用在函数中。</p>
-<p>局部变量只能是 <code>auto</code>、<code>static</code> 或 <code>register</code> 。</p>
+<p><code><span class="hljs-built_in">auto</span></code> 只能用在函数中。</p>
+<p>局部变量只能是 <code><span class="hljs-built_in">auto</span></code>、<code><span class="hljs-keyword">static</span></code> 或 <code><span class="hljs-keyword">register</span></code> 。</p>
 <ul>
 <li>
-<p><code>register</code> 存在 CPU寄存器中的 <code>auto</code> 变量</p>
+<p><code><span class="hljs-keyword">register</span></code> 存在 CPU寄存器中的 <code><span class="hljs-built_in">auto</span></code> 变量</p>
 <blockquote>
-<p>若无寄存器则为 <code>auto</code>。</p>
+<p>若无寄存器则为 <code><span class="hljs-built_in">auto</span></code>。</p>
 </blockquote>
 </li>
 <li>
-<p><code>auto</code> 是默认的类型</p>
+<p><code><span class="hljs-built_in">auto</span></code> 是默认的类型</p>
 <p>动态存储区</p>
 <p>短生命周期变量。自动申请、释放。</p>
 <p>is automatically reserved each time a function declaring automatic variables is called</p>
 <p>As long as the function has not returned control to its calling function, all automatic variables local to the function are alive</p>
 </li>
 <li>
-<p><code>static</code></p>
+<p><code><span class="hljs-keyword">static</span></code></p>
 <p>静态存储区</p>
 <p>长生命周期变量。从程序运行开始到整个程序结束始终存在。</p>
 <p>在程序被初次编译的时候被初始化，有些编译器在第一次定义语句执行的时候初始化。</p>
@@ -74,10 +74,10 @@ register
 <p>全局变量：</p>
 <ul>
 <li>
-<p><code>static</code> 只能在当前文件中使用</p>
+<p><code><span class="hljs-keyword">static</span></code> 只能在当前文件中使用</p>
 </li>
 <li>
-<p><code>extern</code> 引用其他文件的变量</p>
+<p><code><span class="hljs-keyword">extern</span></code> 引用其他文件的变量</p>
 <p>可不写变量类型</p>
 </li>
 </ul>
