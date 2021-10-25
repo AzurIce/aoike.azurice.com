@@ -33,7 +33,7 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-10-24 11:34:07 · 发布于 · 2021-10-20 09:43:13
+                        修改于 · 2021-10-25 10:23:56 · 发布于 · 2021-10-20 09:43:13
                     </time>
                 </div>
                 <div class="post-content">
@@ -43,7 +43,7 @@
 <p><strong>数组</strong>，顾名思义。<strong>数</strong> 的 <strong>组</strong>，一坨数。</p>
 </blockquote>
 <p>一个某数据类型的数组可以存储多个该种数据类型的数据，下标从0开始。</p>
-<img src="F:\__VERYSYNC__\_Posts\「C语言」数组与字符串_数组.png" alt="「C语言」数组与字符串_数组" style="zoom:25%;" />
+<img src="「C语言」数组与字符串.assets/「C语言」数组与字符串_数组.png" alt="「C语言」数组与字符串_数组" style="zoom:33%;" />
 <blockquote>
 <p>上图：普通 <code><span class="hljs-built_in">int</span></code> 变量、一维 <code><span class="hljs-built_in">int</span></code> 数组、二维 <code><span class="hljs-built_in">int</span></code> 数组......</p>
 </blockquote>
@@ -59,7 +59,7 @@
 <h4>1.1 数组的声明</h4>
 <pre><code class="hljs language-C">数据类型 数组变量名[数组长度];
 </code></pre>
-<img src="F:\__VERYSYNC__\_Posts\「C语言」数组与字符串_一维数组.png" alt="「C语言」数组与字符串_一维数组" style="zoom:33%;" />
+<p><img src="%E3%80%8CC%E8%AF%AD%E8%A8%80%E3%80%8D%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2.assets/%E3%80%8CC%E8%AF%AD%E8%A8%80%E3%80%8D%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2_%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84.png" alt="「C语言」数组与字符串_一维数组"></p>
 <pre><code class="hljs language-C"><span class="hljs-comment">// 声明一个长度为2的数组</span>
 <span class="hljs-keyword">int</span> a[<span class="hljs-number">3</span>];
 </code></pre>
@@ -200,7 +200,7 @@ scanf(<span class="hljs-string">&quot;%s&quot;</span>, str)<span class="hljs-com
 <span class="hljs-attribute">str</span>[<span class="hljs-number">5</span>]:   (<span class="hljs-number">0</span>)
 </code></pre>
 <p><code><span class="hljs-attribute">str</span>[<span class="hljs-number">5</span>]</code> 看起来是空的（确实），不过也存了一个ASCII码值为0的字符（空字符），也就是 <code>&#x27;\0&#x27;</code> 。（如下图）</p>
-<img src="F:\__VERYSYNC__\_Posts\「C语言」数组与字符串_字符串.png" alt="「C语言」数组与字符串_字符串" style="zoom:33%;" />
+<p><img src="%E3%80%8CC%E8%AF%AD%E8%A8%80%E3%80%8D%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2_%E5%AD%97%E7%AC%A6%E4%B8%B2.png" alt="「C语言」数组与字符串_字符串"></p>
 <p>这被用来标记字符串的结束，<code>scanf</code> 读入后会自动向输入的字符后添加一个 <code><span class="hljs-string">\0</span></code> ，<code>printf</code> 输出时遇到 <code><span class="hljs-string">\0</span></code> 也会停止。</p>
 <blockquote>
 <p>正是因为这个 <code>&#x27;\0&#x27;</code> 的存在，<code>printf</code> 才可以在输出字符串时使用字符数组中的元素下标到哪停止。</p>
