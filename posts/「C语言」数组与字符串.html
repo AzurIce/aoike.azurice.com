@@ -33,7 +33,7 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-10-25 10:38:54 · 发布于 · 2021-10-20 09:43:13
+                        修改于 · 2021-10-27 11:03:28 · 发布于 · 2021-10-27 11:03:28
                     </time>
                 </div>
                 <div class="post-content">
@@ -60,7 +60,7 @@
 <pre><code class="hljs language-C">数据类型 数组变量名[数组长度];
 </code></pre>
 <img src="https://i.loli.net/2021/10/25/24fKIrC6bM8wNUY.png" alt="「C语言」数组与字符串_一维数组" style="zoom: 33%;" />
-<pre><code class="hljs language-C"><span class="hljs-comment">// 声明一个长度为2的数组</span>
+<pre><code class="hljs language-C"><span class="hljs-comment">// 声明一个长度为3的数组</span>
 <span class="hljs-keyword">int</span> a[<span class="hljs-number">3</span>];
 </code></pre>
 <pre><code class="hljs language-C"><span class="hljs-comment">// 声明一个长度为3的数组，并赋初值 a[0] = 0, a[1] = 1, a[2] = 2</span>
@@ -130,20 +130,18 @@ a[<span class="hljs-number">0</span>] = a[<span class="hljs-number">1</span>] + 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
 	<span class="hljs-keyword">int</span> arr[<span class="hljs-number">3</span>] = {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>};
 	
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;array       = %x\n&quot;</span>, &amp;arr);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;array[0]    = %x\n&quot;</span>, &amp;arr[<span class="hljs-number">0</span>]);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;array[1]    = %x\n&quot;</span>, &amp;arr[<span class="hljs-number">1</span>]);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;array        = %x\n&quot;</span>, arr);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;array + 1    = %x\n&quot;</span>, arr + <span class="hljs-number">1</span>);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*array       = %x\n&quot;</span>, *arr);
-	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*(array + 1) = %x\n&quot;</span>, *(arr + <span class="hljs-number">1</span>));
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;array[0]    = %p\n&quot;</span>, &amp;arr[<span class="hljs-number">0</span>]);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;array[1]    = %p\n&quot;</span>, &amp;arr[<span class="hljs-number">1</span>]);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;array        = %p\n&quot;</span>, arr);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;array + 1    = %p\n&quot;</span>, arr + <span class="hljs-number">1</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*array       = %p\n&quot;</span>, *arr);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*(array + 1) = %p\n&quot;</span>, *(arr + <span class="hljs-number">1</span>));
 	
 	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre>
 <p>输出为：</p>
-<pre><code class="hljs">&amp;array       = 62fe10
-&amp;array[0]    = 62fe10
+<pre><code class="hljs">&amp;array[0]    = 62fe10
 &amp;array[1]    = 62fe14<span class="hljs-built_in">
 array </span>       = 62fe10<span class="hljs-built_in">
 array </span>+ 1    = 62fe14
@@ -156,7 +154,6 @@ array </span>+ 1    = 62fe14
 <p>直接使用数组名，为一个 <strong>指向数组首元素的指针</strong>（存储了数组首元素地址的指针）.</p>
 </li>
 <li>
-<p>使用取址运算符 <code><span class="hljs-meta">&amp;</span></code> 加数组名，为 <strong>数组首元素的地址</strong>。</p>
 <p>使用取值运算符 <code><span class="hljs-meta">&amp;</span></code> 加数组元素，为 <strong>对应元素的地址</strong>。</p>
 </li>
 </ul>
@@ -176,9 +173,8 @@ array </span>+ 1    = 62fe14
 <pre><code class="hljs">scanf(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-symbol">&amp;str</span>[<span class="hljs-number">0</span>])<span class="hljs-comment">;</span>
 </code></pre>
 <blockquote>
-<p>由 1.4，对于从下标0开始存储字符串的需求，下面的写法都可：</p>
-<pre><code class="hljs">scanf(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-symbol">&amp;str</span>)<span class="hljs-comment">;</span>
-scanf(<span class="hljs-string">&quot;%s&quot;</span>, str)<span class="hljs-comment">;</span>
+<p>由 1.4，对于从下标0开始存储字符串的需求，下面的写法也可：</p>
+<pre><code class="hljs"><span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%s&quot;</span>, str);
 </code></pre>
 </blockquote>
 <p>输入 <code><span class="hljs-attribute">Hello</span></code> 。</p>
