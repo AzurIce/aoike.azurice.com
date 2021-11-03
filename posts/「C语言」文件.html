@@ -1,0 +1,255 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「C语言」文件.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-11-03 11:44:24 · 发布于 · 2021-11-04 02:27:23
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>「C语言」文件</h1>
+<h2>一、输入/输出流 与 <code><span class="hljs-keyword">FILE</span> *</code></h2>
+<blockquote>
+<p>在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中</p>
+</blockquote>
+<pre><code class="hljs language-c">FILE *f; <span class="hljs-comment">// 声明了一个名为 f 的 FILE* 类型的指针变量</span>
+</code></pre>
+<p>每一个 <strong>输入/输出流（I/O Stream）</strong> 都和一个外部的物理设备相关联（文件、标准输入流、打印机、端口号等等），可以被一个 <code><span class="hljs-keyword">FILE</span>*</code> 类型的指针变量来表示，并可通过此指针来访问、控制 <strong>输入/输出流（I/O Stream）</strong>。</p>
+<h2>二、打开与关闭文件</h2>
+<h3>2.1 <code><span class="hljs-function"><span class="hljs-title">fopen</span><span class="hljs-params">()</span></span></code> 函数</h3>
+<pre><code class="hljs language-C"><span class="hljs-function">FILE *<span class="hljs-title">fopen</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *filename, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mode )</span></span>; <span class="hljs-comment">// until C99</span>
+</code></pre>
+<blockquote>
+<p>C89，C99，C11，C17等都是C语言的标准，新的标准会包含新的内容和修改，可以理解为语言的版本。</p>
+<p>数字表示发表的年份，比如C11是2011年发表的标准。</p>
+<p>标准C 指 C89.</p>
+</blockquote>
+<p>参数：</p>
+<ul>
+<li>
+<p><code><span class="hljs-attribute">filename</span></code> 文件流要关联到的文件的名</p>
+</li>
+<li>
+<p><code><span class="hljs-built_in">mode</span></code> 文件访问模式</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>文件访问标志</th>
+<th>含义</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><span class="hljs-attribute">r</span></code></td>
+<td>read</td>
+<td>打开一个存在的文件用来 读 <strong>(若不存在则返回空指针)</strong></td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">w</span></code></td>
+<td>write</td>
+<td>创建一个文件用来 写**（若文件存在则覆盖）**</td>
+</tr>
+<tr>
+<td><code><span class="hljs-selector-tag">a</span></code></td>
+<td>append</td>
+<td>打开/创建一个文件用来 在尾部追加写</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">r</span>+</code></td>
+<td>read extended</td>
+<td>打开一个存在的文件用来 读/写 <strong>(若不存在则返回空指针)</strong></td>
+</tr>
+<tr>
+<td><code>w+</code></td>
+<td>write extended</td>
+<td>创建一个文件用来 读/写**（若文件存在则覆盖）**</td>
+</tr>
+<tr>
+<td><code><span class="hljs-selector-tag">a</span>+</code></td>
+<td>append extended</td>
+<td>打开/创建一个文件用来 读/在尾部追加写</td>
+</tr>
+</tbody>
+</table>
+<p>上述每一个都可以添加 <code><span class="hljs-selector-tag">b</span></code> 标志来表示以二进制方式打开</p>
+</blockquote>
+</li>
+</ul>
+<h3>2.2 <code><span class="hljs-function"><span class="hljs-title">fclose</span><span class="hljs-params">()</span></span></code> 函数</h3>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fclose</span><span class="hljs-params">( FILE *stream )</span></span>;
+</code></pre>
+<p>用完了要记得关闭，取消对文件的占用。</p>
+<p>Closes the given file stream. Any unwritten buffered data are flushed to the OS. Any unread buffered data are discarded.</p>
+<p>Whether or not the operation succeeds, the stream is no longer associated with a file, and the buffer allocated by setbuf or setvbuf, if any, is also disassociated and deallocated if automatic allocation was used.</p>
+<p>The behavior is undefined if the value of the pointer stream is used after fclose returns.<br>
+成功返回0，否则返回EOF(-1)。</p>
+<h2>三、读取数据</h2>
+<h3>2.1 一些函数</h3>
+<p>先来看普通的读入、输出函数：</p>
+<ul>
+<li>
+<p>读入：</p>
+<ul>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getchar</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;</code></p>
+<p>从 <code>stdin</code> 中读入一个字符。</p>
+<p>成功返回读到的字符，失败返回 <code><span class="hljs-attribute">EOF</span></code>。</p>
+</li>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">gets</span><span class="hljs-params">( <span class="hljs-keyword">char</span> *str )</span></span>;</code></p>
+<p>从 <code>stdin</code> 中读入字符串（以换行或文件结束为终止）。</p>
+<p>成功则返回读到的字符串，失败则返回 <code><span class="hljs-literal">NULL</span></code> 空指针。</p>
+</li>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">scanf</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>      *format, ... )</span></span>;</code></p>
+<p>略。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>输出：</p>
+<ul>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">putchar</span><span class="hljs-params">( <span class="hljs-keyword">int</span> ch )</span></span>;</code></p>
+<p>向 <code>stdout</code> 中写入一个由 <code><span class="hljs-attribute">ch</span></code> 转化为的字符。</p>
+<p>成功则返回写入的字符，失败则返回 <code><span class="hljs-attribute">EOF</span></code>。</p>
+</li>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">puts</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *str )</span></span>;</code></p>
+<p>向 <code>stdout</code> 中写入字符串 <code><span class="hljs-built_in">str</span></code> 和一个 <code><span class="hljs-string">\n</span></code>。</p>
+<p>成功则返回一个非负值，失败则返回 <code><span class="hljs-attribute">EOF</span></code>。</p>
+</li>
+<li>
+<p><code><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">printf</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>      *format, ... )</span></span>;</code></p>
+<p>略。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>对于从特定的 <strong>输入/输出流</strong> 读入、输出，有以下函数：</p>
+<pre><code class="hljs language-C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fgetc</span><span class="hljs-params">( FILE *stream )</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fputc</span><span class="hljs-params">( <span class="hljs-keyword">int</span> ch, FILE *stream )</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">fgets</span><span class="hljs-params">( <span class="hljs-keyword">char</span> *str, <span class="hljs-keyword">int</span> count, FILE *stream )</span></span>; <span class="hljs-comment">// until C99</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fputs</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *str, FILE *stream )</span></span>; <span class="hljs-comment">// until C99</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fscanf</span><span class="hljs-params">( FILE *stream, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, ... )</span></span>; <span class="hljs-comment">// until C99</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fprintf</span><span class="hljs-params">( FILE *stream, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, ... )</span></span>; <span class="hljs-comment">// until C99</span>
+</code></pre>
+<p>​	这里 <code><span class="hljs-function"><span class="hljs-title">fgets</span><span class="hljs-params">()</span></span></code> 比较特殊，与 <code><span class="hljs-function"><span class="hljs-title">gets</span><span class="hljs-params">()</span></span></code> 有个较大区别，多了一个参数 <code><span class="hljs-built_in">count</span></code> 表示每次读入最多读入的字符数量，即每次读入不只截止于换行、文件末尾，还会截止于读入 <code><span class="hljs-built_in">count</span></code> 个字符后。</p>
+<h3>2.2 基础读写 <code><span class="hljs-attribute">r</span></code> <code><span class="hljs-attribute">w</span></code>【例 - 复制文件】</h3>
+<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    FILE *srcFile, dstFile;
+    srcFile = fopen(<span class="hljs-string">&quot;src.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
+    <span class="hljs-keyword">if</span> (srcFile == <span class="hljs-literal">NULL</span>) { <span class="hljs-comment">// 空指针，表明 fopen 打开的文件不存在</span>
+        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;File src.txt is not exist.&quot;</span>);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 以 1 为返回值退出程序（相当于main函数中return 1）</span>
+    }
+    dstFile = fopen(<span class="hljs-string">&quot;dst.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>);
+    
+    <span class="hljs-keyword">char</span> c;
+    <span class="hljs-keyword">while</span> ((c = getc(srcFile)) != EOF) {
+        putc(c, dstFile);
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p><code><span class="hljs-attribute">getc</span></code> 在读到文件末尾后再读就会会失败，会返回 <code><span class="hljs-attribute">EOF</span></code> (End Of File)。</p>
+<p><code><span class="hljs-attribute">EOF</span></code> 是一个常量，值为 <code><span class="hljs-deletion">-1</span></code>，被定义在在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中：</p>
+<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> EOF (-1)</span>
+</code></pre>
+<h3>2.3 理解文件位置指针</h3>
+<p>文件位置指针决定了我们在使用诸如 <code><span class="hljs-function"><span class="hljs-title">fgetc</span><span class="hljs-params">()</span></span></code> , <code><span class="hljs-function"><span class="hljs-title">fgets</span><span class="hljs-params">()</span></span></code> 等函数从文件中读取内容时读取到的是哪个位置的数据，每一次读取时均是从文件位置指针所在位置开始读，读完后将文件位置指针移动到之后的位置。</p>
+<p>假如一个文件有如下内容（方括号代表一个字符（以文本模式打开）或一个字节（以二进制模式打开））：</p>
+<pre><code class="hljs">[ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+</code></pre>
+<p>那么文件位置指针最开始则位于 <code>0</code> 处：</p>
+<pre><code class="hljs">[*] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+</code></pre>
+<p>在调用一次 <code><span class="hljs-function"><span class="hljs-title">fgetc</span><span class="hljs-params">()</span></span></code> 后会获取到文件位置指针所在位置的字符，并将其后移一个字符：</p>
+<pre><code class="hljs">[ ] [*] [ ] [ ] [ ] [ ] [ ] [ ]
+</code></pre>
+<p>当文件位置指针最终会抵达末尾之后的位置</p>
+<pre><code class="hljs"><span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> *
+</code></pre>
+<p>此后再进行读入，将不能成功读入到东西，文件位置指针也不会移动。<br>
+同理，如果是如下的字符串，文件位置指针在读后会移动到下一个字符的位置:</p>
+<pre><code class="hljs"><span class="hljs-bullet">*</span>
+Hello World!
+
+<span class="hljs-bullet">     *</span>
+Hello world!
+
+<span class="hljs-bullet">            *</span>
+Hello world!
+</code></pre>
+<h4>2.3.1 <code><span class="hljs-function"><span class="hljs-title">ftell</span><span class="hljs-params">()</span></span></code> 函数</h4>
+<p>获得当前文件位置指针位置。</p>
+<h4>2.3.2<code><span class="hljs-function"><span class="hljs-title">fseek</span><span class="hljs-params">()</span></span></code></h4>
+<pre><code class="hljs language-C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fseek</span><span class="hljs-params">( FILE *stream, <span class="hljs-keyword">long</span> offset, <span class="hljs-keyword">int</span> origin )</span></span>;
+</code></pre>
+<p>设置文件读取指针的位置</p>
+<p>参数：</p>
+<ul>
+<li><code><span class="hljs-attribute">stream</span></code> 文件流</li>
+<li><code><span class="hljs-built_in">offset</span></code> 偏移量</li>
+<li><code><span class="hljs-attribute">origin</span></code> 偏移量起始位置
+<ul>
+<li><code><span class="hljs-attribute">SEEK_SET</span></code> 文件开始</li>
+<li><code><span class="hljs-attribute">SEEK_CUR</span></code> 当前位置</li>
+<li><code><span class="hljs-attribute">SEEK_END</span></code> 文件结尾</li>
+</ul>
+</li>
+</ul>
+<p>如果文件流是在 二进制模式 打开的，新的位置就确切的是 <code><span class="hljs-built_in">offset</span></code> 所给的字节数造成的偏移。</p>
+<blockquote>
+<p>注意：二进制模式下不能使用 <code><span class="hljs-attribute">SEEK_END</span></code></p>
+</blockquote>
+<p>Binary streams are not required to support SEEK_END, in particular if additional null bytes are output.</p>
+<p>If the stream is open in text mode, the only supported values for offset are zero (which works with any origin) and a value returned by an earlier call to ftell on a stream associated with the same file (which only works with origin of SEEK_SET).</p>
+<p>If the stream is wide-oriented, the restrictions of both text and binary streams apply (result of ftell is allowed with SEEK_SET and zero offset is allowed from SEEK_SET and SEEK_CUR, but not SEEK_END).</p>
+<p>In addition to changing the file position indicator, fseek undoes the effects of ungetc and clears the end-of-file status, if applicable.</p>
+<p>If a read or write error occurs, the error indicator for the stream (ferror) is set and the file position is unaffected.</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
