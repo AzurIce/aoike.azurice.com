@@ -33,7 +33,7 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-03 11:44:24 · 发布于 · 2021-11-04 02:27:23
+                        修改于 · 2021-11-04 01:32:56 · 发布于 · 2021-11-04 02:27:23
                     </time>
                 </div>
                 <div class="post-content">
@@ -168,11 +168,29 @@
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fprintf</span><span class="hljs-params">( FILE *stream, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, ... )</span></span>; <span class="hljs-comment">// until C99</span>
 </code></pre>
 <p>​	这里 <code><span class="hljs-function"><span class="hljs-title">fgets</span><span class="hljs-params">()</span></span></code> 比较特殊，与 <code><span class="hljs-function"><span class="hljs-title">gets</span><span class="hljs-params">()</span></span></code> 有个较大区别，多了一个参数 <code><span class="hljs-built_in">count</span></code> 表示每次读入最多读入的字符数量，即每次读入不只截止于换行、文件末尾，还会截止于读入 <code><span class="hljs-built_in">count</span></code> 个字符后。</p>
-<h3>2.2 基础读写 <code><span class="hljs-attribute">r</span></code> <code><span class="hljs-attribute">w</span></code>【例 - 复制文件】</h3>
+<p>两个新的函数：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">size_t</span> <span class="hljs-title">fread</span><span class="hljs-params">( <span class="hljs-keyword">void</span> *buffer, <span class="hljs-keyword">size_t</span> size, <span class="hljs-keyword">size_t</span> count, FILE *stream )</span></span>; <span class="hljs-comment">// until C99</span>
+</code></pre>
+<p>参数：</p>
+<ul>
+<li><code>buffer</code> 存储所读到的数据的地址</li>
+<li><code>size</code> 读到每一个对象的字节数</li>
+<li><code><span class="hljs-built_in">count</span></code> 读的对象数</li>
+<li><code><span class="hljs-attribute">stream</span></code> 要执行读操作的流</li>
+</ul>
+<p>返回值：</p>
+<p>Number of objects read successfully, which may be less than <code><span class="hljs-built_in">count</span></code> if an error or end-of-file condition occurs.</p>
+<p>If <code>size</code> or <code><span class="hljs-built_in">count</span></code> is zero, <code><span class="hljs-attribute">fread</span></code> returns zero and performs no other action.</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">size_t</span> <span class="hljs-title">fwrite</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *buffer, <span class="hljs-keyword">size_t</span> size, <span class="hljs-keyword">size_t</span> count, FILE *stream )</span></span>; <span class="hljs-comment">// until C99</span>
+</code></pre>
+<p>参数同理，<code>buffer</code> 为要写入的数据起始地址。</p>
+<p>返回值同理，The number of objects written successfully, which may be less than <code><span class="hljs-built_in">count</span></code> if an error occurs.</p>
+<p>If <code>size</code> or <code><span class="hljs-built_in">count</span></code> is zero, <code><span class="hljs-attribute">fwrite</span></code> returns zero and performs no other action.</p>
+<h3>2.2 基础读写 <code><span class="hljs-attribute">r</span></code> <code><span class="hljs-attribute">w</span></code></h3>
 <pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
-    FILE *srcFile, dstFile;
+    FILE *srcFile, *dstFile;
     srcFile = fopen(<span class="hljs-string">&quot;src.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
     <span class="hljs-keyword">if</span> (srcFile == <span class="hljs-literal">NULL</span>) { <span class="hljs-comment">// 空指针，表明 fopen 打开的文件不存在</span>
         <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;File src.txt is not exist.&quot;</span>);
@@ -192,6 +210,60 @@
 <p><code><span class="hljs-attribute">EOF</span></code> 是一个常量，值为 <code><span class="hljs-deletion">-1</span></code>，被定义在在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中：</p>
 <pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> EOF (-1)</span>
 </code></pre>
+<h3>2.3 二进制读写 <code><span class="hljs-attribute">rb</span></code> <code><span class="hljs-attribute">wb</span></code></h3>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    FILE *srcFile, *dstFile;
+    srcFile = fopen(<span class="hljs-string">&quot;src.txt&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);
+    <span class="hljs-keyword">if</span> (srcFile == <span class="hljs-literal">NULL</span>) { <span class="hljs-comment">// 空指针，表明 fopen 打开的文件不存在</span>
+        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;File src.txt is not exist.&quot;</span>);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// 以 1 为返回值退出程序（相当于main函数中return 1）</span>
+    }
+    dstFile = fopen(<span class="hljs-string">&quot;dst.txt&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>);
+    
+    <span class="hljs-keyword">char</span> buffer[<span class="hljs-number">1024</span>], cnt;
+    <span class="hljs-keyword">while</span> ((cnt = fread(buffer, <span class="hljs-number">1</span>, <span class="hljs-number">1024</span>, srcFile)) != <span class="hljs-number">0</span>) {
+        fwrite(buffer, <span class="hljs-number">1</span>, cnt, dstFile);
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<h3>2.4 二进制读写与普通读写的区别</h3>
+<p>单位不同：</p>
+<ul>
+<li>普通读写：字符</li>
+<li>二进制读写：字节</li>
+</ul>
+<p>数据不同：</p>
+<ul>
+<li>普通读写：字节</li>
+<li>二进制读写：二进制数据</li>
+</ul>
+<p>比如同样存储一个数字 <code><span class="hljs-deletion">-2147483648</span></code>：</p>
+<ul>
+<li>
+<p>普通读写：</p>
+<pre><code class="hljs"><span class="hljs-symbol">&#x27;-</span>&#x27; <span class="hljs-symbol">&#x27;2</span>&#x27; <span class="hljs-symbol">&#x27;1</span>&#x27; <span class="hljs-symbol">&#x27;4</span>&#x27; <span class="hljs-symbol">&#x27;7</span>&#x27; <span class="hljs-symbol">&#x27;4</span>&#x27; <span class="hljs-symbol">&#x27;8</span>&#x27; <span class="hljs-symbol">&#x27;3</span>&#x27; <span class="hljs-symbol">&#x27;6</span>&#x27; <span class="hljs-symbol">&#x27;4</span>&#x27; <span class="hljs-symbol">&#x27;8</span>&#x27;
+</code></pre>
+<p>最终写入的数据为</p>
+<pre><code class="hljs"><span class="hljs-number">00101101</span> <span class="hljs-number">00110010</span> <span class="hljs-number">00110001</span> <span class="hljs-number">00110100</span> <span class="hljs-number">00110111</span> <span class="hljs-number">00110100</span> <span class="hljs-number">00111000</span> <span class="hljs-number">00110011</span> <span class="hljs-number">00110110</span> <span class="hljs-number">00110100</span> <span class="hljs-number">00111000</span>
+</code></pre>
+<blockquote>
+<p>对应 <code><span class="hljs-keyword">ASCII</span></code> 码的二进制表示</p>
+</blockquote>
+</li>
+<li>
+<p>二进制读写：</p>
+<p>最终写入的数据为</p>
+<pre><code class="hljs"><span class="hljs-symbol">11111111 </span><span class="hljs-number">11111111</span> <span class="hljs-number">11111111</span> <span class="hljs-number">11111111</span>
+</code></pre>
+<blockquote>
+<p><code><span class="hljs-deletion">-2147483648</span></code> 的二进制表示</p>
+</blockquote>
+</li>
+</ul>
 <h3>2.3 理解文件位置指针</h3>
 <p>文件位置指针决定了我们在使用诸如 <code><span class="hljs-function"><span class="hljs-title">fgetc</span><span class="hljs-params">()</span></span></code> , <code><span class="hljs-function"><span class="hljs-title">fgets</span><span class="hljs-params">()</span></span></code> 等函数从文件中读取内容时读取到的是哪个位置的数据，每一次读取时均是从文件位置指针所在位置开始读，读完后将文件位置指针移动到之后的位置。</p>
 <p>假如一个文件有如下内容（方括号代表一个字符（以文本模式打开）或一个字节（以二进制模式打开））：</p>
@@ -206,8 +278,12 @@
 <p>当文件位置指针最终会抵达末尾之后的位置</p>
 <pre><code class="hljs"><span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> *
 </code></pre>
-<p>此后再进行读入，将不能成功读入到东西，文件位置指针也不会移动。<br>
-同理，如果是如下的字符串，文件位置指针在读后会移动到下一个字符的位置:</p>
+<p>此后再进行读入，将不能成功读入到东西，文件位置指针也不会移动。</p>
+<p>（此处其实就是EOF）</p>
+<pre><code class="hljs">                                 *
+<span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-attr">[ ]</span> EOF
+</code></pre>
+<p>同理，如果是如下的字符串，文件位置指针在读后会移动到字符串尾后一个字符的位置:</p>
 <pre><code class="hljs"><span class="hljs-bullet">*</span>
 Hello World!
 
@@ -218,8 +294,101 @@ Hello world!
 Hello world!
 </code></pre>
 <h4>2.3.1 <code><span class="hljs-function"><span class="hljs-title">ftell</span><span class="hljs-params">()</span></span></code> 函数</h4>
-<p>获得当前文件位置指针位置。</p>
-<h4>2.3.2<code><span class="hljs-function"><span class="hljs-title">fseek</span><span class="hljs-params">()</span></span></code></h4>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">ftell</span><span class="hljs-params">( FILE *stream )</span></span>;
+</code></pre>
+<blockquote>
+<p>获得 <code><span class="hljs-attribute">stream</span></code> 流的文件位置指针位置</p>
+</blockquote>
+<p>以内容如下的文件为例：</p>
+<pre><code class="hljs"><span class="hljs-attribute">Hello</span> World<span class="hljs-regexp">~
+NB!</span>
+</code></pre>
+<p>运行此程序，清晰地显示出了读入前后文件位置指针的变化：</p>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    FILE *fp = fopen(<span class="hljs-string">&quot;txtt.txt&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);
+    
+    <span class="hljs-keyword">char</span> c, cnt;
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+    	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[%d] &quot;</span>, ftell(fp));
+    	
+    	<span class="hljs-keyword">if</span> ((c = fgetc(fp)) == EOF) <span class="hljs-keyword">break</span>;
+    	
+    	<span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;\r&#x27;</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\\r&quot;</span>);
+    	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;\n&#x27;</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\\n&quot;</span>);
+    	<span class="hljs-keyword">else</span>           <span class="hljs-built_in">putchar</span>(c);
+    	
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; [%d]\n&quot;</span>, ftell(fp));
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>输出如下：</p>
+<pre><code class="hljs"><span class="hljs-selector-attr">[0]</span> H <span class="hljs-selector-attr">[1]</span>
+<span class="hljs-selector-attr">[1]</span> e <span class="hljs-selector-attr">[2]</span>
+<span class="hljs-selector-attr">[2]</span> l <span class="hljs-selector-attr">[3]</span>
+<span class="hljs-selector-attr">[3]</span> l <span class="hljs-selector-attr">[4]</span>
+<span class="hljs-selector-attr">[4]</span> o <span class="hljs-selector-attr">[5]</span>
+<span class="hljs-selector-attr">[5]</span>   <span class="hljs-selector-attr">[6]</span>
+<span class="hljs-selector-attr">[6]</span> W <span class="hljs-selector-attr">[7]</span>
+<span class="hljs-selector-attr">[7]</span> o <span class="hljs-selector-attr">[8]</span>
+<span class="hljs-selector-attr">[8]</span> r <span class="hljs-selector-attr">[9]</span>
+<span class="hljs-selector-attr">[9]</span> l <span class="hljs-selector-attr">[10]</span>
+<span class="hljs-selector-attr">[10]</span> d <span class="hljs-selector-attr">[11]</span>
+<span class="hljs-selector-attr">[11]</span> ~ <span class="hljs-selector-attr">[12]</span>
+<span class="hljs-selector-attr">[12]</span> \r <span class="hljs-selector-attr">[13]</span>
+<span class="hljs-selector-attr">[13]</span> \n <span class="hljs-selector-attr">[14]</span>
+<span class="hljs-selector-attr">[14]</span> N <span class="hljs-selector-attr">[15]</span>
+<span class="hljs-selector-attr">[15]</span> <span class="hljs-selector-tag">B</span> <span class="hljs-selector-attr">[16]</span>
+<span class="hljs-selector-attr">[16]</span> ! <span class="hljs-selector-attr">[17]</span>
+<span class="hljs-selector-attr">[17]</span>
+</code></pre>
+<blockquote>
+<p><code><span class="hljs-attribute">windows</span></code> 下换行为 <code><span class="hljs-string">\r</span></code> <code><span class="hljs-string">\n</span></code>，而 <code><span class="hljs-attribute">linux</span></code> 中为 <code><span class="hljs-string">\n</span></code>。</p>
+<ul>
+<li><code><span class="hljs-string">\r</span></code> 是 <strong>回车</strong>，光标回到本行行首</li>
+<li><code><span class="hljs-string">\n</span></code> 是 <strong>换行</strong>，光标移到下一行</li>
+</ul>
+<p>这一点细节要时常注意，经常因为忽略 <code><span class="hljs-string">\r</span></code> 的存在而产生很多错误。</p>
+</blockquote>
+<p>再看下面这个以字符串读入的例子：</p>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    FILE *fp = fopen(<span class="hljs-string">&quot;txtt.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
+    
+    <span class="hljs-keyword">char</span> str[<span class="hljs-number">1024</span>], cnt;
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+    	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[%d] &quot;</span>, ftell(fp));
+    	
+    	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">fscanf</span>(fp, <span class="hljs-string">&quot;%s&quot;</span>, str) == EOF) <span class="hljs-keyword">break</span>;
+    	
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s [%d]\n&quot;</span>, str, ftell(fp));
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>输出如下：</p>
+<pre><code class="hljs"><span class="hljs-selector-attr">[0]</span> Hello <span class="hljs-selector-attr">[5]</span>
+<span class="hljs-selector-attr">[5]</span> World~ <span class="hljs-selector-attr">[12]</span>
+<span class="hljs-selector-attr">[12]</span> NB! <span class="hljs-selector-attr">[17]</span>
+<span class="hljs-selector-attr">[17]</span>
+</code></pre>
+<p>这样应该就理解了文件位置指针的概念了吧。</p>
+<p>（刚才文件的文件位置指针对应关系如下：</p>
+<pre><code class="hljs"><span class="hljs-attribute">0</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> <span class="hljs-number">10</span> <span class="hljs-number">11</span> <span class="hljs-number">12</span> <span class="hljs-number">13</span> <span class="hljs-number">14</span> <span class="hljs-number">15</span> <span class="hljs-number">16</span>
+<span class="hljs-attribute">H</span> e l l o   W o r l d  ~  \r \n  N  B  !
+</code></pre>
+<h4>2.3.2 <code><span class="hljs-function"><span class="hljs-title">rewind</span><span class="hljs-params">()</span></span></code></h4>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rewind</span><span class="hljs-params">( FILE *stream )</span></span>;
+</code></pre>
+<blockquote>
+<p>将 <code><span class="hljs-attribute">stream</span></code> 流的 <strong>文件位置指针</strong> 移回起始位置</p>
+</blockquote>
+<h4>2.3.3 <code><span class="hljs-function"><span class="hljs-title">fseek</span><span class="hljs-params">()</span></span></code></h4>
 <pre><code class="hljs language-C"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fseek</span><span class="hljs-params">( FILE *stream, <span class="hljs-keyword">long</span> offset, <span class="hljs-keyword">int</span> origin )</span></span>;
 </code></pre>
 <p>设置文件读取指针的位置</p>
