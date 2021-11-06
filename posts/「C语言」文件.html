@@ -33,7 +33,7 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-06 07:19:46 · 发布于 · 2021-11-04 02:27:23
+                        修改于 · 2021-11-06 07:22:51 · 发布于 · 2021-11-04 02:27:23
                     </time>
                 </div>
                 <div class="post-content">
@@ -115,7 +115,7 @@
 <p>Whether or not the operation succeeds, the stream is no longer associated with a file, and the buffer allocated by setbuf or setvbuf, if any, is also disassociated and deallocated if automatic allocation was used.</p>
 <p>The behavior is undefined if the value of the pointer stream is used after fclose returns.<br>
 成功返回0，否则返回EOF(-1)。</p>
-<h2>三、读取数据</h2>
+<h2>三、读写文件</h2>
 <h3>2.1 一些函数</h3>
 <p>先来看普通的读入、输出函数：</p>
 <ul>
@@ -416,9 +416,9 @@ NB!</span>
 <p>If the stream is wide-oriented, the restrictions of both text and binary streams apply (result of ftell is allowed with SEEK_SET and zero offset is allowed from SEEK_SET and SEEK_CUR, but not SEEK_END).</p>
 <p>In addition to changing the file position indicator, fseek undoes the effects of ungetc and clears the end-of-file status, if applicable.</p>
 <p>If a read or write error occurs, the error indicator for the stream (ferror) is set and the file position is unaffected.</p>
-<h3>基础写与二进制写 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-attribute">ab</span></code></h3>
+<h3>2.6 基础写与二进制写 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-attribute">ab</span></code></h3>
 <p>以 <code><span class="hljs-selector-tag">a</span></code> 模式打开文件时，文件位置指针位于起始位置（0），但是一旦执行任何写操作，会立即将其移动到文件末尾，并开始写入。</p>
-<h3>2.6 基础读写 <code><span class="hljs-built_in">r</span>+</code> <code>w+</code> <code><span class="hljs-selector-tag">a</span>+</code></h3>
+<h3>2.7 基础读写 <code><span class="hljs-built_in">r</span>+</code> <code>w+</code> <code><span class="hljs-selector-tag">a</span>+</code></h3>
 <table>
 <thead>
 <tr>
@@ -486,6 +486,9 @@ Champion!!!!!!!
 <p><code><span class="hljs-built_in">r</span>+</code> 与 <code>w+</code> 的区别在于，当文件存在时不会覆盖文件。</p>
 </li>
 </ul>
+<h3>2.8 二进制读写 <code>rb+</code> <code>wb+</code> <code><span class="hljs-keyword">ab</span>+</code></h3>
+<p>由题可知，不难发现，显然得到，略。</p>
+<p>发挥你的主观能动性吧。</p>
 
                 </div>
             </article>
