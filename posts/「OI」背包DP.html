@@ -33,29 +33,16 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-06 03:41:00 · 发布于 · 2021-11-06 03:41:00
+                        修改于 · 2021-11-07 12:06:52 · 发布于 · 2021-11-06 03:41:00
                     </time>
                 </div>
                 <div class="post-content">
                     <h1>「OI」背包DP</h1>
 <h2>一、01背包</h2>
-<p>每个物品只能选 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mrel">∼</span><span class="mord mathrm">1</span></span></span></span> 个</p>
-<ul>
-<li>状态表示
-<ul>
-<li>集合：只从前 <code><span class="hljs-selector-tag">i</span></code> 个物品选，总体积不超过 <code><span class="hljs-attribute">j</span></code> 的所有选法</li>
-<li>属性：价值最大</li>
-</ul>
-</li>
-<li>状态计算（划分集合）：
 <blockquote>
-<p>如何划分集合：最后一次 —— 选/不选</p>
+<p>每个物品只能选 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mrel">∼</span><span class="mord mathrm">1</span></span></span></span> 个</p>
 </blockquote>
-<ul>
-<li>最后一个物品选/不选</li>
-</ul>
-</li>
-</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/529543/1573898974864-7055e997-adc4-4f80-ac90-4ea441e5e338.png" alt="img"></p>
 <p><code>f<span class="hljs-selector-attr">[i]</span><span class="hljs-selector-attr">[j]</span></code> 从前 <code><span class="hljs-selector-tag">i</span></code> 个物品选，总体积不超过 <code><span class="hljs-attribute">j</span></code> 的最大价值。</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>max</mi><mo>{</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo separator="true">,</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><msub><mi>v</mi><mi>i</mi></msub><mo>]</mo><mo>+</mo><msub><mi>w</mi><mi>i</mi></msub><mo>}</mo></mstyle></mrow><annotation encoding="application/x-tex">\Large
 f[i][j] = \max\{f[i-1][j], f[i-1][j-v_i] + w_i\}
@@ -79,35 +66,100 @@ f[i][j] = \max\{f[i-1][j], f[i-1][j-v_i] + w_i\}
 <ul>
 <li>最后一个物品选 i 个</li>
 </ul>
-\Large
-	\begin{array}{c:c}
-	f[i][j] = 
-	\begin{cases}
-		f[i-1][j]\\
-		f[i-1][j-v_i] + w_i\\
-		f[i-1][j-2v_i] + 2w_i\\
-		\cdots\\
-		f[i-1][j-s \cdot v_i] + s \cdot w_i\\
-	\end{cases}
-	
-	&
-	
-	f[i][j-v] = 
-	\begin{cases}
-		\\
-		f[i-1][j-v_i]\\
-		f[i-1][j-2v_i] + w_i\\
-		\cdots\\
-		f[i-1][j-s \cdot v_i] + (s-1) \cdot w_i\\
-	\end{cases}
+\Large{
+\require{extpfeil} % produce extensible horizontal arrows
+\begin{array}{L|c|c|R} % arrange LPPs
+% first row
+% first LPP
+f[i,j]
+&
+% second LPP
+\color{#1E90FF}{f[i,j-v]}\\
+%
+\hline
+% second row
+% third LPP
+\max\left\{
+  \begin{array}{lcr}
+    f[i-1,j]                \\
+    f[i-1,j-v_i]  & + & w_i     \\
+    f[i-1,j-2v_i] & + & 2w_i    \\
+    ...                     \\
+    f[i-1,j-kv_i] & + & kw_i    
+  \end{array}
+\right.
+&
+% fourth LPP
+\max\left\{
+  \begin{array}{lcr}
+                           \\
+    f[i-1,j-v_i]             \\
+    f[i-1,j-2v_i] & + & w_i    \\
+    ...                    \\
+    f[i-1,j-kv_i] & + & (k-1)w_i
+  \end{array}
+\right.
+%
 \end{array}
+}
 
 <p>可以发现：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathsize="1.44em"><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo>=</mo><mi>max</mi><mo>{</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>]</mo><mo separator="true">,</mo><mi>f</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>[</mo><mi>j</mi><mo>−</mo><msub><mi>v</mi><mi>i</mi></msub><mo>]</mo><mo>+</mo><msub><mi>w</mi><mi>i</mi></msub><mo>}</mo></mstyle></mrow><annotation encoding="application/x-tex">\Large
 f[i][j] = \max\{f[i][j], f[i][j-v_i] + w_i\}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.08em;"></span><span class="strut bottom" style="height:1.44em;vertical-align:-0.36em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="sizing reset-size5 size7 displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathit">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mrel">=</span><span class="mop">max</span><span class="mopen">{</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathit">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathit">i</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size7 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size7 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">]</span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.02691em;"><span class="fontsize-ensurer reset-size7 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size7 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">}</span></span></span></span></span></span></span></p>
+<p>进行降维</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/7005e438f0ab413ba79af94f1b784b20.svg" alt="img"></p>
+<p>更新顺序顺序由左到右</p>
 <h2>三、多重背包</h2>
+<blockquote>
 <p>每个物品可以选 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><msub><mi>S</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">0 \sim S_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mrel">∼</span><span class="mord"><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05764em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span> 个</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/529543/1572435948581-db6aabfe-2f07-4933-8714-ce9cc0fe6d29.png" alt="img"></p>
+<h3>1. 朴素算法 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NVS)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span></h3>
+<p><img src="https://cdn.nlark.com/yuque/__latex/df2eb5bfbe27b81da1978cbc5373d739.svg" alt="img"></p>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i&lt;=N; i++)
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;=V; j++)
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k=<span class="hljs-number">0</span>; k&lt;=s[i] &amp;&amp; k*v[i]&lt;=j; k++)<span class="hljs-comment">//枚举个数，&lt;=s[i]的同时还要&lt;=当前限制的价值</span>
+            f[i][j] = <span class="hljs-built_in">max</span>(f[i][j],f[i<span class="hljs-number">-1</span>][j-k*v[i]] + k*w[i]);
+</code></pre>
+<h3>2. 优化</h3>
+<h4>1&gt; 二进制优化（倍增思想合并物品，转化为01背包）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NV\log_2S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span></h4>
+<p><img src="https://cdn.nlark.com/yuque/__latex/a208f8be2e425f060124e300f6192b78.svg" alt="img"></p>
+<p>可借助倍增的思想，优化一个log级别。</p>
+<p>可以想到将取的次数用若干<strong>不重复</strong>的数的<strong>和</strong>来表示，并保证用这些数的和能够表示出<img src="https://cdn.nlark.com/yuque/__latex/c07d887f87395dd856bd4e374c6bd7c6.svg" alt="img">中任意一个数。</p>
+<h5>| 优化思路</h5>
+<p>根据**二进制表示原理，**设<img src="https://cdn.nlark.com/yuque/__latex/0c0fa91df291e89b33d903f2d0f326eb.svg" alt="img">，其中<img src="https://cdn.nlark.com/yuque/__latex/39c6d44c8807892c1bbe819fb56c1c5c.svg" alt="img">。那么其中每一项就是一个新物品。</p>
+<p>将<strong>取****物品</strong><img src="https://cdn.nlark.com/yuque/__latex/ab45084f10addfa5f0b1d8ee4e37c0c2.svg" alt="img"><strong>最多取</strong><img src="https://cdn.nlark.com/yuque/__latex/40fb96f7ccb6f25e84db95089ee6511c.svg" alt="img"><strong>次</strong>化解为<strong>取若干个新物品</strong><img src="https://cdn.nlark.com/yuque/__latex/19bf38dd6f1f50ef440a3bbafaadc8df.svg" alt="img"><strong>每个物品最多选一次</strong>。</p>
+<p>1 - 保证这若干物品的和恰好为<img src="https://cdn.nlark.com/yuque/__latex/40fb96f7ccb6f25e84db95089ee6511c.svg" alt="img">。</p>
+<p>2 - 保证用这些数可以表示出<img src="https://cdn.nlark.com/yuque/__latex/c07d887f87395dd856bd4e374c6bd7c6.svg" alt="img">中任意一个数。</p>
+<h5>| 新物品的表示</h5>
+<p>分别将取<img src="https://cdn.nlark.com/yuque/__latex/739cf89c746f934cd3e3a94c7e3f662b.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/4b297ae98a4faeb7c16411f18b9f107f.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/41d798b35dc5687feead5c49a77b1c7e.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/ff02809e94230ae628b2caa478485402.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/fad55d0349ea859708e02d06baa85702.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/9417ad4107755a5eead4f351235ea029.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/f16d92dfc6a0586f7aa0d19f425b5a7d.svg" alt="img">个物品合并成</p>
+<p>体积为<img src="https://cdn.nlark.com/yuque/__latex/33ad0dd55d0fa62a5be7dfb7748d216c.svg" alt="img"> ,<img src="https://cdn.nlark.com/yuque/__latex/13fbc497ce06686ab3410d50755a71f6.svg" alt="img"> ,<img src="https://cdn.nlark.com/yuque/__latex/a099e276fbd560dffe90b4fdb259731d.svg" alt="img"> ,<img src="https://cdn.nlark.com/yuque/__latex/82838375ffe1da125dbecca4e042c646.svg" alt="img"> ,<img src="https://cdn.nlark.com/yuque/__latex/fad55d0349ea859708e02d06baa85702.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/afef952f3f9ab03435aa5762b781b5f1.svg" alt="img"> ,<img src="https://cdn.nlark.com/yuque/__latex/db2234cef968a58e15302efc318c49c7.svg" alt="img"> ，</p>
+<p>价值为<img src="https://cdn.nlark.com/yuque/__latex/8cc307725113c6425185f976dd02239c.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/444fece52c311fe553e42a1c41be8b26.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/f9d251b15033473cb8697f17b33aae5d.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/f6826dba2afd8321b534925326c97257.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/fad55d0349ea859708e02d06baa85702.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/dcb123f53a41621bc90770e2dea3dd37.svg" alt="img">,<img src="https://cdn.nlark.com/yuque/__latex/b1288b1a8f8d0625eaa13b4a89e71e22.svg" alt="img">的</p>
+<p>共<img src="https://cdn.nlark.com/yuque/__latex/17b5966f9a0353628fd6d5a2eab50494.svg" alt="img">个物品</p>
+<p>将时间复杂度由 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NVS)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span> 优化为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NV\log_2S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span></p>
+<p>由此，经过预处理，多重背包完全转化为01背包问题。</p>
+<h5>| 代码实现 - 预处理</h5>
+<pre><code class="hljs language-cpp"><span class="hljs-keyword">int</span> cnt=<span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>,_v,_w,s; i&lt;=N; i++){
+    <span class="hljs-built_in">fread</span>(_v); <span class="hljs-built_in">fread</span>(_w); <span class="hljs-built_in">fread</span>(s); <span class="hljs-keyword">int</span> k=<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span>(k &lt;= s){
+        v[++cnt] = _v*k;
+        w[cnt]   = _w*k;
+        s -= k; k &lt;&lt;= <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">if</span>(s &gt; <span class="hljs-number">0</span>){
+        v[++cnt] = _v*s;
+        w[cnt]   = _w*s;
+    }
+}
+</code></pre>
+<h1>四、混合背包</h1>
+<p>遇到一个物品判断下，是01就01推（01也是特殊的多重），多重就多重（可以提前二进制优化），完全就完全。</p>
+<h1>五、分组背包</h1>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/529543/1573899088703-beee3be5-0ee7-480f-a93e-cb1ede0697d9.png" alt="img"></p>
+<h2>1. 朴素算法</h2>
+<h2>2. 优化</h2>
 
                 </div>
             </article>
