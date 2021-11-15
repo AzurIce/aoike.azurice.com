@@ -33,18 +33,28 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-06 07:33:13 · 发布于 · 2021-11-04 02:27:23
+                        修改于 · 2021-11-11 12:49:45 · 发布于 · 2021-11-11 12:49:45
                     </time>
                 </div>
                 <div class="post-content">
                     <h1>「C语言」文件</h1>
+<h2>〇、引入</h2>
+<p>假如有一个函数 <code><span class="hljs-variable">void</span> <span class="hljs-function"><span class="hljs-title">printValue</span>()</span></code> ，怎么在这个函数中访问到外部的一个变量呢？<br>
+我们使通过一个指针变量来访问的：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printValue</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *x)</span> </span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, *x);
+}
+</code></pre>
+<p>在调用此函数并传入变量地址作为参数时，在函数内部即可通过指针 <code><span class="hljs-comment">*x</span></code> 来访问到对应的变量。</p>
+<p>文件也是如此，在程序外部有一个文件，我们也可以通过一个类似的 <code><span class="hljs-keyword">FILE</span>*</code> 型指针变量来访问到文件。</p>
 <h2>一、输入/输出流 与 <code><span class="hljs-keyword">FILE</span> *</code></h2>
 <blockquote>
 <p>在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中</p>
 </blockquote>
-<pre><code class="hljs language-c">FILE *f; <span class="hljs-comment">// 声明了一个名为 f 的 FILE* 类型的指针变量</span>
+<pre><code class="hljs language-c">FILE *fp; <span class="hljs-comment">// 声明了一个名为 fp 的 FILE* 类型指针变量</span>
 </code></pre>
-<p>每一个 <strong>输入/输出流（I/O Stream）</strong> 都和一个外部的物理设备相关联（文件、标准输入流、打印机、端口号等等），可以被一个 <code><span class="hljs-keyword">FILE</span>*</code> 类型的指针变量来表示，并可通过此指针来访问、控制 <strong>输入/输出流（I/O Stream）</strong>。</p>
+<p>每一个 <strong>输入/输出流（I/O Stream）</strong> 都和一个外部的物理设备相关联（文件、标准输入流、打印机、端口号等等），<br>
+可以被一个 <code><span class="hljs-keyword">FILE</span>*</code> 类型的指针变量来表示，并可通过此指针来访问、控制 <strong>输入/输出流（I/O Stream）</strong>。</p>
 <h2>二、打开与关闭文件</h2>
 <h3>2.1 <code><span class="hljs-function"><span class="hljs-title">fopen</span><span class="hljs-params">()</span></span></code> 函数</h3>
 <pre><code class="hljs language-C"><span class="hljs-function">FILE *<span class="hljs-title">fopen</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *filename, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mode )</span></span>; <span class="hljs-comment">// until C99</span>
