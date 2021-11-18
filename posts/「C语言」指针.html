@@ -33,11 +33,11 @@
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-10-19 02:44:16 · 发布于 · 2021-10-18 04:40:12
+                        修改于 · 2021-11-17 10:29:48 · 发布于 · 2021-11-17 10:29:48
                     </time>
                 </div>
                 <div class="post-content">
-                    <h2>「C语言」指针</h2>
+                    <h1>「C语言」指针</h1>
 <blockquote>
 <p>指针是一种特殊的变量类型，有 <code><span class="hljs-built_in">int</span>*</code> <code><span class="hljs-built_in">double</span>*</code> 等类型。</p>
 </blockquote>
@@ -45,9 +45,9 @@
 <pre><code class="hljs language-C"><span class="hljs-keyword">int</span> *a; <span class="hljs-comment">// 声明一个 int 的指针变量，名为 a</span>
 </code></pre>
 <blockquote>
-<p>或 int* a 或 int    *    a 都可，随意空格</p>
+<p>或 <code><span class="hljs-built_in">int</span>* a</code> 或 <code><span class="hljs-built_in">int</span>    *    a</code> 都可，随意空格</p>
 </blockquote>
-<h3>一、指针变量可以存一个变量地址（指针的第一句话）</h3>
+<h2>一、指针变量可以存一个变量地址（指针的第一句话）</h2>
 <pre><code class="hljs language-C"><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
 
 <span class="hljs-keyword">int</span> *p = &amp;x; <span class="hljs-comment">// 声明一个 int 的指针变量，名为p。并将x的地址赋给p</span>
@@ -55,13 +55,13 @@
 <blockquote>
 <p><code><span class="hljs-meta">&amp;</span></code> 在此是取址运算符，<code><span class="hljs-meta">&amp;varriable</span></code> 可以得到 <code><span class="hljs-attribute">varriable</span></code> 变量的地址。</p>
 </blockquote>
-<pre><code class="hljs"><span class="hljs-keyword">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, p);
+<pre><code class="hljs language-C"><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, p);
 </code></pre>
 <p>如果我们使用 <code><span class="hljs-tag">%<span class="hljs-selector-tag">d</span></span></code> 输出 p 的值（p的值是一个地址），它会输出地址对应的整数。</p>
 <blockquote>
 <p>在我的电脑上编译运行得到：<code><span class="hljs-number">6487572</span></code></p>
 </blockquote>
-<h3>二、指针变量的特殊操作 <code><span class="hljs-comment">*</span></code> （指针的第二句话）</h3>
+<h2>二、指针变量的特殊操作 <code><span class="hljs-comment">*</span></code> （指针的第二句话）</h2>
 <p>使用 <code>*<span class="hljs-selector-tag">p</span></code> 可以访问指针变量 <code><span class="hljs-selector-tag">p</span></code> 所存地址对应的变量。</p>
 <pre><code class="hljs language-c"><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
 
@@ -75,13 +75,13 @@ x = <span class="hljs-number">5</span>;
 </code></pre>
 <blockquote>
 <p>输出：</p>
-<pre><code class="hljs"><span class="hljs-symbol">1 </span><span class="hljs-number">1</span>
-<span class="hljs-symbol">5 </span><span class="hljs-number">5</span>
-<span class="hljs-symbol">1 </span><span class="hljs-number">1</span>
+<pre><code class="hljs language-C"><span class="hljs-number">1</span> <span class="hljs-number">1</span>
+<span class="hljs-number">5</span> <span class="hljs-number">5</span>
+<span class="hljs-number">1</span> <span class="hljs-number">1</span>
 </code></pre>
 </blockquote>
-<h3>三、一些例子</h3>
-<h4>3.1 交换两个数的函数</h4>
+<h2>三、一些例子</h2>
+<h3>3.1 交换两个数的函数</h3>
 <pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
     <span class="hljs-keyword">int</span> t = a;
     a = b;
@@ -90,18 +90,18 @@ x = <span class="hljs-number">5</span>;
 </code></pre>
 <pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
 	<span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>, y =<span class="hljs-number">2</span>;
-    
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
+
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
 	swap(x, y);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
-    
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d\n&quot;</span>, x, y);
+
 	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre>
 <blockquote>
 <p>输出：</p>
-<pre><code class="hljs"><span class="hljs-symbol">1 </span><span class="hljs-number">2</span>
-<span class="hljs-symbol">1 </span><span class="hljs-number">2</span>
+<pre><code class="hljs language-C"><span class="hljs-number">1</span> <span class="hljs-number">2</span>
+<span class="hljs-number">1</span> <span class="hljs-number">2</span>
 </code></pre>
 </blockquote>
 <p>在使用 <code><span class="hljs-function"><span class="hljs-title">swap</span><span class="hljs-params">(x, y)</span></span></code> 调用 <code><span class="hljs-keyword">swap</span></code> 函数的时候，是将 <code><span class="hljs-attribute">x</span></code> 和 <code><span class="hljs-attribute">y</span></code> 的值取出来，分别交给 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 。</p>
@@ -146,6 +146,64 @@ x = <span class="hljs-number">5</span>;
 <p>随后我们使用的 <code><span class="hljs-comment">*a</span></code> <code>*<span class="hljs-selector-tag">b</span></code> 就分别是访问 <code><span class="hljs-selector-tag">a</span></code> <code><span class="hljs-selector-tag">b</span></code> 所存地址对应的变量，也就是想到于对原本的 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 进行操作。（指针的第二句话）</p>
 </blockquote>
 <p>这样就可以达到交换 <code><span class="hljs-attribute">x</span></code> <code><span class="hljs-attribute">y</span></code> 变量的值了。</p>
+<h2>喂，前面可是深渊啊</h2>
+<h3>一、在你声明一个数组的时候发生了什么</h3>
+<pre><code class="hljs language-C"><span class="hljs-keyword">char</span> arr[<span class="hljs-number">4</span>];
+</code></pre>
+<ol>
+<li>
+<p>第一步 —— 在内存中申请一片空间</p>
+<pre><code class="hljs language-C">[<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte]
+</code></pre>
+</li>
+<li>
+<p>声明一个常量指针并令其指向那片空间的起始位置</p>
+<pre><code class="hljs language-C">地址A
+↓
+[<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte] [<span class="hljs-number">1B</span>yte]
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *arr = 地址A;
+</code></pre>
+</li>
+</ol>
+<p>这就是我们所说的“直接使用一个数组，其实是指向首元素的指针”。</p>
+<h3>二、指针与数组</h3>
+<p>对于一个声明好的数组：</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> arr[<span class="hljs-number">4</span>] = {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+</code></pre>
+<p>之前提到，<code><span class="hljs-attribute">arr</span></code> 是指向数组起始位置的指针，为 <code><span class="hljs-built_in">int</span> *</code> 类型。</p>
+<p>我们所说的使用指针来访问数组：</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> *ptr = arr;
+</code></pre>
+<p>其实是将常量指针 <code><span class="hljs-attribute">arr</span></code> 的值赋给了 <code><span class="hljs-built_in">ptr</span></code>，其实就是把 <code><span class="hljs-attribute">arr</span></code> 数组起始位置的地址赋给了 <code><span class="hljs-built_in">ptr</span></code>。<br>
+那么之后的操作就一模一样了。</p>
+<p><code><span class="hljs-built_in">ptr</span></code>     相当于 <code><span class="hljs-attribute">arr</span></code>     相当于 <code><span class="hljs-meta">&amp;arr[0]</span></code><br>
+<code><span class="hljs-attribute">ptr</span> + <span class="hljs-number">1</span></code> 相当于 <code><span class="hljs-attribute">arr</span> + <span class="hljs-number">1</span></code> 相当于 <code><span class="hljs-meta">&amp;arr[1]</span></code><br>
+<code><span class="hljs-attribute">ptr</span> + <span class="hljs-number">2</span></code> 相当于 <code><span class="hljs-attribute">arr</span> + <span class="hljs-number">2</span></code> 相当于 <code><span class="hljs-meta">&amp;arr[2]</span></code></p>
+<p><code><span class="hljs-attribute">ptr</span>[<span class="hljs-number">0</span>]</code>  相当于 <code><span class="hljs-attribute">arr</span>[<span class="hljs-number">0</span>]</code> 相当于 <code><span class="hljs-comment">*(arr)</span></code><br>
+<code><span class="hljs-attribute">ptr</span>[<span class="hljs-number">1</span>]</code>  相当于 <code><span class="hljs-attribute">arr</span>[<span class="hljs-number">1</span>]</code> 相当于 <code><span class="hljs-comment">*(arr + 1)</span></code></p>
+<p>不同就是，<code><span class="hljs-built_in">ptr</span></code> 的值还可以更改，但是 <code><span class="hljs-attribute">arr</span></code> 是固定的指向那个数组其实位置的指针：</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> arr2[] = {<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>};
+ptr = arr2;
+</code></pre>
+<p>同样的，再来看字符串</p>
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> arr[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>];
+<span class="hljs-keyword">int</span> (*pt)[<span class="hljs-number">3</span>];
+<span class="hljs-keyword">int</span> *pt[<span class="hljs-number">3</span>];
+</code></pre>
+<blockquote>
+<p><code><span class="hljs-attribute">arr</span></code> 与 <code><span class="hljs-attribute">pt</span></code> 均为 <code><span class="hljs-selector-tag">int</span> (*)<span class="hljs-selector-attr">[3]</span></code> 类型<br>
+如果把类型扣出来声明，其实是这样：</p>
+<pre><code class="hljs language-C">(<span class="hljs-keyword">int</span> [<span class="hljs-number">3</span>]) arr[<span class="hljs-number">2</span>];
+    (<span class="hljs-keyword">int</span> [<span class="hljs-number">3</span>]) [<span class="hljs-number">2</span>] arr;
+(<span class="hljs-keyword">int</span> [<span class="hljs-number">3</span>]) *arr;
+(<span class="hljs-keyword">int</span>*)    arr[<span class="hljs-number">3</span>];
+    (<span class="hljs-keyword">int</span>*) [<span class="hljs-number">3</span>] arr;
+</code></pre>
+</blockquote>
+<pre><code class="hljs language-C"><span class="hljs-keyword">int</span> (*pt)[<span class="hljs-number">3</span>]; <span class="hljs-comment">// int (*)[3] 类型，是指向 int [3] 类型的指针</span>
+<span class="hljs-keyword">int</span> *pt[<span class="hljs-number">3</span>];   <span class="hljs-comment">// int (*)*   类型，是指向 int *   类型的指针</span>
+</code></pre>
 
                 </div>
             </article>
