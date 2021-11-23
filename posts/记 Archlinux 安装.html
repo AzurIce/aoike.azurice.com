@@ -1,0 +1,199 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    记 Archlinux 安装.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-09-21 11:47:59 · 发布于 · 2021-11-24 12:02:18
+                    </time>
+                </div>
+                <div class="post-content">
+                    <hr>
+<p>title: 记 Archlinux 安装<br>
+date: 2021-09-19 19:53:57<br>
+categories: Archlinux<br>
+tags:</p>
+<ul>
+<li>Archlinux</li>
+<li>log</li>
+</ul>
+<hr>
+<h2>记 Archlinux 安装</h2>
+<h3>一、准备</h3>
+<h4>1.1 获取镜像</h4>
+<p>Archlinux 官方下载 <a href="https://archlinux.org/download/">Arch Linux - Downloads</a></p>
+<p>清华大学开源软件镜像站 <a href="https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/">Index of /archlinux/iso/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<h4>1.2 制作启动U盘</h4>
+<p>我是使用的 Rufus 制作的启动U盘。</p>
+<img src="H:\__BlogHexo__\source\images\记Archlinux安装\image-20210919185540526.png" alt="image-20210919185540526" style="zoom:50%;" />
+<h3>二、安装</h3>
+<p>启动进入启动U盘。</p>
+<h4>2.1 连接到因特网</h4>
+<p>使用 <strong>iwctl（iNet wireless daemon）</strong> 来连接 <strong>WLAN</strong> 。</p>
+<ol>
+<li>
+<p>进入 <strong>iwctl</strong> 的交互式提示符</p>
+<pre><code class="hljs language-bash">iwctl
+</code></pre>
+<p>然后交互式提示就会以 <code>[<span class="hljs-meta">iwd</span>]<span class="hljs-meta">#</span></code> 前缀显示出来了，随后可以使用 <code><span class="hljs-section">&lt;Tab&gt;</span></code> 来进行自动补全。</p>
+</li>
+<li>
+<p>列出所有 WiFi 设备</p>
+<pre><code class="hljs language-bash">device list
+</code></pre>
+</li>
+<li>
+<p>列出所有可用的网络</p>
+<pre><code class="hljs language-bash">station 1中设备名 get-networks
+</code></pre>
+</li>
+<li>
+<p>连接到网络</p>
+<pre><code class="hljs language-bash">station 2中设备名 connect 3中SSID
+</code></pre>
+<p>若有密码则会提示输入。</p>
+</li>
+</ol>
+<blockquote>
+<p><code><span class="hljs-attribute">iwd</span></code> 会自动将网络密码存储在 <code><span class="hljs-regexp">/var/</span>lib/iwd</code> 目录中，以后就可以使用其自动连接记住的网络。</p>
+</blockquote>
+<blockquote>
+<p>有关 <code><span class="hljs-attribute">iwctl</span></code> 的更多，参阅我的另一篇文章 <a href="">没写呢</a></p>
+</blockquote>
+<h4>2.2 更新系统时间</h4>
+<pre><code class="hljs language-bash">timedatectl set-ntp <span class="hljs-literal">true</span>
+</code></pre>
+<h4>2.3 建立硬盘分区</h4>
+<p>系统如果识别到磁盘，就会将其分配为一个 <strong>块设备（见我的linux笔记 <a href="">没写呢</a>）</strong> ，如 <code><span class="hljs-regexp">/dev/</span>sda</code>、<code><span class="hljs-regexp">/dev/</span>nvme0n1</code> 或 <code><span class="hljs-regexp">/dev/mm</span>cblk0</code>。<br>
+可以使用 <code><span class="hljs-attribute">fdisk</span></code> 查看</p>
+<pre><code class="hljs language-bash">fdisk -l
+</code></pre>
+<p>结果中以 <code><span class="hljs-attribute">rom</span></code>、<code><span class="hljs-keyword">loop</span></code> 或者 <code><span class="hljs-attribute">airoot</span></code> 结尾的设备可以被忽略。</p>
+<p>使用 <code><span class="hljs-attribute">fdisk</span></code> 来修改分区表：</p>
+<pre><code class="hljs language-bash">fdisk /dev/the_disk_to_be_partitioned
+</code></pre>
+<p>之后在 <code><span class="hljs-attribute">fdisk</span></code> 中修改（略）。</p>
+<p>格式化建立好的分区：</p>
+<p>将分区格式化为为 swap 格式</p>
+<pre><code class="hljs language-bash">mkswap /dev/swap_parition
+</code></pre>
+<p>将分区格式化为 ext4 格式</p>
+<pre><code class="hljs">mkfs.ext4 <span class="hljs-regexp">/dev/</span>root_parition
+</code></pre>
+<p>启用 swap 分区</p>
+<pre><code class="hljs language-bash">swapon /dev/swap_parition
+</code></pre>
+<p>挂载根目录</p>
+<pre><code class="hljs language-bash">mount /dev/root_parition /mnt
+</code></pre>
+<p>挂载 EFI 分区</p>
+<pre><code class="hljs language-bash">mkdir /mnt/efi
+mount /dev/efi_parition /mnt/efi
+</code></pre>
+<h4>2.4 修改pacman源</h4>
+<ol>
+<li>
+<p>修改 <code><span class="hljs-regexp">/etc/</span>pacman.conf</code></p>
+<p>有一行 <code><span class="hljs-meta">#Color</span></code> 可以去掉注释，会使得安装提示彩色显示</p>
+</li>
+<li>
+<p>修改 <code><span class="hljs-regexp">/etc/</span>pacman.d/mirrorlist</code></p>
+<p>最上方空行添加清华源</p>
+<pre><code class="hljs">Server = https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/archlinux/</span><span class="hljs-variable">$repo</span><span class="hljs-regexp">/os/</span><span class="hljs-variable">$arch</span>
+</code></pre>
+</li>
+</ol>
+<h4>2.5 安装</h4>
+<pre><code class="hljs language-bash">pacstrap /mnt base linux linux-firmware
+</code></pre>
+<h4>2.6 生成fstab文件</h4>
+<pre><code class="hljs language-bash">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
+<h4>2.7 进入系统</h4>
+<pre><code class="hljs language-bash">arch-chroot /mnt
+</code></pre>
+<h3>三、配置系统</h3>
+<h4>3.1 配置时区并同步时间</h4>
+<pre><code class="hljs language-bash">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</code></pre>
+<pre><code class="hljs">hwclock <span class="hljs-comment">--systohc</span>
+</code></pre>
+<h4>3.2 本地化</h4>
+<p>见 <a href="https://wiki.archlinux.org/title/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%87%86%E5%A4%87%E5%AE%89%E8%A3%85%E6%98%A0%E5%83%8F">Installation guide (简体中文) - ArchWiki (archlinux.org)</a></p>
+<h4>3.3 网络配置</h4>
+<p>见 <a href="https://wiki.archlinux.org/title/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%87%86%E5%A4%87%E5%AE%89%E8%A3%85%E6%98%A0%E5%83%8F">Installation guide (简体中文) - ArchWiki (archlinux.org)</a></p>
+<h4>3.4 root密码</h4>
+<pre><code class="hljs language-bash">passwd
+</code></pre>
+<h4>3.5 安装引导程序</h4>
+<pre><code class="hljs language-bash">pacman -S grub efibootmgr intel-ucode os-prober
+</code></pre>
+<blockquote>
+<p>英特尔处理器则安装 intel-ucode，amd处理器则安装 amd-ucode</p>
+</blockquote>
+<pre><code class="hljs language-bash">mkdir /boot/grub
+</code></pre>
+<p>编辑 <code><span class="hljs-regexp">/etc/</span><span class="hljs-keyword">default</span>/grub</code> ，添加</p>
+<pre><code class="hljs"><span class="hljs-attr">GRUB_DISABLE_OS_PROBER</span>=<span class="hljs-literal">false</span>
+</code></pre>
+<p>生成配置</p>
+<pre><code class="hljs language-bash">grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+<blockquote>
+<p>一定注意是 <code><span class="hljs-regexp">/boot/g</span>rub/grub.cfg</code> 而非 <code><span class="hljs-regexp">/efi/g</span>rub/grub.cfg</code></p>
+</blockquote>
+<p>安装</p>
+<pre><code class="hljs language-bash">grub-install --target=x86_64-efi --efi-directory=/efi
+</code></pre>
+<blockquote>
+<p>可以使用 <code><span class="hljs-attribute">uname -m</span></code> 来确认架构。</p>
+</blockquote>
+<h4>3.5 安装一些必要软件</h4>
+<pre><code class="hljs language-bash">pacman -S iwd dhcpcd
+</code></pre>
+<h4>3.6 重启</h4>
+<p>退出 chroot 环境</p>
+<pre><code class="hljs"><span class="hljs-keyword">exit</span>
+</code></pre>
+<pre><code class="hljs">umount -R <span class="hljs-string">/mnt</span>
+</code></pre>
+<pre><code class="hljs language-bash">reboot
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
