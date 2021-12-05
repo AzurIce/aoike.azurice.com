@@ -1,0 +1,251 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「C语言」链表.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-11-30 09:53:07 · 发布于 · 2021-11-29 09:16:12
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>链表</h1>
+<h2>一、单向链表</h2>
+<p><img src="https://oi-wiki.org/ds/images/list.svg" alt=""></p>
+<p><strong>节点(Node)</strong> 结构体：</p>
+<pre><code class="hljs language-C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+	Node *next;
+	<span class="hljs-comment">/* ... */</span>
+}
+</code></pre>
+<p>由于链表的性质，只需要访问到第一个节点，就可以访问到后续所有节点，因此常使用 <strong>一个头指针</strong> 或 <strong>一个头结点</strong> 来维护链表。</p>
+<p>头指针：</p>
+<pre><code class="hljs language-c">Node *head = <span class="hljs-literal">NULL</span>;
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c">Node head;
+head.next = <span class="hljs-literal">NULL</span>;
+</code></pre>
+<h3>1. 添加节点</h3>
+<ol>
+<li>
+<p>创建节点</p>
+<p>这一步是在内存中开辟一段空间给节点，并把相应数据存储进去。</p>
+<pre><code class="hljs language-c"><span class="hljs-function">Node *<span class="hljs-title">createNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span> </span>{
+	Node *p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));
+    p -&gt; id = id;
+    <span class="hljs-keyword">return</span> p;
+}
+</code></pre>
+</li>
+<li>
+<p>将节点添加到链表中</p>
+<p>头指针：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">addNode</span><span class="hljs-params">(Node *p, Node **head)</span> </span>{
+    p-&gt;next = *head;
+    *head = p;
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addNode</span><span class="hljs-params">(Node *p, Node *head)</span> </span>{
+    p-&gt;next = head-&gt;next;
+	head-&gt;next = p;
+}
+</code></pre>
+</li>
+</ol>
+<h3>2. 删除节点</h3>
+<p>删除节点p</p>
+<p>将节点p从链表中移除并释放内存</p>
+<p>头指针：</p>
+<pre><code class="hljs language-C"><span class="hljs-comment">// 删除头结点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delHeadNode</span><span class="hljs-params">(Node **head)</span> </span>{
+    <span class="hljs-keyword">if</span> (*head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = *head;
+    
+    *head = del-&gt;next;
+    <span class="hljs-built_in">free</span>(del);
+}
+<span class="hljs-comment">// 删除 p 节点后的一个节点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delNode</span><span class="hljs-params">(Node *p)</span> </span>{
+    <span class="hljs-keyword">if</span> (p-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = p-&gt;next;
+    
+    p-&gt;next = del-&gt;next;
+    <span class="hljs-built_in">free</span>(del);
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delNode</span><span class="hljs-params">(Node *p)</span> </span>{
+    <span class="hljs-keyword">if</span> (p-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = p-&gt;next;
+    
+    p-&gt;next = del-&gt;next;
+    <span class="hljs-built_in">free</span>(del);
+}
+</code></pre>
+<h3>3. 遍历链表</h3>
+<p>头指针：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-params">(Node *head)</span> </span>{
+    Node *i;
+    <span class="hljs-keyword">for</span> (i = head; i != <span class="hljs-literal">NULL</span>; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, i-&gt;id);
+    }
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-params">(Node *head)</span> </span>{
+    Node *i;
+    <span class="hljs-keyword">for</span> (i = head-&gt;next; i != <span class="hljs-literal">NULL</span>; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, i-&gt;id);
+    }
+}
+</code></pre>
+<h2>二、双向链表</h2>
+<p><img src="https://oi-wiki.org/ds/images/double-list.svg" alt=""></p>
+<p><strong>节点(Node)</strong> 结构体：</p>
+<pre><code class="hljs language-C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> {</span>
+    <span class="hljs-keyword">int</span> id;
+	Node *prev;
+	Node *next;
+	<span class="hljs-comment">/* ... */</span>
+}
+</code></pre>
+<p>维护方式同单向链表，但有时为了方便也会增加 <strong>尾指针</strong> 或 <strong>尾节点</strong>。</p>
+<p>指针：</p>
+<pre><code class="hljs language-c">Node *head = <span class="hljs-literal">NULL</span>;
+Node *tail = <span class="hljs-literal">NULL</span>;
+</code></pre>
+<p>结点：</p>
+<pre><code class="hljs language-c">Node head;
+Node tail;
+head.prev = <span class="hljs-literal">NULL</span>;
+head.next = &amp;tail;
+tail.prev = &amp;head;
+tail.next = <span class="hljs-literal">NULL</span>;
+</code></pre>
+<h3>1. 添加节点</h3>
+<ol>
+<li>
+<p>创建节点</p>
+<p>这一步是在内存中开辟一段空间给节点，并把相应数据存储进去。</p>
+<pre><code class="hljs language-c"><span class="hljs-function">Node *<span class="hljs-title">createNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span> </span>{
+	Node *p = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));
+    p -&gt; id = id;
+    <span class="hljs-keyword">return</span> p;
+}
+</code></pre>
+</li>
+<li>
+<p>将节点添加到链表中</p>
+<p>头指针：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">addNode</span><span class="hljs-params">(Node *p, Node **head, Node **tail)</span> </span>{
+    <span class="hljs-keyword">if</span> (*head == <span class="hljs-literal">NULL</span>)
+        *tail = p;
+    p-&gt;next = *head;
+    *head = p;
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addNode</span><span class="hljs-params">(Node *p, Node *head)</span> </span>{
+    p-&gt;next = head-&gt;next;
+    p-&gt;prev = head;
+    head-&gt;next-&gt;prev = p;
+	head-&gt;next = p;
+}
+</code></pre>
+</li>
+</ol>
+<h3>2. 删除节点</h3>
+<p>删除节点p</p>
+<p>将节点p从链表中移除并释放内存</p>
+<p>头指针：</p>
+<pre><code class="hljs language-C"><span class="hljs-comment">// 删除头结点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delHeadNode</span><span class="hljs-params">(Node **head, Node **tail)</span> </span>{
+    <span class="hljs-keyword">if</span> (*head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = *head;
+    
+    <span class="hljs-keyword">if</span> (*head == *tail) {
+        *head = *tail = <span class="hljs-literal">NULL</span>;
+    	<span class="hljs-built_in">free</span>(del);
+        <span class="hljs-keyword">return</span>;
+    }
+    
+    *head = del-&gt;next;
+    del-&gt;next-&gt;prev = <span class="hljs-literal">NULL</span>;
+    <span class="hljs-built_in">free</span>(del);
+}
+<span class="hljs-comment">// 删除 p 节点后的一个节点</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delNode</span><span class="hljs-params">(Node *p, Node )</span> </span>{
+    <span class="hljs-keyword">if</span> (p-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = p-&gt;next;
+    
+    p-&gt;next = del-&gt;next;
+    <span class="hljs-built_in">free</span>(del);
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delNode</span><span class="hljs-params">(Node *p)</span> </span>{
+    <span class="hljs-keyword">if</span> (p-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span>;
+    Node *del = p-&gt;next;
+    
+    p-&gt;next = del-&gt;next;
+    <span class="hljs-built_in">free</span>(del);
+}
+</code></pre>
+<h3>3. 遍历链表</h3>
+<p>头指针：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-params">(Node *head)</span> </span>{
+    Node *i;
+    <span class="hljs-keyword">for</span> (i = head; i != <span class="hljs-literal">NULL</span>; i = i-&gt;next) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, i-&gt;id);
+    }
+}
+</code></pre>
+<p>头结点：</p>
+<pre><code class="hljs language-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-params">(Node *head)</span> </span>{
+    Node *i;
+    <span class="hljs-keyword">for</span> (i = head-&gt;next; i-&gt;next != <span class="hljs-literal">NULL</span>; i = i-&gt;next) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, i-&gt;id);
+    }
+}
+</code></pre>
+<h2></h2>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
