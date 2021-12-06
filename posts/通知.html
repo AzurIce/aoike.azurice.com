@@ -1,0 +1,239 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    通知.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-01-20 10:54:01 · 发布于 · 2021-09-23 07:16:43
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>Android —— 通知</h1>
+<h2>〇、通知的概念</h2>
+<p>指 Android 在您应用的界面之外显示的消息，旨在向用户提供提醒、来自他人的通信信息或您应用中的其他实时信息。</p>
+<p>用户可以点按通知来打开应用，或直接从通知中执行操作。</p>
+<h3>1. 外观</h3>
+<h4>（1）状态栏和抽屉式通知栏</h4>
+<p><img src="%E9%80%9A%E7%9F%A5.assets/notification-area_2x.png" alt="img"></p>
+<p>用户可以在状态栏向下滑动以打开抽屉式通知栏，并在其中查看更多详情及对通知执行操作。</p>
+<img src="https://developer.android.google.cn/images/ui/notifications/notification-drawer_2x.png" alt="img" style="zoom:50%;" />
+<p>用户可以向下拖动抽屉式通知栏中的某条通知以查看展开后的视图，其中会显示更多内容以及操作按钮（如果有）。</p>
+<p>在应用或用户关闭通知之前，通知会一直显示在抽屉式通知栏中。</p>
+<h4>（2）提醒式通知</h4>
+<blockquote>
+<p>从 Android 5.0 开始，通知可以短暂地显示在浮动窗口中，称之为提醒式通知。</p>
+<p>这种行为通常适用于用户应立即知晓的重要通知，而且仅在设备未锁定时才会显示。</p>
+</blockquote>
+<img src="通知.assets/heads-up_2x.png" alt="img" style="zoom:50%;" />
+<p>提醒式通知会在应用发出通知后立即出现，稍后便会消失，但仍照常显示在抽屉式通知栏中。</p>
+<p>例如，以下情况可能会触发提醒式通知：</p>
+<ul>
+<li>用户的 Activity 处于全屏模式（应用使用 <code><span class="hljs-attribute">fullScreenIntent</span></code>）。</li>
+<li>通知的优先级很高，且在搭载 Android 7.1（API 级别 25）及更低版本的设备上使用铃声或振动。</li>
+<li>在搭载 Android 8.0（API 级别 26）及更高版本的设备上，通知渠道的重要程度比较高。</li>
+</ul>
+<h4>(3) 锁定屏幕</h4>
+<blockquote>
+<p>可以采用编程方式设置您的应用在安全锁定屏幕上所发布通知的详情可见等级，甚至可以设置通知是否显示在锁定屏幕上。</p>
+</blockquote>
+<p>可以通过系统设置来选择锁定屏幕通知的详情可见等级，包括选择停用所有锁定屏幕通知。</p>
+<p>从 Android 8.0 开始，用户可以选择停用或启用各个<a href="https://developer.android.google.cn/guide/topics/ui/notifiers/notifications#ManageChannels">通知渠道</a>的锁定屏幕通知。</p>
+<img src="通知.assets/lock-screen_2x.png" alt="img" style="zoom:50%;" />
+<h4>（4）应用图标的标志</h4>
+<p>Android 8.0（API 级别 26）及更高版本的设备上支持的启动器中，应用图标通过在相应的应用启动器图标上显示彩色“标志”（又称“通知圆点”）来表示有新通知。</p>
+<p>用户可以长按应用图标来查看该应用的通知。然后，用户可以从该长按菜单中关闭通知或者对通知执行操作（与抽屉式通知栏类似）。</p>
+<img src="通知.assets/badges-open_2x.png" alt="img" style="zoom:50%;" />
+<h3>2. 通知剖析</h3>
+<blockquote>
+<p>通知的设计由系统模板决定，您的应用只需要定义模板中各个部分的内容即可。</p>
+</blockquote>
+<img src="通知.assets/notification-callouts_2x.png" alt="img" style="zoom: 67%;" />
+<ol>
+<li>小图标：必须提供，通过 <code><span class="hljs-function"><span class="hljs-title">setSmallIcon</span><span class="hljs-params">()</span></span></code> 进行设置。</li>
+<li>应用名称：由系统提供。</li>
+<li>时间戳：由系统提供，但您可以使用 <code><span class="hljs-function"><span class="hljs-title">setWhen</span><span class="hljs-params">()</span></span></code> 替换它或者使用 <code><span class="hljs-function"><span class="hljs-title">setShowWhen</span>(<span class="hljs-variable"><span class="hljs-literal">false</span></span>)</span></code> 隐藏它。</li>
+<li>大图标：可选内容（通常仅用于联系人照片，请勿将其用于应用图标），通过 <code><span class="hljs-function"><span class="hljs-title">setLargeIcon</span><span class="hljs-params">()</span></span></code> 进行设置。</li>
+<li>标题：可选内容，通过 <code><span class="hljs-function"><span class="hljs-title">setContentTitle</span><span class="hljs-params">()</span></span></code> 进行设置。</li>
+<li>文本：可选内容，通过 <code><span class="hljs-function"><span class="hljs-title">setContentText</span><span class="hljs-params">()</span></span></code> 进行设置。</li>
+</ol>
+<h4>（1）通知操作</h4>
+<p>尽管并非强制要求，但每个通知都应在被点按时打开相应的应用 Activity。</p>
+<p>除了这种默认的通知操作之外，您还可以添加可在通知中完成与应用相关任务的操作按钮（通常不需要打开 Activity）</p>
+<img src="通知.assets/notification-actions_2x.png" alt="img" style="zoom:67%;" />
+<p>从 Android 7.0（API 级别 24）开始，您还可以添加直接在通知中回复消息或输入其他文字的操作。</p>
+<p>从 Android 10（API 级别 29）开始，平台可以自动生成操作按钮，此类按钮包含基于 intent 的建议操作。</p>
+<h4>（2）展开式通知</h4>
+<p>默认情况下，通知的文字内容会被截断以放在一行。</p>
+<p>如果您需要长一些的通知，可以通过应用其他模板启用更大的展开式文本区域。</p>
+<img src="通知.assets/notification-expanded_2x.png" alt="img" style="zoom:67%;" />
+<p>还可以使用图片、收件箱样式、聊天对话或媒体播放控件来创建展开式通知。</p>
+<p>尽管我们建议您始终使用这些模板来确保设计在所有设备上的兼容性，但如有必要，您也可以<a href="https://developer.android.google.cn/training/notify-user/custom-notification">创建自定义通知布局</a>。</p>
+<h4>（3）通知更新和分组</h4>
+<p>为了使后续更新时不会让用户遭遇多个通知或多余的通知轰炸，不妨考虑<a href="https://developer.android.google.cn/training/notify-user/build-notification#Updating">更新现有通知</a>（而不是发出新通知），或者考虑使用<a href="https://developer.android.google.cn/training/notify-user/expanded#inbox-style">收件箱样式的通知</a>来显示会话更新。</p>
+<img src="通知.assets/notification-group_2x.png" alt="img" style="zoom:67%;" />
+<p>如需了解如何将通知添加到某个组，请参阅<a href="https://developer.android.google.cn/training/notify-user/group">创建通知组</a>。</p>
+<h4>（4）通知渠道</h4>
+<p>从 Android 8.0（API 级别 26）开始，必须为所有通知分配渠道，否则通知将不会显示。</p>
+<p>通过将通知归类到不同的渠道中，用户可以停用您应用的特定通知渠道（而非停用您的所有通知），还可以控制每个渠道的视觉和听觉选项，所有这些操作都在 Android 系统设置中完成（如图 11 所示）。</p>
+<p>用户还可以长按通知以更改所关联渠道的行为。</p>
+<p>在搭载 Android 7.1（API 级别 25）及更低版本的设备上，用户仅可以按应用来管理通知（在搭载 Android 7.1 及更低版本的设备上，每个应用其实只有一个渠道）。</p>
+<img src="通知.assets/channel-settings_2x.png" alt="img" style="zoom:67%;" />
+<blockquote>
+<p>界面将渠道称作“类别”。</p>
+</blockquote>
+<h4>（5）通知的重要程度</h4>
+<p>Android 利用通知的重要程度来决定通知应在多大程度上干扰用户（视觉上和听觉上）。</p>
+<p>通知的重要程度越高，干扰程度就越高。</p>
+<p>在搭载 Android 8.0（API 级别 26）及更高版本的设备上，通知的重要程度由通知发布到的渠道的 <code><span class="hljs-attribute">importance</span></code> 决定。用户可以在系统设置中更改通知渠道的重要程度（图 12）。</p>
+<p>在搭载 Android 7.1（API 级别 25）及更低版本的设备上，每条通知的重要程度均由通知的 <code><span class="hljs-attribute">priority</span></code> 决定。</p>
+<img src="通知.assets/channel-alert-levels_2x.png" alt="img" style="zoom:67%;" />
+<p>可能的重要程度等级如下所示：</p>
+<ul>
+<li>紧急：发出提示音，并以提醒式通知的形式显示。</li>
+<li>高：发出提示音。</li>
+<li>中：无提示音。</li>
+<li>低：无提示音，且不会在状态栏中显示。</li>
+</ul>
+<h4>（6）勿扰模式</h4>
+<p>从 Android 5.0（API 级别 21）开始，用户可以启用勿扰模式，以关闭所有通知的提示音和振动。通知仍会在系统界面中照常显示，除非用户另有指定。</p>
+<p>勿扰模式包含 3 种不同的级别：</p>
+<ul>
+<li>完全静音：阻止所有提示音和振动（包括闹钟、音乐、视频和游戏）。</li>
+<li>仅限闹钟：阻止所有提示音和振动，闹钟除外。</li>
+<li>仅限优先事项：用户可以配置哪些系统级类别可以打扰他们（如仅限闹钟、提醒、活动、来电或短信等）。对于短信和来电，用户还可以选择根据发送者或来电者进行过滤（图 13）。</li>
+</ul>
+<img src="通知.assets/do-not-disturb-filter-settings_2x.png" alt="img" style="zoom:67%;" />
+<p>在搭载 Android 8.0（API 级别 26）及更高版本的设备上，用户还可以通过按渠道替换勿扰模式来允许特定于应用的类别（又称渠道）显示通知。</p>
+<p>例如，付款类应用可能会有与取款和存款相关的通知渠道。用户便可以选择允许在优先模式下显示取款通知和/或存款通知。</p>
+<p>在搭载 Android 7.1（API 级别 25）及更低版本的设备上，用户可以按应用（而不是按渠道）允许显示通知。</p>
+<h4>（7）前台服务的通知</h4>
+<h4>（8）发布限制</h4>
+<h4>（9）通知的兼容性</h4>
+<h2>一、创建通知</h2>
+<blockquote>
+<p>使用了 Android 支持库中的 <code><span class="hljs-attribute">NotificationCompat</span></code> API。</p>
+<p>这些 API 允许您添加仅在较新版本 Android 上可用的功能，同时仍向后兼容 Android 4.0（API 级别 14）。</p>
+<p>但是，诸如内嵌回复操作等部分新功能在较旧版本上会导致发生空操作。</p>
+</blockquote>
+<h3>1. 添加支持库</h3>
+<p>Android Studio 创建的大部分项目包含使用 <code><span class="hljs-attribute">NotificationCompat</span></code> 所必需的依赖项</p>
+<p>验证模块级 <code>build.gradle</code> 文件是否包含以下依赖项：</p>
+<pre><code class="hljs language-json">dependencies {
+    implementation <span class="hljs-attr">&quot;com.android.support:support-compat:28.0.0&quot;</span>
+}
+</code></pre>
+<h3>2. 创建基本通知</h3>
+<p>最基本、精简形式（也称为折叠形式）的通知会显示一个图标、一个标题和少量内容文本。</p>
+<img src="通知.assets/notification-basic_2x.png" alt="img" style="zoom: 67%;" />
+<h4>（1）创建通知渠道</h4>
+<ol>
+<li>
+<p>构建一个具有 <strong>唯一渠道ID</strong> 、<strong>用户可见名称</strong> 和 <strong>重要性级别</strong> 的 <code><span class="hljs-attribute">NotificationChannel</span></code> 对象。</p>
+<p>重要性级别：</p>
+<table>
+<thead>
+<tr>
+<th>重要性</th>
+<th>用户可兼得重要性级别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><span class="hljs-attribute">IMPORTANCE_MIN</span></code></td>
+<td><strong>低</strong><br/>：无提示音，且不会在状态栏中显示。</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">IMPORTANCE_LOW</span></code></td>
+<td><strong>中</strong><br/>：无提示音</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">IMPORTANCE_DEFAULT</span></code></td>
+<td><strong>高</strong><br/>：发出提示音</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">IMPORTANCE_HIGH</span></code></td>
+<td><strong>紧急</strong><br/>：发出提示音，并以浮动通知的形式显示</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>（可选）使用 <code><span class="hljs-function"><span class="hljs-title">setDescription</span><span class="hljs-params">()</span></span></code> 指定用户在系统设置中看到的说明。</p>
+</li>
+<li>
+<p>将该渠道传递给 <code><span class="hljs-function"><span class="hljs-title">createNotificationChannel</span><span class="hljs-params">()</span></span></code> 来注册通知渠道。</p>
+</li>
+</ol>
+<pre><code class="hljs language-kotlin"><span class="hljs-keyword">val</span> mChannel = NotificationChannel(CHANNEL_ID, name, importance)
+
+mChannel.description = descriptionText
+
+<span class="hljs-keyword">val</span> notificationManager = getSystemService(NOTIFICATION_SERVICE) <span class="hljs-keyword">as</span> NotificationManager
+
+notificationManager.createNotificationChannel(mChannel)
+</code></pre>
+<blockquote>
+<p>注册渠道后不能再更改渠道重要性级别。</p>
+</blockquote>
+<h4>（2）设置通知内容</h4>
+<p>首先，需要</p>
+<p>首先，需要使用 <code>NotificationCompat.Builder</code> 对象设置通知内容和渠道。</p>
+<pre><code class="hljs language-kotlin"><span class="hljs-keyword">var</span> builder = NotificationCompat.Builder(<span class="hljs-keyword">this</span>, CHANNEL_ID)
+            .setSmallIcon(R.drawable.notification_icon) <span class="hljs-comment">// 小图标</span>
+            .setContentTitle(textTitle) <span class="hljs-comment">// 标题</span>
+            .setContentText(textContent) <span class="hljs-comment">// 正文文本</span>
+</code></pre>
+<p>默认情况下，通知的文本内容会被截断以放在一行。如果您想要更长的通知，可以使用 <code><span class="hljs-function"><span class="hljs-title">setStyle</span><span class="hljs-params">()</span></span></code> 添加样式模板来启用可展开的通知：</p>
+<pre><code class="hljs language-kotlin">.setStyle(NotificationCompat.BigTextStyle()
+.bigText(<span class="hljs-string">&quot;Much longer text that cannot fit one line...&quot;</span>))
+</code></pre>
+<p>如需详细了解其他大型通知样式，包括如何添加图片和媒体播放控件，请参阅<a href="https://developer.android.google.cn/training/notify-user/expanded">创建包含可展开详情的通知</a>。</p>
+<h4>（3）设置通知的点按操作</h4>
+<h3>3. 添加操作按钮</h3>
+<p>一个通知最多可以提供三个操作按钮，让用户能够快速响应，例如暂停提醒，甚至回复短信。</p>
+<p>但这些操作按钮不应该重复用户在<a href="https://developer.android.google.cn/training/notify-user/build-notification#click">点按通知</a>时执行的操作。</p>
+<img src="通知.assets/notification-basic-action_2x.png" alt="img" style="zoom:67%;" />
+<p>如需添加操作按钮，请将 <code><span class="hljs-function"><span class="hljs-title">addAction</span><span class="hljs-params">()</span></span></code> 传递给 <code><span class="hljs-attribute">PendingIntent</span></code> 方法。</p>
+<p>这就像在设置通知的默认点按操作，不同的是不会启动 Activity，而是可以完成各种其他任务。</p>
+<p>例如启动在后台执行作业的 <code><span class="hljs-attribute">BroadcastReceiver</span></code>，这样该操作就不会干扰已经打开的应用。</p>
+<pre><code class="hljs language-kotlin">.addAction(R.drawable.ic_snooze, getString(R.string.snooze),
+                    snoozePendingIntent)
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

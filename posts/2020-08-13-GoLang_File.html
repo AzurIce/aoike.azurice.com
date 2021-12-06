@@ -1,0 +1,193 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    2020-08-13-GoLang_File.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2020-08-13 12:43:48 · 发布于 · 2021-09-23 07:17:07
+                    </time>
+                </div>
+                <div class="post-content">
+                    <hr>
+<h2>layout: post<br>
+title: Go语言 - 文件<br>
+date: 2020-08-13<br>
+tags: GoLang</h2>
+<p>临时作摘录，有时间重新整理</p>
+<h1>一、<code><span class="hljs-built_in">io</span>/ioutil</code></h1>
+<h2>1. <code><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">ReadFile</span></span>()</span></code></h2>
+<p><code><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ReadFile</span><span class="hljs-params">(filename <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">([]<span class="hljs-keyword">byte</span>, error)</span></span></code></p>
+<p>从filename指定的文件中读取数据并返回内容。</p>
+<p>成功调用 <code><span class="hljs-attribute">err</span></code> 为 <code><span class="hljs-literal">nil</span></code></p>
+<h2>2. <code><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">WriteFile</span></span>()</span></code></h2>
+<p><code>func <span class="hljs-constructor">WriteFile(<span class="hljs-params">filename</span> <span class="hljs-params">string</span>, <span class="hljs-params">data</span> []<span class="hljs-params">byte</span>, <span class="hljs-params">perm</span> <span class="hljs-params">os</span>.FileMode)</span> error</code></p>
+<p>将filename指定的文件清空并写入data。如果不存在则按照perm给出的权限创建关键文件。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_WRONLY</code></td>
+<td>只写</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_CREATE</code></td>
+<td>创建文件</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_RDONLY</code></td>
+<td>只读</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_RDWR</code></td>
+<td>读写</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_TRUNC</code></td>
+<td>清空</td>
+</tr>
+<tr>
+<td><code><span class="hljs-built_in">os</span>.O_APPEND</code></td>
+<td>追加</td>
+</tr>
+</tbody>
+</table>
+<p>0666</p>
+<p>四个位： 特殊权限位，拥有者位，同组用户位，其余用户位</p>
+<p>4  2  1  分别表示，读  写  执行，3种权限。</p>
+<h2>一、Linux文件权限</h2>
+<p>每个Linux文件具有四种访问权限：可读(r)、可写(w)、可执行(x)和无权限(-)。<br>
+利用ls -l命令可以看到某个文件或目录的权限，它以显示数据的第一个字段为准。第一个字段由10个字符组成，如下：</p>
+<pre><code class="hljs"><span class="hljs-deletion">-rwxr-xr-x</span>
+</code></pre>
+<ul>
+<li>第一位表示文件类型，-表示文件，d表示目录</li>
+<li>2-4位：　　表示文件所有者的权限，u权限</li>
+<li>5-7位：　　表示文件所有者所属组成员的权限，g权限</li>
+<li>8-10位：　　表示所有者所属组之外的用户的权限，o权限</li>
+<li>2-10位：　　的权限总和有时称为a权限</li>
+</ul>
+<p>以上例子中，表示这是一个文件(非目录），文件所有者具有读、写和执行的权限，所有者所属组成员和所属组之外的用户具有读和执行的权限而没有写的权限。</p>
+<h2>二、文件权限修改----chmod</h2>
+<ul>
+<li>
+<h3>用数字表示法修改权限</h3>
+</li>
+</ul>
+<p>所谓数字表示法，是指将r、w和x分别用4、2、1来代表，没有授予权限的则为0，然后把权限相加，如下：</p>
+<table>
+<thead>
+<tr>
+<th>原始权限</th>
+<th>转换为数字</th>
+<th>数字表示法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rwxrwxr-x</td>
+<td>(421)(421)(401)</td>
+<td>775</td>
+</tr>
+<tr>
+<td>rwxr-xr-x</td>
+<td>(421)(401)(401)</td>
+<td>755</td>
+</tr>
+</tbody>
+</table>
+<p>修改权限的例子：将文件test的权限修改为所有者和组成员具有读写的权限，其他人只有读权限</p>
+<pre><code class="hljs"><span class="hljs-attribute">chmod</span> <span class="hljs-number">664</span> test
+</code></pre>
+<ul>
+<li>
+<h3>用文本表示法修改权限</h3>
+</li>
+</ul>
+<p>文本表示法用4个字母表示不同的用户：</p>
+<ul>
+<li>
+<ul>
+<li>u：所有者
+<ul>
+<li>g：组成员</li>
+<li>o：其他成员</li>
+<li>a：所有人</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>权限仍用r、w和x表示</p>
+<p>和数字表示法不同，文本表示法不仅可以重新指定权限，也可以在原来权限的基础上增加或减少权限，如下：</p>
+<ul>
+<li>
+<ul>
+<li>=：重新制定权限
+<ul>
+<li>-：对目前的设置减少权限</li>
+<li>+：对目前的设置增加权限</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>例子：讲上述例子中，所有者加上执行权限，组成员减少执行权限，其他成员设置为执行权限，执行以下命令：chmod u+x,g-x,o=x test<br>
+注意：逗号前后不能有空格</p>
+<h2>三、目录权限</h2>
+<p>目录权限的修改和文件权限修改不同，只是四种权限代表的含义如下：</p>
+<ul>
+<li>r：可列出目录中的内容</li>
+<li>w：可在目录中创建、删除和修改文件</li>
+<li>x：可以使用cd命令切换到此目录</li>
+<li>-：没有任何此目录的访问权限</li>
+</ul>
+<p>注意：目录可以使用通配符&quot;*&quot;来表示目录中的所有文件，如将/test目录中的所有文件的权限设置为任何人都可以读写</p>
+<pre><code class="hljs">chmod <span class="hljs-number">666</span> <span class="hljs-regexp">/test/</span>*
+</code></pre>
+<h2>四、指定文件的默认权限掩码-----umask</h2>
+<p>权限掩码有4个八进制的数字组成，讲现有的权限减掉权限掩码后，即可产生此文件建立时的默认权限。<br>
+一般来说，新建文件的默认值是0666，新建目录的默认值是0777，如果将全线掩码设置为0002，则每个新建文件的默认权限为0666-0002=0664，而目录的默认权限则为775。可以直接输入umask命令来检查目前的默认权限掩码，或输入&quot;umask 权限掩码&quot;来指定默认权限掩码。<br>
+用umask的方式指定默认权限掩码，可以避免添加访问权限过大的文件或目录。</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

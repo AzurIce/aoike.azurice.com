@@ -1,0 +1,113 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Vuex.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-06-19 01:43:22 · 发布于 · 2021-09-23 07:12:38
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>Vuex</h1>
+<p>每一个 <em>Vuex</em> 应用的核心是 <em>store</em>（仓库），<em>store</em> 是一个包含应用中大部分 <em>state</em>（状态）的容器。</p>
+<p><em>Vuex</em> 与一般的全局对象有两点不同：</p>
+<ol>
+<li><em>Vuex</em> 的状态存储是响应式的，可高效更新读取状态的组件。</li>
+<li>改变状态的唯一方式是提交 <em>mutation</em> ，不能直接更改。</li>
+</ol>
+<p>先看一个最简单的 <em>Vuex</em> 实例：</p>
+<pre><code class="hljs language-js">createStore({
+  state () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
+    }
+  },
+  <span class="hljs-attr">mutations</span>: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
+</code></pre>
+<pre><code class="hljs language-js">store.commit(<span class="hljs-string">&#x27;increment&#x27;</span>)
+
+<span class="hljs-built_in">console</span>.log(store.state.count) <span class="hljs-comment">// -&gt; 1</span>
+</code></pre>
+<p>通过 <code><span class="hljs-function"><span class="hljs-title">commit</span><span class="hljs-params">(<span class="hljs-string">&#x27;mutationName&#x27;</span>)</span></span></code> 来触发 <em>mutation</em> 进行数据更改。</p>
+<p>通过 <code>store.<span class="hljs-keyword">state</span></code> 来访问 <em>state</em> 。（在组件中是 <code>this.<span class="hljs-variable">$store</span>.<span class="hljs-keyword">state</span></code> ）</p>
+<h2>一、State</h2>
+<h3>1.1 在组件中获取 <em>State</em></h3>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> Counter = {
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;div&gt;{{ count }}&lt;/div&gt;`</span>,
+  <span class="hljs-attr">computed</span>: {
+    count () {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$store.state.count
+    }
+  }
+}
+</code></pre>
+<p>每当 <code>this.<span class="hljs-variable">$store</span>.<span class="hljs-keyword">state</span>.count</code> 变化的时候, 都会重新求取计算属性，并且触发更新相关联的 DOM。</p>
+<p>这有一个简单的写法，我们需要用到 <code><span class="hljs-attribute">mapState</span></code> 辅助函数。</p>
+<h3>1.2 <code><span class="hljs-attribute">mapState</span></code> 辅助函数</h3>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { mapState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-attr">computed</span>: mapState({
+    <span class="hljs-comment">// 箭头函数可使代码更简练</span>
+    <span class="hljs-attr">count</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.count,
+
+    <span class="hljs-comment">// 传字符串参数 &#x27;count&#x27; 等同于 `state =&gt; state.count`</span>
+    <span class="hljs-attr">countAlias</span>: <span class="hljs-string">&#x27;count&#x27;</span>,
+
+    <span class="hljs-comment">// 为了能够使用 `this` 获取局部状态，必须使用常规函数</span>
+    countPlusLocalState (state) {
+      <span class="hljs-keyword">return</span> state.count + <span class="hljs-built_in">this</span>.localCount
+    }
+  })
+}
+</code></pre>
+<p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 <code><span class="hljs-attribute">mapState</span></code> 传一个字符串数组。</p>
+<pre><code class="hljs language-js">computed: mapState([
+  <span class="hljs-comment">// 映射 this.count 为 store.state.count</span>
+  <span class="hljs-string">&#x27;count&#x27;</span>
+])
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

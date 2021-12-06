@@ -1,0 +1,137 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Mojang&#39;s code - GUI #1 Screen.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-07-27 07:28:29 · 发布于 · 2021-09-23 07:12:37
+                    </time>
+                </div>
+                <div class="post-content">
+                    <pre><code class="hljs language-mermaid">classDiagram
+	class DrawableHelper
+	class AbstractParentElement
+	class Element {
+		mouseMoved(double mouseX, double mouseY) void
+		mouseClicked(double mouseX, double mouseY, int button) boolean
+		mouseReleased(double mouseX, double mouseY, int button) boolean
+		mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) boolean
+		mouseScrolled(double mouseX, double mouseY, double amount) boolean
+		keyPressed(int keyCode, int scanCode, int modifiers) boolean
+		keyReleased(int keyCode, int scanCode, int modifiers) boolean
+		charTyped(char chr, int modifiers) boolean
+		changeFocus(boolean lookForwards) boolean
+		isMouseOver(double mouseX, double mouseY) boolean
+	}
+	class ParentElement {
+		children() List~extendsElement~
+		....()
+	}
+	&lt;&lt;interface&gt;&gt; ParentElement
+	&lt;&lt;interface&gt;&gt; Element
+	
+	Element &lt;|-- ParentElement
+	ParentElement &lt;|.. AbstractParentElement
+
+	DrawableHelper &lt;|-- AbstractParentElement
+	AbstractParentElement &lt;|-- Screen
+</code></pre>
+<h2>DrawableHelper 中的一些方法</h2>
+<blockquote>
+<p>以下 <code><span class="hljs-attribute">color</span></code> 均为 24位整数（0xFFFFFFFF）ARGB</p>
+</blockquote>
+<ol>
+<li>
+<p><code><span class="hljs-built_in">fill</span>(MatrixStack matrices, <span class="hljs-built_in">int</span> x1, <span class="hljs-built_in">int</span> y1, <span class="hljs-built_in">int</span> x2, <span class="hljs-built_in">int</span> y2, <span class="hljs-built_in">int</span> <span class="hljs-built_in">color</span>)</code></p>
+<p>用颜色 <code><span class="hljs-attribute">color</span></code> 填充 (x1, y1) 到 (x2, y2) 的矩形区域。</p>
+<p>![fill](V:_Posts\Halo\Minecraft\Fabric\Mojang's code - GUI #1 Screen.assets\fill.gif)</p>
+</li>
+<li>
+<p><code>draw<span class="hljs-constructor">HorizontalLine(MatrixStack <span class="hljs-params">matrices</span>, <span class="hljs-params">int</span> <span class="hljs-params">x1</span>, <span class="hljs-params">int</span> <span class="hljs-params">x2</span>, <span class="hljs-params">int</span> <span class="hljs-params">y</span>, <span class="hljs-params">int</span> <span class="hljs-params">color</span>)</span></code></p>
+<p>在纵坐标为 y 处，从 x1 到 x2 绘制一条颜色为 <code><span class="hljs-attribute">color</span></code> 的水平直线。</p>
+<p>![drawHorizontalLine](V:_Posts\Halo\Minecraft\Fabric\Mojang's code - GUI #1 Screen.assets\drawHorizontalLine.gif)</p>
+</li>
+<li>
+<p><code>draw<span class="hljs-constructor">VerticalLine(MatrixStack <span class="hljs-params">matrices</span>, <span class="hljs-params">int</span> <span class="hljs-params">x</span>, <span class="hljs-params">int</span> <span class="hljs-params">y1</span>, <span class="hljs-params">int</span> <span class="hljs-params">y2</span>, <span class="hljs-params">int</span> <span class="hljs-params">color</span>)</span></code></p>
+<p>在横坐标为 x 处，从 y1 到 y2 绘制一条颜色为 <code><span class="hljs-attribute">color</span></code> 的竖直直线。</p>
+</li>
+<li>
+<p><code>draw<span class="hljs-constructor">CenteredText(MatrixStack <span class="hljs-params">matrices</span>, TextRenderer <span class="hljs-params">textRenderer</span>, String <span class="hljs-params">text</span>, <span class="hljs-params">int</span> <span class="hljs-params">centerX</span>, <span class="hljs-params">int</span> <span class="hljs-params">y</span>, <span class="hljs-params">int</span> <span class="hljs-params">color</span>)</span></code></p>
+<blockquote>
+<p><code><span class="hljs-keyword">String</span> text</code> 也可为 <code><span class="hljs-built_in">Text</span> <span class="hljs-built_in">text</span></code></p>
+</blockquote>
+<p>在纵坐标为 y 处，绘制颜色为 color 内容为 text 关于 centerX 居中的文字。</p>
+<p>![drawCenteredText](V:_Posts\Halo\Minecraft\Fabric\Mojang's code - GUI #1 Screen.assets\drawCenteredText.gif)</p>
+</li>
+<li>
+<p><code>draw<span class="hljs-constructor">StringWithShadow(MatrixStack <span class="hljs-params">matrices</span>, TextRenderer <span class="hljs-params">textRenderer</span>, String <span class="hljs-params">text</span>, <span class="hljs-params">int</span> <span class="hljs-params">x</span>, <span class="hljs-params">int</span> <span class="hljs-params">y</span>, <span class="hljs-params">int</span> <span class="hljs-params">color</span>)</span></code></p>
+<blockquote>
+<p><code>draw<span class="hljs-constructor">TextWithShadow(MatrixStack <span class="hljs-params">matrices</span>, TextRenderer <span class="hljs-params">textRenderer</span>, Text <span class="hljs-params">text</span>, <span class="hljs-params">int</span> <span class="hljs-params">x</span>, <span class="hljs-params">int</span> <span class="hljs-params">y</span>, <span class="hljs-params">int</span> <span class="hljs-params">color</span>)</span></code> 同理。</p>
+</blockquote>
+<p>在 (x, y) 处绘制颜色为 color 内容为 text 的文字。</p>
+</li>
+</ol>
+<h2>OptionsScreen —— 设置界面</h2>
+<pre><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OptionsScreen</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Screen</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Option[] OPTIONS;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Screen parent;
+    [...]
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">OptionsScreen</span><span class="hljs-params">(Screen parent, GameOptions gameOptions)</span> </span>{
+        <span class="hljs-keyword">super</span>(<span class="hljs-keyword">new</span> TranslatableText(<span class="hljs-string">&quot;options.title&quot;</span>));
+        <span class="hljs-keyword">this</span>.parent = parent;
+        [...]
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>{
+        [...]
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">removed</span><span class="hljs-params">()</span> </span>{
+        [...]
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">(MatrixStack matrices, <span class="hljs-keyword">int</span> mouseX, <span class="hljs-keyword">int</span> mouseY, <span class="hljs-keyword">float</span> delta)</span> </span>{[...]}
+    
+    [...]
+}
+</code></pre>
+<p>在 <code><span class="hljs-function"><span class="hljs-title">init</span><span class="hljs-params">()</span></span></code> 中完成按钮的添加</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

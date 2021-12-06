@@ -1,0 +1,80 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「基础算法」归并排序.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-09-29 11:04:48 · 发布于 · 2021-09-27 03:47:08
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h2>「基础算法」归并排序</h2>
+<h3>算法核心</h3>
+<p>分治算法：</p>
+<p>分别排序左右，再合并</p>
+<h4>关键 - 合并 - 双指针 + 辅助数组</h4>
+<p>原数组 -&gt; 辅助数组 -&gt; 原数组</p>
+<h3>Code</h3>
+<pre><code class="hljs language-c"><span class="hljs-keyword">int</span> tmp[MAXN];
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *a, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>{
+	<span class="hljs-keyword">if</span> (l == r) <span class="hljs-keyword">return</span>;
+	
+	<span class="hljs-keyword">int</span> mid = l + r &gt;&gt; <span class="hljs-number">1</span>;
+	mergeSort(a, l, mid);
+	mergeSort(a, mid+<span class="hljs-number">1</span>, r);
+	
+	<span class="hljs-keyword">int</span> t = <span class="hljs-number">0</span>, i = l, j = mid+<span class="hljs-number">1</span>;
+	<span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= r) {
+		<span class="hljs-keyword">if</span>(a[i] &lt; a[j]) {
+			tmp[t++] = a[i++];
+		} <span class="hljs-keyword">else</span> {
+			tmp[t++] = a[j++];
+			<span class="hljs-comment">// cnt += mid-i+1;</span>
+		}
+	}
+    <span class="hljs-keyword">while</span> (i &lt;= mid) tmp[t++] = a[i++];
+	<span class="hljs-keyword">while</span> (j &lt;= r)   tmp[t++] = a[j++];
+	
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; t; i++) a[l+i] = tmp[i];
+}
+</code></pre>
+<h4>逆序对</h4>
+<p>当做合并操作时左&gt;右，<code><span class="hljs-attribute">mid</span>-i+<span class="hljs-number">1</span></code> 为</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

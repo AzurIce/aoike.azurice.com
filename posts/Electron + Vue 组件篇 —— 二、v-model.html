@@ -1,0 +1,222 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Electron + Vue 组件篇 —— 二、v-model.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-06-15 12:04:13 · 发布于 · 2021-09-23 07:12:40
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>Electron + Vue 组件篇 —— 二、v-model</h1>
+<pre><code class="hljs language-vue">&lt;my-component v-model=&quot;...&quot; /&gt;
+</code></pre>
+<p>相当于</p>
+<pre><code class="hljs language-vue">&lt;my-component :model-value=&quot;...&quot; @update:model-value=&quot;... = $event&quot; /&gt;
+</code></pre>
+<p>可以发现，使用 <code><span class="hljs-attribute">v-model</span></code> 时，会被 <em>Vue</em> 解析成：</p>
+<ul>
+<li>将 <code><span class="hljs-attribute">modelValue</span></code> 与 <code><span class="hljs-meta">...</span></code> 绑定</li>
+<li>捕捉 <code><span class="hljs-symbol">update:</span>model-value</code> 事件，并将事件 <strong>抛出的值</strong> 赋值给 <code><span class="hljs-meta">...</span></code></li>
+</ul>
+<p>所以我们的自定义组件必须：</p>
+<ul>
+<li>有一个名为 <code><span class="hljs-attribute">modelValue</span></code> 的 <em>Prop</em></li>
+<li>在改变时将 <strong>新的值</strong> 通过事件 <code><span class="hljs-symbol">update:</span>model-value</code> <strong>抛出</strong>。</li>
+</ul>
+<h2>示例 —— 文件夹选择器</h2>
+<img src="V:\_Posts\Halo\electron-vue\Electron + Vue 组件篇 —— 二、v-model.assets\image-20210614225842909.png" alt="image-20210614225842909" style="zoom:70%;" />
+<h3>1. 布局分析</h3>
+<img src="V:\_Posts\Halo\electron-vue\Electron + Vue 组件篇 —— 二、v-model.assets\directorySelector.png" alt="directorySelector" style="zoom:30%;" />
+<p>使用 flex布局</p>
+<pre><code class="hljs language-vue">&lt;div style=&quot;display: flex; flex-direction: column; justify-content: center&quot;&gt;
+    &lt;h2 /&gt;
+    &lt;el-alert /&gt;
+    &lt;div style=&quot;display: flex; justify-content: center&quot;&gt;
+        &lt;el-input style=&quot;flex-grow: 1; margin-right: 5px;&quot; /&gt;
+        &lt;el-button style=&quot;flex-grow: 0; margin-left: 5px;&quot; /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>2. Vue组件</h3>
+<h4>2.1 输入框部分</h4>
+<pre><code class="hljs language-vue">&lt;template&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    ...
+    &lt;div class=&quot;selector-container&quot;&gt;
+      &lt;el-input class=&quot;selector-input&quot; v-model=&quot;input&quot; /&gt;
+      ...
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+...
+export default {
+  name: &quot;DirSelector&quot;,
+  data() {
+    return {
+      input: &quot;&quot;,
+    };
+  },
+  ...
+};
+&lt;/script&gt;
+
+&lt;style&gt;
+...
+&lt;/style&gt;
+</code></pre>
+<p>使用 <code><span class="hljs-selector-tag">input</span></code> 来暂存输入，与 <code>&lt;<span class="hljs-keyword">el</span>-<span class="hljs-built_in">input</span> /&gt;</code> 双向绑定。</p>
+<h4>2.2 警告部分</h4>
+<p>在发现输入路径不合法时，不更新最终的dir。</p>
+<pre><code class="hljs language-vue">&lt;template&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    ...
+    &lt;el-alert v-if=&quot;!isDirValid&quot;... /&gt;
+    &lt;div class=&quot;selector-container&quot;&gt;
+      ...
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+const fs = require(&quot;fs&quot;);
+export default {
+  name: &quot;DirSelector&quot;,
+  ...,
+  emits: [&quot;update:dir&quot;],
+  props: {
+    dir: String,
+  },
+  ...,
+  computed: {
+    isDirValid() {
+      try {
+        fs.accessSync(this.input, fs.constants.R_OK | fs.constants.W_OK);
+        this.$emit(&quot;update:dir&quot;, this.input);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+  },
+};
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+...
+&lt;/style&gt;
+
+</code></pre>
+<h4>2.3 选择按钮与文件夹选择器</h4>
+<p><code><span class="hljs-regexp">/src/</span>components/DirSelector.vue</code> :</p>
+<pre><code class="hljs language-vue">&lt;template&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    ...
+    &lt;div class=&quot;selector-container&quot;&gt;
+      ...
+      &lt;el-button
+        class=&quot;selector-button&quot;
+        icon=&quot;el-icon-folder&quot;
+        @click=&quot;onSelectDir&quot;
+      /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+...
+const { ipcRenderer } = require(&quot;electron&quot;);
+
+export default {
+  name: &quot;DirSelector&quot;,
+  data() {
+    return {
+      input: &quot;&quot;,
+    };
+  },
+  ...,
+  methods: {
+    onSelectDir() {
+      let res = ipcRenderer.sendSync(&quot;openDirDialog&quot;);
+      if (res != null) {
+        console.log(res);
+        this.input = res;
+      }
+    },
+  },
+  computed: {
+    isDirValid() { ... },
+  },
+};
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+...
+&lt;/style&gt;
+
+</code></pre>
+<p><code><span class="hljs-regexp">/src/</span>js/DirDialog.js</code>：</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { ipcMain, dialog } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;electron&quot;</span>);
+
+ipcMain.on(<span class="hljs-string">&quot;openDirDialog&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+  dialog.showOpenDialog({ <span class="hljs-attr">properties</span>: [<span class="hljs-string">&quot;openDirectory&quot;</span>] }).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (res.filePaths.length &gt; <span class="hljs-number">0</span>) {
+      e.returnValue = res.filePaths[<span class="hljs-number">0</span>];
+    }
+    e.returnValue = <span class="hljs-literal">null</span>;
+  });
+});
+
+</code></pre>
+<p><code><span class="hljs-regexp">/src/</span>background.js</code>：</p>
+<pre><code class="hljs language-js">...
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createWindow</span>(<span class="hljs-params"> {
+...
+}</span>)
+
+<span class="hljs-title">import</span> &quot;./<span class="hljs-title">js</span>/<span class="hljs-title">DirDialog</span>.<span class="hljs-title">js</span>&quot;
+
+...
+</span></code></pre>
+<p>利用 <em>ipcMain, ipcRenderer</em> 来使用 <em>Electron</em> 的 <em>Dialog</em> 打开系统文件夹选择器，返回后只需更新 <code><span class="hljs-selector-tag">input</span></code> 值，<code><span class="hljs-attribute">computed</span></code> 属性中的函数会自动重新计算更新 <code><span class="hljs-built_in">dir</span></code>。</p>
+<p><strong>[详细讲解施工中]</strong></p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

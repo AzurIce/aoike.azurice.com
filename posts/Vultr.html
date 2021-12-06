@@ -1,0 +1,304 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Vultr.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-06-06 08:22:04 · 发布于 · 2021-09-23 07:17:18
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1><em>Vultr</em> 服务器</h1>
+<h2>一、部署</h2>
+<p><img src="Vultr.assets/image-20210115113129728.png" alt="image-20210115113129728"></p>
+<p>稍等片刻服务器便会安装完毕。</p>
+<p><img src="Vultr.assets/image-20210115113150115.png" alt="image-20210115113150115"></p>
+<h2>二、基础配置</h2>
+<p>点击服务器名进入详细信息界面可以看到各种信息，包括 <em>SSH</em> 的 <strong>用户名</strong> 和 密码。</p>
+<p><img src="Vultr.assets/image-20210115113204220.png" alt="image-20210115113204220"></p>
+<p>使用 <em>Xshell</em> 连接，开始配置！</p>
+<h3>1. 配置 <em>ssh密钥</em> 实现免密登录</h3>
+<ol>
+<li>
+<p>在 <strong>服务端</strong> 生成 <strong>密钥</strong></p>
+<p>在 <code>~<span class="hljs-regexp">/.ssh/</span></code> 下生成 **公钥 **<code>id_rs<span class="hljs-built_in">a_pub</span></code> 和 <strong>私钥</strong> <code><span class="hljs-attribute">id_rsa</span></code> ：</p>
+<pre><code class="hljs language-bash">ssh-keygen
+</code></pre>
+<p>安装 <strong>公钥</strong> ：</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> ~/.ssh
+cat id_rsa.pub &gt;&gt; authorized_keys
+</code></pre>
+<blockquote>
+<p>需要的话要确保权限</p>
+<pre><code class="hljs language-bash">chmod 600 authorized_keys
+chmod 700 ~/.ssh
+</code></pre>
+</blockquote>
+</li>
+<li>
+<p>将 <strong>私钥</strong> 下载到本地磁盘。</p>
+</li>
+<li>
+<p>修改 <strong>私钥</strong> 文件的权限</p>
+<p>进入到：<em>右键</em> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> <em>属性</em> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> <em>安全</em> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.36687em;"></span><span class="strut bottom" style="height:0.36687em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mrel">→</span></span></span></span> <em>高级</em></p>
+<p>点击 <em>禁用继承</em> ，选择 <em>从此对象中删除所有已继承的权限</em> 。</p>
+<img src="Vultr.assets/image-20210115145651283.png" alt="image-20210115145651283" style="zoom:67%;" />
+<p>点击 <em>添加</em> ，输入 <em>用户名</em> 后点击 <em>检查名称</em> 矫正与输入的用户名关联的具体对象名称，并一路确定保存设定。</p>
+</li>
+</ol>
+<p>之后就可以通过命令使用密钥来连接服务器啦！</p>
+<pre><code class="hljs language-bash">ssh -i D:\\id_rsa user@i.p.v.4
+</code></pre>
+<h3>2. 必备</h3>
+<pre><code class="hljs language-bash">apt install -y git
+</code></pre>
+<h3>3. 文本编辑器 —— <em>NeoVim</em></h3>
+<ol>
+<li>
+<p>安装 <em>neovim</em> ：</p>
+<pre><code class="hljs language-bash">apt install -y neovim
+</code></pre>
+</li>
+<li>
+<p>卸载 <code><span class="hljs-attribute">vim</span></code> ：</p>
+<pre><code class="hljs language-bash">apt remove -y vim
+apt autoremove -y
+</code></pre>
+</li>
+<li>
+<p>从 <em>github</em> 上恢复自己的配置文件：</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span>
+mkdir .config
+<span class="hljs-built_in">cd</span> .config
+git <span class="hljs-built_in">clone</span> https://github.com/AzurIce/nvim.git
+</code></pre>
+</li>
+<li>
+<p>配置软连接以方便使用 <code><span class="hljs-attribute">vim</span></code> 代替 <code><span class="hljs-attribute">nvim</span></code> ：</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> /usr/bin
+rm vim
+ln -s nvim vim
+</code></pre>
+</li>
+</ol>
+<h3>4. Shell —— <em>oh-my-zsh</em></h3>
+<ol>
+<li>
+<p>安装修改默认 <em>Shell</em> 为 <em>zsh</em> ：</p>
+<pre><code class="hljs language-bash">apt install zsh
+chsh -s /usr/bin/zsh
+</code></pre>
+</li>
+<li>
+<p>安装 <em>oh-my-zsh</em> ：</p>
+<pre><code class="hljs language-bash">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+</code></pre>
+</li>
+<li>
+<p>优化体验：</p>
+<ul>
+<li>命令高亮 <code><span class="hljs-attribute">zsh-syntax-highlighting</span></code></li>
+</ul>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="hljs-variable">${ZSH_CUSTOM:-~/.oh-my-zsh/custom}</span>/plugins/zsh-syntax-highlighting
+</code></pre>
+<ul>
+<li>记住之前使用过的命令 <code><span class="hljs-built_in">auto</span>suggestions</code></li>
+</ul>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+</code></pre>
+<p>修改 <code>~/.zshrc</code> 启用插件</p>
+<pre><code class="hljs"><span class="hljs-attr">plugins</span>=(git zsh-syntax-highlighting zsh-autosuggestions sudo extract)
+</code></pre>
+<blockquote>
+<p><strong>sudo</strong> 是自带插件，双击Esc在输入命令开头添加 <code><span class="hljs-attribute">sudo</span></code></p>
+<p><strong>extract</strong> 也是，不同文件可以直接使用 <code><span class="hljs-attribute">extract xxx</span></code> 来解压</p>
+</blockquote>
+</li>
+<li>
+<p>重启一下 <code><span class="hljs-attribute">reboot</span></code></p>
+</li>
+</ol>
+<h2>xx Halo博客 xx</h2>
+<p>安装宝塔</p>
+<pre><code class="hljs language-yaml"><span class="hljs-string">外网面板地址:</span> <span class="hljs-string">http://[2001:19f0:ac01:d66:5400:3ff:fe65:2c16]:8888/e876eeb9</span>
+<span class="hljs-string">内网面板地址:</span> <span class="hljs-string">http://149.28.198.201:8888/e876eeb9</span>
+<span class="hljs-attr">username:</span> <span class="hljs-string">e0oybcne</span>
+<span class="hljs-attr">password:</span> <span class="hljs-string">82134b02</span>
+</code></pre>
+<h3>1. 安装 OpenJDK</h3>
+<pre><code class="hljs language-bash">apt install default-jdk
+</code></pre>
+<h3>2. 配置 halo</h3>
+<p>创建存放<a href="https://docs.halo.run/install/prepare#%E8%BF%90%E8%A1%8C%E5%8C%85">运行包</a>的目录</p>
+<blockquote>
+<p>这里以 <code>~/app</code> 为例</p>
+</blockquote>
+<pre><code class="hljs language-none">mkdir ~/app &amp;&amp; cd ~/app
+</code></pre>
+<p>下载运行包</p>
+<pre><code class="hljs language-bash">wget https://dl.halo.run/release/halo-1.4.8.jar -O halo.jar
+</code></pre>
+<blockquote>
+<p>如果下载速度不理想，可以<a href="https://docs.halo.run/install/downloads">在这里</a>选择其他下载地址。</p>
+</blockquote>
+<p>创建<a href="https://docs.halo.run/install/prepare#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95">工作目录</a></p>
+<pre><code class="hljs language-bash">mkdir ~/.halo &amp;&amp; <span class="hljs-built_in">cd</span> ~/.halo
+</code></pre>
+<p>下载示例配置文件到<a href="https://docs.halo.run/install/prepare#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95">工作目录</a></p>
+<pre><code class="hljs language-bash">wget https://dl.halo.run/config/application-template.yaml -O ./application.yaml
+</code></pre>
+<p>编辑配置文件，配置数据库或者端口等，如需配置请参考<a href="https://docs.halo.run/install/config">参考配置</a></p>
+<pre><code class="hljs language-bash">vim application.yaml
+</code></pre>
+<p>测试运行 Halo</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> ~/app &amp;&amp; java -jar halo.jar
+</code></pre>
+<p>如看到类似以下日志输出，则代表启动成功。</p>
+<pre><code class="hljs language-bash">run.halo.app.listener.StartedListener    : Halo started at         http://127.0.0.1:8090
+run.halo.app.listener.StartedListener    : Halo admin started at   http://127.0.0.1:8090/admin
+run.halo.app.listener.StartedListener    : Halo has started successfully!
+</code></pre>
+<blockquote>
+<p>如测试启动正常，请继续看<code>作为服务运行</code>部分，第 8 步仅仅作为测试。当你关闭 ssh 连接之后，服务会停止。你可使用 CTRL+C 停止运行测试进程。</p>
+</blockquote>
+<h3>3. 令halo作为服务运行</h3>
+<p>下载 Halo 官方的 halo.service 模板</p>
+<pre><code class="hljs language-bash">wget https://dl.halo.run/config/halo.service -O /etc/systemd/system/halo.service
+</code></pre>
+<p>修改 halo.service</p>
+<pre><code class="hljs language-bash">vim /etc/systemd/system/halo.service
+</code></pre>
+<p>修改配置</p>
+<ul>
+<li><strong>YOUR_JAR_PATH</strong>：Halo 运行包的绝对路径，例如 <code><span class="hljs-regexp">/home/</span>halo<span class="hljs-regexp">/app/</span>halo.jar</code>，注意：此路径不支持 <code>~</code> 符号。</li>
+<li><strong>USER</strong>：运行 Halo 的系统用户，如果有按照上方教程创建新的用户来运行 Halo，修改为你创建的用户名称即可。反之请删除 <code><span class="hljs-keyword">User</span>=<span class="hljs-keyword">USER</span></code>。</li>
+</ul>
+<pre><code class="hljs language-ini"><span class="hljs-section">[Unit]</span>
+<span class="hljs-attr">Description</span>=Halo Service
+<span class="hljs-attr">Documentation</span>=https://halo.run
+<span class="hljs-attr">After</span>=network-<span class="hljs-literal">on</span>line.target
+<span class="hljs-attr">Wants</span>=network-<span class="hljs-literal">on</span>line.target
+
+<span class="hljs-section">[Service]</span>
+<span class="hljs-attr">Type</span>=simple
+<span class="hljs-attr">User</span>=USER
+<span class="hljs-attr">ExecStart</span>=/usr/bin/java -server -Xms256m -Xmx256m -jar YOUR_JAR_PATH
+<span class="hljs-attr">ExecStop</span>=/bin/kill -s QUIT <span class="hljs-variable">$MAINPID</span>
+<span class="hljs-attr">Restart</span>=always
+<span class="hljs-attr">StandOutput</span>=syslog
+
+<span class="hljs-attr">StandError</span>=inherit
+
+<span class="hljs-section">[Install]</span>
+<span class="hljs-attr">WantedBy</span>=multi-user.target
+</code></pre>
+<blockquote>
+<p>请确保 <code><span class="hljs-regexp">/usr/</span>bin/java</code> 是正确无误的。建议将 <code><span class="hljs-attribute">ExecStart</span></code> 中的命令复制出来运行一下，保证命令有效。</p>
+</blockquote>
+<p>重新加载 systemd</p>
+<pre><code class="hljs language-bash">systemctl daemon-reload
+</code></pre>
+<p>运行服务</p>
+<pre><code class="hljs language-bash">systemctl start halo
+</code></pre>
+<p>在系统启动时启动服务</p>
+<pre><code class="hljs language-bash">systemctl <span class="hljs-built_in">enable</span> halo
+</code></pre>
+<p>您可以查看服务日志检查启动状态</p>
+<pre><code class="hljs language-bash">journalctl -n 20 -u halo
+</code></pre>
+<h3>4. 安装 nginx</h3>
+<pre><code class="hljs language-bash">apt install nginx
+systemctl start nginx
+systemctl <span class="hljs-built_in">enable</span> nginx
+</code></pre>
+<p>修改配置文件 <code><span class="hljs-regexp">/etc/</span>nginx/nginx.conf</code></p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">upstream</span> halo {
+  <span class="hljs-attribute">server</span> <span class="hljs-number">127.0.0.1:8090</span>;
+}
+<span class="hljs-section">server</span> {
+  <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;
+  <span class="hljs-attribute">listen</span> [::]:<span class="hljs-number">80</span>;
+  <span class="hljs-attribute">server_name</span> blog.azurice.com;
+  <span class="hljs-attribute">client_max_body_size</span> <span class="hljs-number">1024m</span>;
+  <span class="hljs-attribute">location</span> / {
+    <span class="hljs-attribute">proxy_pass</span> http://halo;
+    <span class="hljs-attribute">proxy_set_header</span> HOST $host;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;
+    <span class="hljs-attribute">proxy_set_header</span> X-Real-IP $remote_addr;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+</code></pre>
+<h2>三、 宝塔面板</h2>
+<pre><code class="hljs language-bash">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh
+</code></pre>
+<p>安装完成后会显示管理页面访问地址和用户名、密码。</p>
+<p>登录并开始配置：</p>
+<p><img src="Vultr.assets/image-20210115150647669.png" alt="image-20210115150647669"></p>
+<p>等待安装完毕：</p>
+<p><img src="Vultr.assets/image-20210115150946099.png" alt="image-20210115150946099"></p>
+<h2>四、搭建 Hexo 博客</h2>
+<p>在 <code>www/wwwroot</code> 下创建目录 <code><span class="hljs-attribute">azurice_com</span></code></p>
+<p>新建 git仓库</p>
+<pre><code class="hljs language-bash">git init --bare blog.git
+</code></pre>
+<p>不搭了，淦。</p>
+<h3>1. 搭建 wordpress 博客</h3>
+<p><img src="Vultr.assets/image-20210115153657586.png" alt="image-20210115153657586"></p>
+<p><img src="Vultr.assets/image-20210115153751899.png" alt="image-20210115153751899"></p>
+<p><img src="Vultr.assets/image-20210115153830767.png" alt="image-20210115153830767"></p>
+<p><img src="Vultr.assets/image-20210115153847238.png" alt="image-20210115153847238"></p>
+<p><img src="Vultr.assets/image-20210115153914175.png" alt="image-20210115153914175"></p>
+<p>再将 wordpress 中的所有内容移到网站的根目录</p>
+<p><img src="Vultr.assets/image-20210115154100286.png" alt="image-20210115154100286"></p>
+<p><img src="Vultr.assets/image-20210115154305035.png" alt="image-20210115154305035"></p>
+<p><img src="Vultr.assets/image-20210115154643223.png" alt="image-20210115154643223"></p>
+<h3>2. 配置 Https</h3>
+<p><img src="Vultr.assets/image-20210115190508347.png" alt="image-20210115190508347"></p>
+<p><img src="Vultr.assets/image-20210115190747528.png" alt="image-20210115190747528"></p>
+<p><img src="Vultr.assets/image-20210115191142091.png" alt="image-20210115191142091"></p>
+<h3>3. 设置固定Url</h3>
+<h3>1. 搭建 Typecho 博客</h3>
+<p>下载，上传，解压，访问ip/install.php</p>
+<p><img src="Vultr.assets/image-20210116180523411.png" alt="image-20210116180523411"></p>
+<p><img src="Vultr.assets/image-20210116180757098.png" alt="image-20210116180757098"></p>
+<p><img src="Vultr.assets/image-20210116213530173.png" alt="image-20210116213530173"></p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

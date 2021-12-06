@@ -1,0 +1,269 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    『伊始』.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-09-20 01:49:43 · 发布于 · 2021-09-23 07:12:38
+                    </time>
+                </div>
+                <div class="post-content">
+                    <hr>
+<h2>title: 『伊始』<br>
+date: 2021-08-27 10:47:18<br>
+categories: OI<br>
+tags:<br>
+- OI<br>
+- log</h2>
+<h1>『伊始』</h1>
+<blockquote>
+<p>“我不溺于回忆，也不会逃避历史，我会裹挟着它们大步向前，去往未来。”</p>
+<p><s>于是我就不用 Dev-Cpp 了</s></p>
+<p><s>于是我又双叒叕把原来的博客推翻了</s></p>
+</blockquote>
+<h2>[Windows]</h2>
+<h3><s>一、VS Code 的 C/C++ 环境配置</s></h3>
+<ol>
+<li>
+<p><s>所需的 <em>扩展</em></s></p>
+<p><img src="images/%E3%80%8E%E4%BC%8A%E5%A7%8B%E3%80%8F/image-20210826093945854.png" alt="image-20210826093945854"></p>
+</li>
+<li>
+<p><s>所需的 <em>编译器</em> —— MinGW-w64</s></p>
+<p><s>MinGW-w64 的 SourceForge 页面 <a href="https://sourceforge.net/projects/mingw-w64/files/">MinGW-w64 - for 32 and 64 bit Windows - Browse Files at SourceForge.net</a></s></p>
+</li>
+<li>
+<p><s>将 <code>...<span class="hljs-regexp">/mingw-w64/</span>bin</code> 目录加入 <em>环境变量</em></s></p>
+</li>
+</ol>
+<h3><s>一、Sublime Text 4 的 C/C++ 环境配置</s></h3>
+<ol>
+<li>
+<p><s>所需的 <em>编译器</em> —— MinGW-w64</s></p>
+<p><S>MinGW-w64 的 SourceForge 页面 <a href="https://sourceforge.net/projects/mingw-w64/files/">MinGW-w64 - for 32 and 64 bit Windows - Browse Files at SourceForge.net</a></s></p>
+<p><s>安装后将 <code>...<span class="hljs-regexp">/mingw-w64/</span>bin</code> 目录加入 <em>环境变量</em></s></p>
+</li>
+<li>
+<p><s>在 Sublime Text 中添加 Build System</s></p>
+<p><s>Tools -&gt; Build System -&gt; New Build System</s></p>
+</li>
+</ol>
+<h3>一、Neovim 的 C/C++ 环境配置</h3>
+<ol>
+<li>安装、配置、美化 nvim</li>
+</ol>
+<h3>二、Hexo + Github Pages 博客配置</h3>
+<h4>1. 本地Hexo配置</h4>
+<blockquote>
+<p>前置需要：</p>
+<ol>
+<li><a href="https://nodejs.org/zh-cn/">Node.js (nodejs.org)</a></li>
+<li><a href="https://git-scm.com/">Git</a></li>
+</ol>
+</blockquote>
+<ol>
+<li>
+<p>Node.js 安装 yarn</p>
+<pre><code class="hljs language-bash">npm install -g yarn
+</code></pre>
+</li>
+<li>
+<p>安装 Hexo</p>
+<pre><code class="hljs language-bash">yarn global add hexo
+</code></pre>
+</li>
+<li>
+<p>将 <code>...<span class="hljs-regexp">/AppData/</span>Local<span class="hljs-regexp">/Yarn/</span>bin</code> 目录加入 <em>环境变量</em></p>
+</li>
+</ol>
+<h4>2. 本地写作环境创建</h4>
+<ol>
+<li>
+<p>初始化 Hexo 目录</p>
+<pre><code class="hljs language-bash">hexo init &lt;folder&gt;
+<span class="hljs-built_in">cd</span> &lt;folder&gt;
+yarn
+</code></pre>
+<blockquote>
+<p>生成的目录如下：</p>
+<pre><code class="hljs language-C">&lt;folder&gt;
+    ├── _config.yml   <span class="hljs-comment">// 网站的配置信息</span>
+    ├── package.json
+    ├── scaffolds     <span class="hljs-comment">// 模板文件夹</span>
+    ├── source        <span class="hljs-comment">// 存放用户资源，开头为_或隐藏的文件、文件夹会被忽略，</span>
+    |   ├── _drafts
+    |   └── _posts
+    └── themes        <span class="hljs-comment">// 主题文件夹</span>
+</code></pre>
+</blockquote>
+</li>
+<li>
+<p>配置 <code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_config</span>.</span></span>yml</code></p>
+<p>参照 Hexo 文档 <a href="https://hexo.io/zh-cn/docs/configuration">配置 | Hexo</a></p>
+<p><s>（其实就是我懒得写了</s></p>
+</li>
+</ol>
+<h4>3. 部署</h4>
+<p>参考 Hexo 文档 <a href="https://hexo.io/zh-cn/docs/github-pages">将 Hexo 部署到 GitHub Pages | Hexo</a></p>
+<p><s>（其实还是我懒得写</s></p>
+<h2>[Manjaro KDE]</h2>
+<h3>〇、配置国内源、库</h3>
+<h4>1. 配置 pacman-mirrors</h4>
+<blockquote>
+<p>官方 Pacman-mirrors Wiki文档：<a href="https://wiki.manjaro.org/index.php/Pacman-mirrors">Pacman-mirrors - Manjaro</a></p>
+<p><code><span class="hljs-attribute">pacman-mirrors</span></code> 命令可以用来生成镜像源列表，并写入 <code><span class="hljs-regexp">/etc/</span>pacman.d/mirrorlist</code> 中。</p>
+</blockquote>
+<p>切换镜像源至中国</p>
+<pre><code class="hljs language-bash">sudo pacman-mirrors -c China
+</code></pre>
+<blockquote>
+<p>-c 是 --country 的简写</p>
+</blockquote>
+<h4>2. 配置 manjarocn 库</h4>
+<p>编辑 <code><span class="hljs-regexp">/etc/</span>pacman.conf</code> ，添加以下内容：</p>
+<pre><code class="hljs">[manjarocn]
+Server = https:<span class="hljs-regexp">//</span>repo.manjarocn.org<span class="hljs-regexp">/stable/</span>x86_64
+</code></pre>
+<p>导入 GPG keys：</p>
+<pre><code class="hljs language-bash">sudo pacman-key --recv-keys 974B3711CFB9BF2D &amp;&amp; sudo pacman-key --lsign-key 974B3711CFB9BF2D
+</code></pre>
+<h4>3. 更新软件源</h4>
+<pre><code class="hljs language-bash">sudo pacman -Syyu
+</code></pre>
+<h3>一、好东西们</h3>
+<h4>0. 总是要先搞定的东西们</h4>
+<p>必装软件：</p>
+<pre><code class="hljs language-bash">sudo pacman -S git neovim yay
+ln /usr/bin/nvim /usr/bin/vim
+</code></pre>
+<p>修改home目录下文件夹名为英文：</p>
+<pre><code class="hljs language-bash">sudo pacman -S xdg-user-dirs-gtk
+<span class="hljs-built_in">export</span> LANG=en_US
+xdg-user-dirs-gtk-update
+<span class="hljs-built_in">export</span> LANG=zh_CN.UTF-8
+</code></pre>
+<p>（随后dolphin资源管理器中侧边栏的快捷访问需要手动编辑下）</p>
+<h4>1. 配置中文输入法</h4>
+<h5>fcitx5输入法框架</h5>
+<pre><code class="hljs language-bash">sudo pacman -S fcitx5-im
+</code></pre>
+<blockquote>
+<p><strong>fcitx5-im</strong> 中提供了 fcitx5 本体、配置工具、和必要的 输入法模块。</p>
+</blockquote>
+<p>安装完成后，需编辑 <code>~/.pam_environment</code> 文件，设置以下环境变量：</p>
+<pre><code class="hljs">GTK_IM_MODULE <span class="hljs-attribute">DEFAULT</span>=fcitx
+QT_IM_MODULE  <span class="hljs-attribute">DEFAULT</span>=fcitx
+XMODIFIERS    <span class="hljs-attribute">DEFAULT</span>=@im=fcitx
+INPUT_METHOD  <span class="hljs-attribute">DEFAULT</span>=fcitx
+SDL_IM_MODULE <span class="hljs-attribute">DEFAULT</span>=fcitx
+</code></pre>
+<p><img src="H:__BlogHexo__%5Csource%5Cimages%5C%E3%80%8E%E4%BC%8A%E5%A7%8B%E3%80%8F%5Cimage-20210830221701769.png" alt="image-20210830221701769"></p>
+<p><strong>fcitx5</strong> 仅提供基本框架，只支持英文输入，若要进行其它语言的输入还需安装 <strong>输入法引擎</strong> 。</p>
+<p>安装 <strong>fcitx5-rime</strong> 输入法引擎：</p>
+<pre><code class="hljs language-bash">sudo pacman -S fcitx5-rime
+</code></pre>
+<p>随后配置 cloverpinyin 输入方案：</p>
+<p>参照官方文档 <a href="https://github.com/fkxxyz/rime-cloverpinyin">fkxxyz/rime-cloverpinyin: 🍀️四叶草拼音输入方案，做最好用的基于rime开源的简体拼音输入方案！ (github.com)</a></p>
+<p><s>(其实是懒得写了)</s></p>
+<h4>2. 安装 microsoft-edge BETA</h4>
+<p>到Microsoft Edge Insider页面 <a href="https://www.microsoftedgeinsider.com/zh-cn/">Microsoft Edge Insider</a> 下载 <code><span class="hljs-title">.deb</span></code> 包</p>
+<p>安装 debtap</p>
+<pre><code class="hljs language-bash">yay -S debtap
+</code></pre>
+<p>创建 .tar.zst 包</p>
+<pre><code class="hljs language-bash">debtap xxx.deb
+</code></pre>
+<blockquote>
+<p>有问题可以先进行 <code><span class="hljs-attribute">sudo debtap -U</span></code> 对 debtap 进行数据升级。</p>
+</blockquote>
+<p>过程中 包名、协议 自行写，没有大影响，随后安装</p>
+<pre><code class="hljs language-bash">sudo pacman -U xxx.tar.zst
+</code></pre>
+<h4>9. 雷蛇驱动配置软件</h4>
+<p>到 pamac 程序中，首选项 -&gt; 高级 -&gt; AUR 中启用AUR支持。</p>
+<p>搜索 openrazer-meta并将其安装（应该会自动安装 openrazer-driver-dkms, openrazer-daemon, python-openrazer）几个包。</p>
+<p>在终端中输入</p>
+<pre><code class="hljs language-bash">sudo gpasswd -a <span class="hljs-variable">$USER</span> plugdev
+reboot
+</code></pre>
+<p>重启后验证是否有问题：</p>
+<ol>
+<li>
+<p>显示 Kernel module 日志</p>
+<pre><code class="hljs language-bash">sudo dmesg
+</code></pre>
+</li>
+<li>
+<p>显示 razer_mount 日志</p>
+<pre><code class="hljs language-bash">sudo journalctl -b | grep -i razer_mount
+</code></pre>
+</li>
+<li>
+<p>显示 Daemon 日志</p>
+<pre><code class="hljs language-bash">cat ~/.<span class="hljs-built_in">local</span>/share/openrazer/logs/razer.log
+</code></pre>
+</li>
+<li>
+<p>验证 Kernel modules 是否正确构建</p>
+<pre><code class="hljs language-bash">sudo dkms install openrazer-driver/<span class="hljs-variable">$version</span>
+</code></pre>
+<blockquote>
+<p>$version 改为安装的版本号，我这里是3.1.0-1 故改为 3.1.0</p>
+</blockquote>
+<p>若输出 <code><span class="hljs-params">...</span> already installed <span class="hljs-keyword">on</span> <span class="hljs-params">...</span></code> 则正常</p>
+<p>若输出 <code><span class="hljs-function"><span class="hljs-title">Your</span></span> Kernel headers <span class="hljs-keyword">for</span> kernel xxx cannot be found at ...</code> 则缺少 <code><span class="hljs-attribute">kernel headers</span></code></p>
+<p>按照提示的版本，进行安装</p>
+<pre><code class="hljs language-bash">sudo pacman -S linux513-headers
+</code></pre>
+<blockquote>
+<p>我的内核是 5.13.12-1 故写 linux513</p>
+<p>若是 4.19 内核则写 linux419</p>
+</blockquote>
+</li>
+<li>
+<p>验证 Kernel modules 是否能正确加载</p>
+<pre><code class="hljs language-bash">sudo modprobe razerkbd
+</code></pre>
+<p>若无输出，则为正常。</p>
+</li>
+</ol>
+<p>附上官方 github wiki 上的 troubleshooting 页面：<a href="https://github.com/openrazer/openrazer/wiki/Troubleshooting">Troubleshooting · openrazer/openrazer Wiki (github.com)</a></p>
+<p>随后搜索 razergenie 并将其安装，并重启（有问题就重启试试），可以进行正常配置。</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

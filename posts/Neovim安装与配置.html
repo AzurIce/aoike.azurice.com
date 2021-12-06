@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Neovim安装与配置.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-08-31 10:43:12 · 发布于 · 2021-09-23 07:16:50
+                    </time>
+                </div>
+                <div class="post-content">
+                    <hr>
+<h2>title: nvim<br>
+date: 2021-08-27 18:14:00<br>
+categories:<br>
+tags:</h2>
+<h1>Neovim安装与配置</h1>
+<h2>[Windows]</h2>
+<h3>一、安装</h3>
+<ol>
+<li>github 下载 release 中的压缩包</li>
+<li>解压</li>
+<li>将 <code><span class="hljs-built_in">bin</span>/</code>目录加到环境变量中</li>
+</ol>
+<h3>二、配置</h3>
+<p>配置文件 AppData/Local/nvim/init.vim</p>
+<h2>插件</h2>
+<h3>一、插件管理器 dein.vim</h3>
+<p>dein 的 github 页面： <a href="https://github.com/Shougo/dein.vim">Shougo/dein.vim: Dark powered Vim/Neovim plugin manager (github.com)</a></p>
+<p>在使用 dein 之前，必须先定义安装目录，安装目录取决于个人，但不能是vim的插件目录。</p>
+<h4>1. 安装 dein.vim</h4>
+<blockquote>
+<p>dein.vim 的安装方式是运行一个官方的脚本，并传入安装目录。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>[Windows]</strong></p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 下载脚本 并存为 installer.sh</span>
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh &gt; installer.sh
+
+<span class="hljs-comment"># 运行脚本 传入安装目录 ~/.config/nvim/dein</span>
+sh ./installer.sh ~/.config/nvim/dein
+</code></pre>
+</li>
+<li>
+<p><strong>[Linux]</strong></p>
+<pre><code class="hljs language-powershell"><span class="hljs-comment"># 下载脚本 并存为 installer.ps1</span>
+<span class="hljs-built_in">iwr</span> https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.ps1 <span class="hljs-literal">-OutFile</span> installer.ps1
+
+<span class="hljs-comment"># 运行脚本 传入安装目录 ~/.config/nvim/dein</span>
+./installer.ps1 <span class="hljs-variable">$env:LOCALAPPDATA</span>/nvim/dein
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>而更本质上，官方的脚本其实做的也就是将目录从 github 上 clone 下来。</p>
+</blockquote>
+<pre><code class="hljs"><span class="hljs-regexp">//</span> TODO
+</code></pre>
+<h3>二、nerdtree</h3>
+<h3>三、markdown-preview</h3>
+<p>官方 github 仓库：<a href="https://github.com/iamcco/markdown-preview.nvim">iamcco/markdown-preview.nvim: markdown preview plugin for (neo)vim (github.com)</a></p>
+<p>安装部分：</p>
+<blockquote>
+<p>要注意，一定要先安装 Yarn。</p>
+</blockquote>
+<pre><code class="hljs language-viml">call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+					\ 'build': 'sh -c &quot;cd app &amp;&amp; yarn install&quot;' })
+</code></pre>
+<p>配置部分：</p>
+<pre><code class="hljs language-js"><span class="hljs-string">&quot; 是否在打开 Markdown 文件时自动打开预览
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> g:mkdp_auto_start = <span class="hljs-number">0</span>
+
+<span class="hljs-string">&quot; 是否在切换到非 Markdown 文件或退出编辑 Markdown 文件时自动退出预览
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-number">1</span>
+<span class="hljs-keyword">let</span> g:mkdp_auto_close = <span class="hljs-number">1</span>
+
+<span class="hljs-string">&quot; 是否使用慢刷新
+&quot;</span> 慢刷新：只有在保存或离开插入模式时才刷新预览
+<span class="hljs-string">&quot; 非慢刷新：在编辑或移动指针时刷新预览
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> g:mkdp_refresh_slow = <span class="hljs-number">0</span>
+
+<span class="hljs-string">&quot; 是否令 MarkdownPreview 对所有文件可用（默认只能在 Markdown 文件中使用）
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> g:mkdp_command_for_global = <span class="hljs-number">0</span>
+
+<span class="hljs-string">&quot; 是否使预览网页的服务器对网络开放（默认监听 localhost）
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> g:mkdp_open_to_the_world = <span class="hljs-number">0</span>
+
+<span class="hljs-string">&quot; 打开预览页面的自定义 IP
+&quot;</span> useful when you work <span class="hljs-keyword">in</span> remote vim and preview on local browser
+<span class="hljs-string">&quot; more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-string">&#x27;&#x27;</span>
+<span class="hljs-keyword">let</span> g:mkdp_open_ip = <span class="hljs-string">&#x27;&#x27;</span>
+
+<span class="hljs-string">&quot; 打开预览页面的指定浏览器
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-string">&#x27;&#x27;</span>
+<span class="hljs-string">&quot; =======&gt; 这里我选择 chromium（需要先安装），体积小速度快
+let g:mkdp_browser = &#x27;chromium&#x27;
+
+&quot;</span> 是否在命令行显示预览页面的 url
+<span class="hljs-string">&quot; default: 0
+let g:mkdp_echo_preview_url = 0
+
+&quot;</span> 用来打开预览页面的一个自定义的 vim 函数名
+<span class="hljs-string">&quot; 这个函数接收 url 作为参数
+&quot;</span> <span class="hljs-keyword">default</span>: <span class="hljs-string">&#x27;&#x27;</span>
+<span class="hljs-keyword">let</span> g:mkdp_browserfunc = <span class="hljs-string">&#x27;&#x27;</span>
+
+<span class="hljs-string">&quot; Markdown 渲染器的选项
+&quot;</span> mkit: markdown-it options <span class="hljs-keyword">for</span> render
+<span class="hljs-string">&quot; katex: katex options for math
+&quot;</span> uml: markdown-it-plantuml options
+<span class="hljs-string">&quot; maid: mermaid options
+&quot;</span> disable_sync_scroll: <span class="hljs-keyword">if</span> disable sync scroll, <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>
+<span class="hljs-string">&quot; sync_scroll_type: &#x27;middle&#x27;, &#x27;top&#x27; or &#x27;relative&#x27;, default value is &#x27;middle&#x27;
+&quot;</span>   middle: mean the cursor position alway show at the middle <span class="hljs-keyword">of</span> the preview page
+<span class="hljs-string">&quot;   top: mean the vim top viewport alway show at the top of the preview page
+&quot;</span>   relative: mean the cursor position alway show at the relative positon <span class="hljs-keyword">of</span> the preview page
+<span class="hljs-string">&quot; hide_yaml_meta: if hide yaml metadata, default is 1
+&quot;</span> sequence_diagrams: js-sequence-diagrams options
+<span class="hljs-string">&quot; content_editable: if enable content editable for preview page, default: v:false
+&quot;</span> disable_filename: <span class="hljs-keyword">if</span> disable filename header <span class="hljs-keyword">for</span> preview page, <span class="hljs-attr">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> g:mkdp_preview_options = {
+    \ <span class="hljs-string">&#x27;mkit&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;katex&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;uml&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;maid&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;disable_sync_scroll&#x27;</span>: <span class="hljs-number">0</span>,
+    \ <span class="hljs-string">&#x27;sync_scroll_type&#x27;</span>: <span class="hljs-string">&#x27;middle&#x27;</span>,
+    \ <span class="hljs-string">&#x27;hide_yaml_meta&#x27;</span>: <span class="hljs-number">1</span>,
+    \ <span class="hljs-string">&#x27;sequence_diagrams&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;flowchart_diagrams&#x27;</span>: {},
+    \ <span class="hljs-string">&#x27;content_editable&#x27;</span>: v:<span class="hljs-literal">false</span>,
+    \ <span class="hljs-string">&#x27;disable_filename&#x27;</span>: <span class="hljs-number">0</span>
+    \ }
+
+<span class="hljs-string">&quot; 使用自定义的 Markdown 风格（绝对路径）
+&quot;</span> like <span class="hljs-string">&#x27;/Users/username/markdown.css&#x27;</span> or expand(<span class="hljs-string">&#x27;~/markdown.css&#x27;</span>)
+<span class="hljs-keyword">let</span> g:mkdp_markdown_css = <span class="hljs-string">&#x27;&#x27;</span>
+
+<span class="hljs-string">&quot; 使用自定义的 高亮 风格（绝对路径）
+&quot;</span> like <span class="hljs-string">&#x27;/Users/username/highlight.css&#x27;</span> or expand(<span class="hljs-string">&#x27;~/highlight.css&#x27;</span>)
+<span class="hljs-keyword">let</span> g:mkdp_highlight_css = <span class="hljs-string">&#x27;&#x27;</span>
+
+<span class="hljs-string">&quot; 自定义预览服务器运行的端口（留空则为随机）
+let g:mkdp_port = &#x27;&#x27;
+
+&quot;</span> 预览页面标题
+<span class="hljs-string">&quot; ${name} 会被文件名替换
+let g:mkdp_page_title = &#x27;「${name}」&#x27;
+
+&quot;</span> 识别的文件类型（在这些文件类型中 MarkdownPreview 等指令为可用）
+<span class="hljs-keyword">let</span> g:mkdp_filetypes = [<span class="hljs-string">&#x27;markdown&#x27;</span>]
+</code></pre>
+<p>Vim 快捷键配置：</p>
+<pre><code class="hljs"><span class="hljs-regexp">//</span> TODO
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

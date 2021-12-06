@@ -1,0 +1,108 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    基于OBS虚拟摄像头的网课方法的研究.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-02-01 09:31:47 · 发布于 · 2021-09-23 07:16:58
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>基于OBS虚拟摄像头的网课方法的研究</h1>
+<h2>一、安装 <a href="https://obsproject.com/">Open Broadcaster Software®️</a></h2>
+<blockquote>
+<p>如果官网慢，可以使用这个链接：<a href="https://azurice.lanzous.com/iPjGhl5ok6b">OBS-蓝奏云</a></p>
+</blockquote>
+<p>无脑下一步，安装完成打开后会进行一些基础的设置，看自己情况设置（下面是我的）：</p>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201090746221.png" alt="image-20210201090746221" style="zoom:60%;" />
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201090825632.png" alt="image-20210201090825632" style="zoom:80%;" />
+<h2>二、安装 <a href="https://obsproject.com/forum/threads/obs-virtualcam.121448/">OBS虚拟摄像头插件</a></h2>
+<blockquote>
+<p>如果官网慢，可以使用这个链接：<a href="https://azurice.lanzous.com/iLcgpl5oimf">OBS虚拟摄像头插件-蓝奏云</a></p>
+</blockquote>
+<p>安装时要将 <strong>OBS</strong> 退出，然后无脑下一步。</p>
+<p>安装完成后准备一段你对着屏幕发呆的视频录像，再打开OBS：</p>
+<h3>1. 配置虚拟摄像头</h3>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091304486.png" alt="image-20210201091304486" />
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091344889.png" alt="image-20210201091344889" style="zoom:80%;" />
+<p>建议把 <em>自动启动</em> 和 <em>保持长宽比例</em> 打开，点击启动。</p>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091458608.png" alt="image-20210201091458608" style="zoom:80%;" />
+<blockquote>
+<p>开启自动启动后每次打开 <strong>OBS</strong> 会自动启动虚拟摄像头不用手动启动。</p>
+</blockquote>
+<p>现在你可以打开你的txhy，在摄像头设备设置处找到对应上图 <em>目标摄像头</em> 的来源。</p>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091634514.png" alt="image-20210201091634514" style="zoom:80%;" />
+<p>开启摄像头看看吧！</p>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091651817.png" alt="image-20210201091651817" style="zoom:60%;" />
+<p>出现了一坨黑，因为虚拟摄像头是将OBS的画面作为源的，现在OBS中是一坨黑，那么虚拟摄像头也就是一坨黑。</p>
+<h3>2. 配置OBS画面</h3>
+<p>先准备一段你对着屏幕发呆的视频，点击场景的 <em>加号</em> ，选择 <em>媒体源</em> ，点击确定。</p>
+<p><img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091818740.png" alt="image-20210201091818740" style="zoom:80%;" /><img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091906999.png" alt="image-20210201091906999" style="zoom:80%;" /><img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201091932388.png" alt="image-20210201091932388" style="zoom:80%;" /></p>
+<p>接下来就会进入进入配置界面。选择你的视频文件并勾选循环，点击确定：</p>
+<p><img src="%E5%9F%BA%E4%BA%8EOBS%E8%99%9A%E6%8B%9F%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E7%BD%91%E8%AF%BE%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6.assets/image-20210201092151949.png" alt="image-20210201092151949"></p>
+<p>哈他出现了！</p>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201092240597.png" alt="image-20210201092240597" style="zoom:60%;" />
+<p>再看看你的txhy：</p>
+<p><img src="%E5%9F%BA%E4%BA%8EOBS%E8%99%9A%E6%8B%9F%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E7%BD%91%E8%AF%BE%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6.assets/image-20210201092316742.png" alt="image-20210201092316742"></p>
+<p>完事！</p>
+<h2>三、注意事项</h2>
+<blockquote>
+<ol>
+<li>
+<p>注意视频开始与结束时 <font color=red><strong>人像位置差异不要太大</strong></font> ，不然很容易看出来。</p>
+</li>
+<li>
+<p>一般来说 <font color=red><strong>视频时长越长越自然</strong></font> 。</p>
+</li>
+<li>
+<p>如果老师叫你回答问题，你可以手动将摄像头切换回来<font color=red>（在txhy的摄像头旁边的箭头那里选择你的普通摄像头）</font> ，不过这应该很容易露馅（对于我这种“没麦”的人似乎问题不大，也不用切回来）。（祝你好运）</p>
+</li>
+<li>
+<p>OBS自带的虚拟摄像机经常有各种BUG，觉得不太好用，不要把它当成本文的虚拟摄像机来使用。 <font color=red><strong>他们两个不是一个东西！！！</strong></font></p>
+ <img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201092932696.png" alt="image-20210201092932696" style="zoom:80%;" />
+</li>
+</ol>
+</blockquote>
+<h2>四、补充</h2>
+<h3>1. 更改OBS媒体源的设置：</h3>
+<blockquote>
+<p>双击媒体源即可打开配置窗口</p>
+</blockquote>
+<img src="基于OBS虚拟摄像头的网课方法的研究.assets/image-20210201092744078.png" alt="image-20210201092744078" style="zoom:80%;" />
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

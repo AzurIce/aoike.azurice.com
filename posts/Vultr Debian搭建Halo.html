@@ -1,0 +1,334 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Vultr Debian搭建Halo.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-06-07 07:51:32 · 发布于 · 2021-09-23 07:17:22
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>Vultr Debian 搭建 Halo</h1>
+<h2>一、部署服务器</h2>
+<h3>1. 选择服务器类型</h3>
+<p><em>Vultr</em> 的服务器有四种类型：<em>Cloud Compute</em>，<em>High Frequency</em>，<em>Bare Metal</em>，<em>Dedicated Cloud</em>。</p>
+<p>前二者为常规VPS服务器，区别是 <em>Cloud Compute</em> 使用的是普通SSD，而 <em>High Frequency</em> 使用的是高速NVMeSSD且CPU频率较高，在同等配置的情况下，后者每月价格比前者高出一些。</p>
+<p><em>Bare Metal</em> 为独立服务器，较贵。</p>
+<p><em>Dedicated Cloud</em> 属于混合服务器，性能介于VPS和独立服务器之间，价格也在其之间。</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180116737.png" alt="image-20210607180116737"></p>
+<h3>2. 选择服务器位置</h3>
+<p>按访问速度来选，自行搜索Vultr服务器测速。</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180150522.png" alt="image-20210607180150522"></p>
+<h3>3. 选择服务器系统</h3>
+<p>视个人喜好来定，一般为 <em>CentOS</em> 或 <em>Debian</em> 居多。</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180936372.png" alt="image-20210607180936372"></p>
+<h3>4. 选择服务器规格</h3>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180308357.png" alt="image-20210607180308357"></p>
+<h3>5. 选择附加特性</h3>
+<img src="C:\Users\xiaob\AppData\Roaming\Typora\typora-user-images\image-20210607180324613.png" alt="image-20210607180324613" style="zoom:67%;" />
+<h3>6. 启动脚本、SSH Keys等反正我一般不设的东西</h3>
+<img src="C:\Users\xiaob\AppData\Roaming\Typora\typora-user-images\image-20210607180404933.png" alt="image-20210607180404933" style="zoom:50%;" />
+<h3>7. 起个名（显示在Vultr网页的列表中的名字）</h3>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180441732.png" alt="image-20210607180441732"></p>
+<h2>--- 使用宝塔面板 ---</h2>
+<h2>二、安装宝塔面板</h2>
+<pre><code class="hljs language-bash">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh
+</code></pre>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607194249135.png" alt="image-20210607194249135"></p>
+<ol>
+<li>
+<p>安装 OpenJDK</p>
+<pre><code class="hljs language-bash">yum install java-11-openjdk -y
+</code></pre>
+<blockquote>
+<p>可通过 <code>java -<span class="hljs-built_in">version</span></code> 检查是否成功安装</p>
+</blockquote>
+</li>
+<li>
+<p>安装 Halo</p>
+<p>创建存放运行包的目录并下载运行包</p>
+<pre><code class="hljs language-bash">mkdir ~/app &amp;&amp; <span class="hljs-built_in">cd</span> ~/app
+wget https://dl.halo.run/release/halo-1.4.8.jar -O halo.jar
+</code></pre>
+<p>创建工作目录并获取默认配置文件进行编辑</p>
+<pre><code class="hljs language-bash">mkdir ~/.halo &amp;&amp; <span class="hljs-built_in">cd</span> ~/.halo
+wget https://dl.halo.run/config/application-template.yaml -O ./application.yaml
+vim application.yaml
+</code></pre>
+<p>可以改一下 H2 database 的 username 和 password</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607183937343.png" alt="image-20210607183937343"></p>
+<h1>使用 Supervisor 托管 Halo 进程</h1>
+<p>打开 Supervisor 管理器的设置，点击 <code>添加守护进程</code> 按钮。</p>
+<p>需要填写的表单信息如下：</p>
+<ul>
+<li><strong>名称</strong>：随意</li>
+<li><strong>启动用户</strong>：如果您按照 <a href="https://docs.halo.run/install/linux">在 Linux 环境部署</a> 创建了用于运行 Halo 的用户，则选择您创建的用户即可。否则选择默认的 root。</li>
+<li><strong>运行目录</strong>：运行包的存放目录，按照实际情况填写，需要保证你所选的目录包含运行包。</li>
+<li><strong>启动命令</strong>：<code><span class="hljs-attribute">java</span> -server -Xms<span class="hljs-number">256</span>m -Xmx<span class="hljs-number">256</span>m -jar halo.jar</code></li>
+</ul>
+<p>填写完成之后点击 <code>确定</code> 按钮即可。</p>
+<h1>添加站点并配置 Nginx</h1>
+<ol>
+<li>点击左侧的 <code>网站</code> 菜单项，点击 <code>添加站点</code> 按钮。</li>
+</ol>
+<p>需要填写的表单信息如下：</p>
+<ul>
+<li><strong>域名</strong>：填写您已经解析到当前服务器公网 IP 的域名。</li>
+<li><strong>PHP版本</strong>：纯静态</li>
+</ul>
+<p>填写完成之后点击 <code>提交</code> 按钮即可。</p>
+<ol>
+<li>设置 SSL</li>
+</ol>
+<blockquote>
+<p>在配置反向代理之前，我们推荐先设置好 SSL 证书。</p>
+</blockquote>
+<ul>
+<li>可选择 <code>宝塔 SSL</code> 或者 <code><span class="hljs-keyword">Let</span><span class="hljs-comment">&#x27;s Encrypt</span></code> 进行证书申请。</li>
+<li>需要开启右上角的 <code>强制 HTTPS</code>。</li>
+</ul>
+<ol>
+<li>修改配置文件</li>
+</ol>
+<p>在根节点添加：</p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">upstream</span> halo {
+    <span class="hljs-attribute">server</span> <span class="hljs-number">127.0.0.1:8090</span>;
+}
+</code></pre>
+<p>Copy</p>
+<blockquote>
+<p>其中的 8090 为 Halo 的运行端口，请按需修改。</p>
+</blockquote>
+<p>在 server 节点添加：</p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">location</span> / {
+    <span class="hljs-attribute">proxy_pass</span> http://halo;
+    <span class="hljs-attribute">proxy_set_header</span> HOST $host;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;
+    <span class="hljs-attribute">proxy_set_header</span> X-Real-IP $remote_addr;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+</code></pre>
+<p>Copy</p>
+<p>修改 server 节点中的 <code>location ~ .*\.(gif|<span class="hljs-type">jpg</span>|<span class="hljs-type">jpeg</span>|<span class="hljs-type">png</span>|<span class="hljs-type">bmp</span>|<span class="hljs-type">swf</span>)$</code> 节点：</p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">location</span> <span class="hljs-regexp">~ .*\.(gif|jpg|jpeg|png|bmp|swf)$</span>
+{
+    <span class="hljs-attribute">proxy_pass</span> http://halo;
+    <span class="hljs-attribute">expires</span>      <span class="hljs-number">30d</span>;
+    <span class="hljs-attribute">error_log</span> /dev/null;
+    <span class="hljs-attribute">access_log</span> <span class="hljs-literal">off</span>;
+}
+</code></pre>
+<p>Copy</p>
+<p>修改 server 节点中的 <code><span class="hljs-keyword">location</span> <span class="hljs-title">~ .*\.(js</span>|css)?$</code> 节点：</p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">location</span> <span class="hljs-regexp">~ .*\.(js|css)?$</span>
+{
+    <span class="hljs-attribute">proxy_pass</span> http://halo;
+    <span class="hljs-attribute">expires</span>      <span class="hljs-number">12h</span>;
+    <span class="hljs-attribute">error_log</span> /dev/null;
+    <span class="hljs-attribute">access_log</span> <span class="hljs-literal">off</span>;
+}
+</code></pre>
+<p>Copy</p>
+<p>完整配置文件示例（仅包含关键部分）：</p>
+<pre><code class="hljs language-nginx"><span class="hljs-attribute">upstream</span> halo {
+    <span class="hljs-attribute">server</span> <span class="hljs-number">127.0.0.1:8090</span>;
+}
+<span class="hljs-section">server</span>
+{
+    ...
+
+    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~ .*\.(gif|jpg|jpeg|png|bmp|swf)$</span>
+    {
+        <span class="hljs-attribute">proxy_pass</span> http://halo;
+        <span class="hljs-attribute">expires</span>      <span class="hljs-number">30d</span>;
+        <span class="hljs-attribute">error_log</span> /dev/null;
+        <span class="hljs-attribute">access_log</span> <span class="hljs-literal">off</span>;
+    }
+
+    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~ .*\.(js|css)?$</span>
+    {
+        <span class="hljs-attribute">proxy_pass</span> http://halo;
+        <span class="hljs-attribute">expires</span>      <span class="hljs-number">12h</span>;
+        <span class="hljs-attribute">error_log</span> /dev/null;
+        <span class="hljs-attribute">access_log</span> <span class="hljs-literal">off</span>;
+    }
+
+    <span class="hljs-attribute">location</span> / {
+        <span class="hljs-attribute">proxy_pass</span> http://halo;
+        <span class="hljs-attribute">proxy_set_header</span> HOST $host;
+        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;
+        <span class="hljs-attribute">proxy_set_header</span> X-Real-IP $remote_addr;
+        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    ...
+}
+</code></pre>
+<p>Copy</p>
+<p>随后点击保存即可。如果配置不生效，请重载 Nginx 或者 重启 Nginx。</p>
+<p>最后，访问域名即可进行 Halo 的初始化。</p>
+</li>
+</ol>
+<h2>--- 不使用宝塔面板 ---</h2>
+<h2>二、对服务器进行基础配置</h2>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607180952371.png" alt="image-20210607180952371"></p>
+<p>等待服务器安装完毕。</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607181019929.png" alt="image-20210607181019929"></p>
+<p>[然后暂时懒得写...]</p>
+<h2>三、开始搭建Halo</h2>
+<h3>1. 安装 Nginx</h3>
+<pre><code class="hljs language-bash">yum install nginx
+</code></pre>
+<p>运行 nginx</p>
+<pre><code class="hljs language-bash">nginx
+</code></pre>
+<blockquote>
+<p>查看 nginx 进程状态</p>
+<pre><code class="hljs language-bash">ps aux|grep nginx
+</code></pre>
+</blockquote>
+<p>访问服务器ip查看是否可访问。</p>
+<p>发现访问不了，为什么呢？是因为CentOS自带防火墙FirewallD阻止了访问</p>
+<p>查看FirewallD对于所有区域的所有配置</p>
+<pre><code class="hljs language-bash">firewall-cmd --list-all-zones
+</code></pre>
+<p>获取默认区域</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607182925328.png" alt="image-20210607182925328"></p>
+<p>查看FirewallD对于public区域的所有配置</p>
+<pre><code class="hljs language-bash">firewall-cmd --zone=public --list-all
+</code></pre>
+<img src="C:\Users\xiaob\AppData\Roaming\Typora\typora-user-images\image-20210607181938721.png" alt="image-20210607181938721" style="zoom:80%;" />
+<p>添加80端口的权限</p>
+<pre><code class="hljs language-bash">firewall-cmd --zone=public --add-port=80/tcp --permanent
+</code></pre>
+<p>重启</p>
+<pre><code class="hljs language-bash">systemctl restart  firewalld
+</code></pre>
+<p>发现可以了！！！！！！</p>
+<p>棒！！</p>
+<p>然后停止nginx</p>
+<pre><code class="hljs language-bash">nginx -s stop
+</code></pre>
+<p>启动并配置开机自启nginx服务</p>
+<pre><code class="hljs language-bash">systemctl start nginx
+systemctl <span class="hljs-built_in">enable</span> nginx
+</code></pre>
+<h3>2. 安装Halo</h3>
+<ol>
+<li>
+<p>安装 OpenJDK</p>
+<pre><code class="hljs language-bash">yum install java-11-openjdk -y
+</code></pre>
+<blockquote>
+<p>可通过 <code>java -<span class="hljs-built_in">version</span></code> 检查是否成功安装</p>
+</blockquote>
+</li>
+<li>
+<p>安装 Halo</p>
+<p>创建存放运行包的目录并下载运行包</p>
+<pre><code class="hljs language-bash">mkdir ~/app &amp;&amp; <span class="hljs-built_in">cd</span> ~/app
+wget https://dl.halo.run/release/halo-1.4.8.jar -O halo.jar
+</code></pre>
+<p>创建工作目录并获取默认配置文件进行编辑</p>
+<pre><code class="hljs language-bash">mkdir ~/.halo &amp;&amp; <span class="hljs-built_in">cd</span> ~/.halo
+wget https://dl.halo.run/config/application-template.yaml -O ./application.yaml
+vim application.yaml
+</code></pre>
+<p>可以改一下 H2 database 的 username 和 password</p>
+<p><img src="C:%5CUsers%5Cxiaob%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210607183937343.png" alt="image-20210607183937343"></p>
+<p>可以用一下命令测试一下是否能正常运行，但是我懒。</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> ~/app &amp;&amp; java -jar halo.jar
+</code></pre>
+<p>打开 <code>http:<span class="hljs-regexp">//i</span>p:端口号</code> 应当能看到安装引导界面。</p>
+<p>正常就 ctrl + c 退出，然后获取并配置官方的 halo.service模板</p>
+<pre><code class="hljs language-bash">wget https://dl.halo.run/config/halo.service -O /etc/systemd/system/halo.service
+vim /etc/systemd/system/halo.service
+</code></pre>
+<blockquote>
+<ul>
+<li><strong>YOUR_JAR_PATH</strong>：Halo 运行包的绝对路径，例如 <code><span class="hljs-regexp">/home/</span>halo<span class="hljs-regexp">/app/</span>halo.jar</code>，注意：此路径不支持 <code>~</code> 符号。</li>
+<li><strong>USER</strong>：运行 Halo 的系统用户，如果有按照上方教程创建新的用户来运行 Halo，修改为你创建的用户名称即可。反之请删除 <code><span class="hljs-keyword">User</span>=<span class="hljs-keyword">USER</span></code>。</li>
+</ul>
+</blockquote>
+<p>重新加载 systemmd，随后启动并配置开机自启 Halo 服务</p>
+<pre><code class="hljs language-bash">systemctl daemon-reload
+systemctl start halo
+systemctl <span class="hljs-built_in">enable</span> halo
+</code></pre>
+<blockquote>
+<p>您可以查看服务日志检查启动状态</p>
+<pre><code class="hljs language-bash">journalctl -n 20 -u halo
+</code></pre>
+</blockquote>
+<blockquote>
+<p>官方建议如果需要配置域名访问，建议先配置好反向代理以及域名解析再进行初始化。</p>
+</blockquote>
+</li>
+<li>
+<p>配置 nginx 设置</p>
+<p>编辑配置文件，添加下列内容，并修改www.yourdomain.com为你的域名</p>
+<pre><code class="hljs language-bash">vim /etc/nginx/nginx.conf
+</code></pre>
+<pre><code class="hljs"><span class="hljs-attribute">upstream</span> halo {
+  <span class="hljs-attribute">server</span> <span class="hljs-number">127.0.0.1:8090</span>;
+}
+<span class="hljs-section">server</span> {
+  <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;
+  <span class="hljs-attribute">listen</span> [::]:<span class="hljs-number">80</span>;
+  <span class="hljs-attribute">server_name</span> www.yourdomain.com;
+  <span class="hljs-attribute">client_max_body_size</span> <span class="hljs-number">1024m</span>;
+  <span class="hljs-attribute">location</span> / {
+    <span class="hljs-attribute">proxy_pass</span> http://halo;
+    <span class="hljs-attribute">proxy_set_header</span> HOST $host;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;
+    <span class="hljs-attribute">proxy_set_header</span> X-Real-IP $remote_addr;
+    <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+</code></pre>
+<blockquote>
+<p>注意：Nginx 默认的 client_max_body_size 配置大小为 1m，可能会导致你在 Halo 后台上传文件被 Nginx 限制，所以此示例配置文件加上了 client_max_body_size 1024m; 这行配置。当然，1024m 可根据你的需要自行修改。</p>
+</blockquote>
+<p>重启 nginx</p>
+<pre><code class="hljs language-bash">systemctl restart nginx
+</code></pre>
+</li>
+</ol>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    2020-08-25-ManjaroKDE.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2020-09-18 11:10:41 · 发布于 · 2021-09-23 07:17:18
+                    </time>
+                </div>
+                <div class="post-content">
+                    <hr>
+<h2>layout: post<br>
+title: ManjaroKDE 配置与美化<br>
+date: 2020-08-25<br>
+tags: manjaro linux</h2>
+<h2>〇、配置国内源</h2>
+<ol>
+<li>
+<p>切换镜像源至中国</p>
+<p><code>sudo pacman-mirrors -<span class="hljs-selector-tag">i</span> -c China -m rank</code></p>
+<p>在弹出的窗口中选一个最快的源</p>
+</li>
+<li>
+<p>更新</p>
+<p><code><span class="hljs-attribute">sudo pacman -Syyu</span></code></p>
+</li>
+</ol>
+<h2>一、好东西们</h2>
+<blockquote>
+<p><strong>pacman</strong> <code><span class="hljs-deletion">-S</span></code> 安装， <code><span class="hljs-deletion">-R</span></code> 卸载。</p>
+</blockquote>
+<h3>0. OvO</h3>
+<h4>总是最先要安装的东西们</h4>
+<pre><code class="hljs language-shell">sudo pacman -S git    # git版本管理
+sudo pacman -S neovim # 编辑器
+sudo pacman -S yay    # 一些pacman无法安装的包可以用这个来安装
+</code></pre>
+<h4>总是最先要搞定的东西们</h4>
+<ul>
+<li>
+<p>把 <code>/home</code> 下的各种目录名改成英文</p>
+<p>先重命名。</p>
+<p>再修改目录映射文件 <code>~<span class="hljs-regexp">/.config/u</span>ser-dirs.dirs</code></p>
+<pre><code class="hljs"><span class="hljs-attr">XDG_DESKTOP_DIR</span>=<span class="hljs-string">&quot;$HOME/Desktop&quot;</span>
+<span class="hljs-attr">XDG_DOWNLOAD_DIR</span>=<span class="hljs-string">&quot;$HOME/Download&quot;</span>
+<span class="hljs-attr">XDG_TEMPLATES_DIR</span>=<span class="hljs-string">&quot;$HOME/Templates&quot;</span>
+<span class="hljs-attr">XDG_PUBLICSHARE_DIR</span>=<span class="hljs-string">&quot;$HOME/Public&quot;</span>
+<span class="hljs-attr">XDG_DOCUMENTS_DIR</span>=<span class="hljs-string">&quot;$HOME/Documents&quot;</span>
+<span class="hljs-attr">XDG_MUSIC_DIR</span>=<span class="hljs-string">&quot;$HOME/Music&quot;</span>
+<span class="hljs-attr">XDG_PICTURES_DIR</span>=<span class="hljs-string">&quot;$HOME/Pictures&quot;</span>
+<span class="hljs-attr">XDG_VIDEOS_DIR</span>=<span class="hljs-string">&quot;$HOME/Videos&quot;</span>
+</code></pre>
+<p>重启</p>
+</li>
+</ul>
+<h3>1. 输入法</h3>
+<p>基于 <code>fcitx5</code> 配置 <code><span class="hljs-attribute">rime-cloverpinyin</span></code></p>
+<ol>
+<li>
+<p>安装 <code>fcitx5</code> 输入法框架</p>
+<p><code><span class="hljs-attribute">pacman</span> -S fcitx<span class="hljs-number">5</span> fcitx<span class="hljs-number">5</span>-qt fcitx<span class="hljs-number">5</span>-gtk fcitx<span class="hljs-number">5</span>-configtool</code></p>
+<p>配置环境变量，编辑 <code>~/.xprofile</code> ，写入：</p>
+<pre><code class="hljs"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GTK_IM_MODULE</span>=fcitx5
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">QT_IM_MODULE</span>=fcitx5
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">XMODIFIERS</span>=<span class="hljs-string">&quot;@im=fcitx5&quot;</span>
+
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">LANG</span>=<span class="hljs-string">&quot;zh_CN.UTF-8&quot;</span>
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">LC_CTYPE</span>=<span class="hljs-string">&quot;zh_CN.UTF-8&quot;</span>
+</code></pre>
+<blockquote>
+<p>配置开机启动，系统设置-&gt;工作区-&gt;开机和关机-&gt;自动启动-&gt;添加程序，添加 <code>fcitx5</code></p>
+</blockquote>
+</li>
+<li>
+<p>安装 <code><span class="hljs-attribute">rime</span></code></p>
+<p><code><span class="hljs-attribute">pacman -S fcitx-rime</span></code></p>
+</li>
+<li>
+<p>配置 <code><span class="hljs-attribute">cloverpinyin</span></code> 输入方案</p>
+<p>到 https://github.com/fkxxyz/rime-cloverpinyin/releases 下载最新的release，并直接解压到 <code>~<span class="hljs-regexp">/.local/</span>share<span class="hljs-regexp">/fcitx5/</span>rime</code> 目录中。</p>
+<blockquote>
+<p>rime初次初始化完成后才会有这个目录</p>
+</blockquote>
+<p>在相同目录创建 <code>deafault.<span class="hljs-literal">custom</span>.yaml</code> ，写入：</p>
+<pre><code class="hljs language-yaml"><span class="hljs-attr">patch:</span>
+  <span class="hljs-attr">&quot;menu/page_size&quot;:</span> <span class="hljs-number">9</span>
+  <span class="hljs-attr">schema_list:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">schema:</span> <span class="hljs-string">clover</span>
+</code></pre>
+<blockquote>
+<p><code><span class="hljs-string">&quot;manu/page_size&quot;</span></code> 为每页候选词数目，可根据自己习惯设为1~9。</p>
+</blockquote>
+</li>
+</ol>
+<p>现在，找到一个可以打字的地方，切换到 <code><span class="hljs-attribute">rime</span></code> 输入法，右键系统托盘的图标，点击重新部署，待加载完成可以看到出现 <code>🍀四叶草简体拼音</code> 。</p>
+<h3>2. Shell</h3>
+<p>配置 <code>oh-<span class="hljs-keyword">my</span>-zsh</code></p>
+<ol>
+<li>
+<p>修改默认 shell 为 zsh</p>
+<p><code>chsh -s <span class="hljs-regexp">/usr/</span>bin/zsh</code></p>
+</li>
+<li>
+<p>安装 <code>oh-<span class="hljs-keyword">my</span>-zsh</code></p>
+<p><code>wget https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/robbyrussell/</span>oh-my-zsh<span class="hljs-regexp">/raw/m</span>aster<span class="hljs-regexp">/tools/i</span>nstall.sh -O - | sh</code></p>
+<blockquote>
+<p>如果多次提示被拒绝，就修改 <code><span class="hljs-regexp">/etc/</span>hosts</code> ：</p>
+<pre><code class="hljs"># GitHub Start
+<span class="hljs-number">151.101.76.133</span> raw.githubusercontent.com
+# GitHub End
+</code></pre>
+</blockquote>
+<blockquote>
+<p>重启后即会生效</p>
+</blockquote>
+</li>
+<li>
+<p>优化体验</p>
+<ul>
+<li>
+<p>命令高亮 <code><span class="hljs-attribute">zsh-syntax-highlighting</span></code></p>
+<pre><code class="hljs">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/zsh-users/</span>zsh-syntax-highlighting.git <span class="hljs-variable">${ZSH_CUSTOM:-~/.oh-my-zsh/custom}</span><span class="hljs-regexp">/plugins/</span>zsh-syntax-highlighting
+</code></pre>
+</li>
+<li>
+<p>记住之前使用过的命令 <code><span class="hljs-built_in">auto</span>suggestions</code></p>
+<pre><code class="hljs language-text">git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+</code></pre>
+</li>
+</ul>
+<p>修改 <code>~/.zshrc</code> 启用插件</p>
+<pre><code class="hljs"><span class="hljs-attr">plugins</span>=(git zsh-syntax-highlighting zsh-autosuggestions sudo extract)
+</code></pre>
+<blockquote>
+<p><strong>sudo</strong> 是自带插件，双击Esc在输入命令开头添加 <code><span class="hljs-attribute">sudo</span></code></p>
+<p><strong>extract</strong> 也是，不同文件可以直接使用 <code><span class="hljs-attribute">extract xxx</span></code> 来解压</p>
+</blockquote>
+</li>
+</ol>
+<h3>3. 录视频、截图、写文章相关</h3>
+<ul>
+<li>
+<p>录屏 <code><span class="hljs-attribute">sudo pacman -S simplescreenrecorder</span></code></p>
+</li>
+<li>
+<p>键盘按键显示 <code><span class="hljs-attribute">sudo pacman -S screenkey</span></code></p>
+</li>
+<li>
+<p>截图 <code><span class="hljs-attribute">yay -S deepin-screenshot</span></code></p>
+<p>系统设置 -&gt; 快捷键 -&gt; 自定义快捷键 -&gt;编辑 -&gt; 新建 -&gt; 全局快捷键 -&gt; 命令/URL</p>
+<blockquote>
+<p>名称、注释、触发器按自己喜好配置，习惯了Win10的 <code><span class="hljs-section">&lt;Windows&gt;</span></code> + <code><span class="hljs-section">&lt;Shift&gt;</span></code> + <code><span class="hljs-section">&lt;s&gt;</span></code> ，就设置成一样的了。</p>
+<p>命令/URL：<code><span class="hljs-attribute">deepin-screenshot</span></code></p>
+</blockquote>
+<blockquote>
+<p>KDE有一个自带的截图工具 <code><span class="hljs-attribute">Spectacle</span></code> ，不过没有 <code><span class="hljs-attribute">deepin-screenshot</span></code> 好用，如果有快捷键冲突可以在全局快捷键里将其禁用。</p>
+</blockquote>
+</li>
+</ul>
+<h3>4. 编辑器</h3>
+<ul>
+<li>neovim <code><span class="hljs-attribute">sudo pacman -S neovim</span></code></li>
+</ul>
+<h2>二、美化</h2>
+<h3>面板部分</h3>
+<ol>
+<li>
+<p>删除默认面板</p>
+<p>右键下方面板 -&gt; 编辑面板 -&gt; More Options... -&gt; 删除面板</p>
+</li>
+<li>
+<p>创建空面板</p>
+<p>右键桌面 -&gt; 添加面板 -&gt; 空面板</p>
+<p>右键面板 -&gt; 编辑面板 -&gt; 点击并按住屏幕边缘，拖至上方。</p>
+<blockquote>
+<p>自行调整高度</p>
+</blockquote>
+</li>
+<li>
+<p>向面板添加部件，我的布局为：</p>
+<p>程序启动器 - 数字时钟 - 全局菜单 - <strong>间距</strong> （在面板编辑中点击添加间距） - <em>Panon</em> - <strong>间距</strong> - <em>Netspeed Widget</em> - 系统托盘 - 调度器</p>
+<p>这里会用到两个需要安装的很棒的部件：</p>
+<blockquote>
+<p>在添加部件界面最下方点击 获取新部件 -&gt; 下载新 Plasma 部件 ，搜索安装即可</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Panon</strong> 一个可视化不同频率声音的 ~装B（划掉）~ 部件</p>
+<p>我的配置是宽度770，中立（反）方向北，视觉特效bar1ch,width7，width2，decay0.007，音频数据源PulseAudio，输入设备混合所有麦克风和扬声器，减小低音权重，音域0~9000Hz</p>
+</li>
+<li>
+<p><strong>Netspeed Widget</strong> 一个显示实时上/下载速度的部件</p>
+<p>我的配置：kayoutSidebyside，FontSize80%</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3>Dock部分</h3>
+<ol>
+<li>
+<p>安装 <strong>Latte-Dock</strong></p>
+<pre><code class="hljs"><span class="hljs-attribute">sudo pacman -S latte-dock</span>
+</code></pre>
+</li>
+<li>
+<p>配置</p>
+<p>右键，布局 -&gt; 我的布局（或者新建一个）</p>
+<p>右键，面板设置，先选择为面板</p>
+<p>打开高级</p>
+<p>行为：底部，两端对齐，避开活动窗口，延迟显示100隐藏50，悬停时显示标题提示</p>
+<p>外观：绝对大小48鼠标悬停时放大0最大46%边距5%高度20%，颜色Plasma，无背景大小100%不透明度45%</p>
+<p>特效：阴影大小30%不透明度70%，任务指示装饰Latte，Latte指示装饰选项中样式为直线，光晕关掉，为最小化窗口使用不同颜色，窗口活动室显示额外的点。任务：动作悬停预览和高亮窗口</p>
+</li>
+<li>
+<p>我的布局</p>
+<p>应用程序面板 - <em>Latte Separator</em> - 对齐分割器 - 固定的应用 - 对其分割器 - <em>Latte Separator</em> - 回收站</p>
+<p>这里又会用到一个小部件：</p>
+<ul>
+<li><strong>Latte Separator</strong> 安装方式同上面的两个。</li>
+</ul>
+</li>
+</ol>
+<h3>KDE主题部分</h3>
+<p>系统设置 -&gt; 全局主题：微风</p>
+<p>Plasma样式：Breeze Transparent</p>
+<p>应用程式风格 -&gt; 窗口装饰：Glassy</p>
+<p>颜色：亮色微风</p>
+<p>图标：Tela</p>
+<p>光标：亮色微风</p>
+<blockquote>
+<p>没有的可以在右下的获取主题处获得</p>
+</blockquote>
+<p>系统设置 -&gt; 工作区 -&gt; 工作空间行为</p>
+<p>桌面特效：摆动窗口、破碎</p>
+<p>焦点：按单未激活窗口</p>
+<p>系统设置 -&gt; 工作区 -&gt; 窗口管理 -&gt; 窗口行为</p>
+<p>焦点：焦点跟随鼠标（鼠标优先）聚焦延迟77</p>
+<p>好啦，注销/重启后就好啦！</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

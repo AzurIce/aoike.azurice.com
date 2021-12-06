@@ -1,0 +1,101 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Vultr CentOS搭建Halo.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-06-06 09:14:04 · 发布于 · 2021-09-23 07:11:35
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h2>一、安装 OpenJDK</h2>
+<pre><code class="hljs language-bash">yum install java-11-openjdk -y
+</code></pre>
+<blockquote>
+<p>使用 <code>java -<span class="hljs-built_in">version</span></code> 检查是否安装成功。</p>
+</blockquote>
+<h2>二、安装Halo</h2>
+<ol>
+<li>
+<p>创建运行包目录并获取运行包</p>
+<pre><code class="hljs language-bash">mkdir ~/app &amp;&amp; <span class="hljs-built_in">cd</span> ~/app
+wget https://dl.halo.run/release/halo-1.4.8.jar -O halo.jar
+</code></pre>
+</li>
+<li>
+<p>创建配置文件目录并获取默认配置文件并编辑</p>
+<pre><code class="hljs language-bash">mkdir ~/.halo &amp;&amp; <span class="hljs-built_in">cd</span> ~/.halo
+wget https://dl.halo.run/config/application-template.yaml -O ./application.yaml
+</code></pre>
+</li>
+<li>
+<p>编辑配置文件</p>
+<pre><code class="hljs language-bash">vim application.yaml
+</code></pre>
+</li>
+<li>
+<p>测试运行 Halo</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> ~/app &amp;&amp; java -jar halo.jar
+</code></pre>
+</li>
+<li>
+<p>如看到类似以下日志输出，则代表启动成功。</p>
+<pre><code class="hljs language-bash">run.halo.app.listener.StartedListener    : Halo started at         http://127.0.0.1:8090
+run.halo.app.listener.StartedListener    : Halo admin started at   http://127.0.0.1:8090/admin
+run.halo.app.listener.StartedListener    : Halo has started successfully!
+</code></pre>
+</li>
+</ol>
+<p>打开 <code>http:<span class="hljs-regexp">//i</span>p:端口号</code> 即可看到安装引导界面。</p>
+<blockquote>
+<p>如测试启动正常，可使用 CTRL+C 停止运行测试进程，继续进行配置。</p>
+</blockquote>
+<blockquote>
+<p>如果需要配置域名访问，建议先配置好反向代理以及域名解析再进行初始化。如果通过 <code>http:<span class="hljs-regexp">//i</span>p:端口号</code> 的形式无法访问，请到服务器厂商后台将运行的端口号添加到安全组，如果服务器使用了 Linux 面板，请检查此 Linux 面板是否有还有安全组配置，需要同样将端口号添加到安全组。</p>
+</blockquote>
+<h2>一、安装 nginx</h2>
+<pre><code class="hljs language-bash">yum install nginx -y
+</code></pre>
+<pre><code class="hljs language-bash">systemctl start nginx
+systemctl <span class="hljs-built_in">enable</span> nginx
+</code></pre>
+<p>配置Vultr的安全组</p>
+<p>访问ip检查是否出现页面</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
