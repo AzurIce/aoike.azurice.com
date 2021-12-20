@@ -40,51 +40,13 @@
                     <h1>「Java」〇 、起步</h1>
 <h2>一、Java 与 C 的不同</h2>
 <p>先来看看一个 <strong>C语言程序</strong> 从编写到运行所经历的过程：</p>
-<pre><code class="hljs language-mermaid">flowchart LR
-	subgraph 源代码
-        A[main.c]
-        a[utils.c]
-    end
-    
-    A --预处理--&gt; B[main.i]
-    a --预处理--&gt; b[utils.i]
-    
-	subgraph 汇编代码
-        C[main.c]
-        c[utils.c]
-    end
-    
-    B --编译--&gt; C
-    b --编译--&gt; c
-    
-	subgraph 机器码
-        D[main.o]
-        d[utils.o]
-    end
-    
-    C --汇编--&gt; D
-    c --汇编--&gt; d
-	机器码 --链接--&gt; 可执行程序
-	可执行程序 --&gt; z([运行])
-</code></pre>
-<p><strong>源代码</strong> 编译为 <strong>汇编代码</strong> 再汇编为 <strong>机器码</strong> 再链接为最终的 <strong>可执行程序</strong>。</p>
+<pre>ReferenceError: document is not defined</pre><p><strong>源代码</strong> 编译为 <strong>汇编代码</strong> 再汇编为 <strong>机器码</strong> 再链接为最终的 <strong>可执行程序</strong>。</p>
 <p>不同平台（如 Max, Windows, Linux...）所识别的机器语言是不同的。</p>
 <p><strong>C语言程序</strong> 在不同平台运行的实现方式是 <strong>针对不同平台进行特定的编译操作</strong> 得到对应平台的机器码，即 <strong><font color="red">到处编译，到处运行</font></strong>。</p>
 <p><strong>Java</strong> 是 <strong>跨平台</strong> 的语言，是无论对于什么目标平台都编译为统一的字节码，而在不同的平台上引入一个虚拟机来执行这些字节码（将这些字节码“翻译”为对应平台的机器码并执行），即 <strong><font color="red">一次编译，到处运行</font></strong>，而这个虚拟机有一个名字 —— <strong>Java Virtual Machine(JVM)</strong>。</p>
 <p>不过这样也有不方便的缺点，即要想运行就需要有 <strong>JVM</strong> 环境。</p>
 <p>以下是一个 <strong>Java语言程序</strong> 从编写到运行所经历的过程：</p>
-<pre><code class="hljs language-mermaid">flowchart LR
-	subgraph 源代码
-		A[.java]
-	end
-	
-	subgraph 字节码
-		A --编译--&gt; B[.class]
-	end
-	
-	字节码 --&gt; z([通过JVM运行])
-</code></pre>
-<p>因此，开发一个 <strong>Java语言程序</strong> 所需要的东西就很清晰了：</p>
+<pre>ReferenceError: document is not defined</pre><p>因此，开发一个 <strong>Java语言程序</strong> 所需要的东西就很清晰了：</p>
 <ol>
 <li>编译器</li>
 <li>虚拟机</li>
