@@ -1,0 +1,283 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「Java」〇、起步.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-12-20 02:53:08 · 发布于 · 2021-12-20 11:49:12
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>「Java」〇 、起步</h1>
+<h2>一、Java 与 C 的不同</h2>
+<p>先来看看一个 <strong>C语言程序</strong> 从编写到运行所经历的过程：</p>
+<pre><code class="hljs language-mermaid">flowchart LR
+	subgraph 源代码
+        A[main.c]
+        a[utils.c]
+    end
+    
+    A --预处理--&gt; B[main.i]
+    a --预处理--&gt; b[utils.i]
+    
+	subgraph 汇编代码
+        C[main.c]
+        c[utils.c]
+    end
+    
+    B --编译--&gt; C
+    b --编译--&gt; c
+    
+	subgraph 机器码
+        D[main.o]
+        d[utils.o]
+    end
+    
+    C --汇编--&gt; D
+    c --汇编--&gt; d
+	机器码 --链接--&gt; 可执行程序
+	可执行程序 --&gt; z([运行])
+</code></pre>
+<p><strong>源代码</strong> 编译为 <strong>汇编代码</strong> 再汇编为 <strong>机器码</strong> 再链接为最终的 <strong>可执行程序</strong>。</p>
+<p>不同平台（如 Max, Windows, Linux...）所识别的机器语言是不同的。</p>
+<p><strong>C语言程序</strong> 在不同平台运行的实现方式是 <strong>针对不同平台进行特定的编译操作</strong> 得到对应平台的机器码，即 <strong><font color="red">到处编译，到处运行</font></strong>。</p>
+<p><strong>Java</strong> 是 <strong>跨平台</strong> 的语言，是无论对于什么目标平台都编译为统一的字节码，而在不同的平台上引入一个虚拟机来执行这些字节码（将这些字节码“翻译”为对应平台的机器码并执行），即 <strong><font color="red">一次编译，到处运行</font></strong>，而这个虚拟机有一个名字 —— <strong>Java Virtual Machine(JVM)</strong>。</p>
+<p>不过这样也有不方便的缺点，即要想运行就需要有 <strong>JVM</strong> 环境。</p>
+<p>以下是一个 <strong>Java语言程序</strong> 从编写到运行所经历的过程：</p>
+<pre><code class="hljs language-mermaid">flowchart LR
+	subgraph 源代码
+		A[.java]
+	end
+	
+	subgraph 字节码
+		A --编译--&gt; B[.class]
+	end
+	
+	字节码 --&gt; z([通过JVM运行])
+</code></pre>
+<p>因此，开发一个 <strong>Java语言程序</strong> 所需要的东西就很清晰了：</p>
+<ol>
+<li>编译器</li>
+<li>虚拟机</li>
+</ol>
+<p>在 <strong>Java8</strong> 及之前版本时，发行的工具包有两个版本：</p>
+<ul>
+<li><strong>Java Runtime Environment(JRE)</strong> 其中只包含 <strong>JVM</strong></li>
+<li><strong>Java Development Kit(JDK)</strong> 其中包含 <strong>JVM</strong> 以及 <strong>编译器</strong></li>
+</ul>
+<p>而 <strong>Java8</strong> 之后，就只发行 <strong>JDK</strong> 了。</p>
+<h2>二、开发环境配置 - 上</h2>
+<p><strong>Java</strong> 最初的开发公司是 <strong>Sun公司</strong> 后来被 <strong>甲骨文(Oracle)公司</strong> 收购，这是 <strong>Oracle官网</strong> ：</p>
+<p><a href="https://www.oracle.com/index.html">Oracle | Cloud Applications and Cloud Platform</a></p>
+<p>在其中可以找到 <strong>JDK</strong> 的下载页面（Products -&gt; Java -&gt; Download Java）：</p>
+<p><a href="https://www.oracle.com/java/technologies/downloads/">Java Downloads | Oracle</a></p>
+<p>在这里，很多 <strong>Java</strong> 版本并没有被显示出来，目前出现在页面中可以下载的 <strong>Java8</strong>, <strong>Java11</strong> 和 <strong>Java17</strong> 是一些长期支持 <strong>Long-Term Support(LTS)</strong> 的版本。</p>
+<blockquote>
+<p><strong>LTS版本</strong> 即为开发商保持维护（修bug之类的工作）的版本。</p>
+</blockquote>
+<p>如今 <strong>Java</strong> 每6个月便会迭代一个主要版本，公布一些新特性以及虚拟机的优化。</p>
+<p>直接冲最新版就好了😁。</p>
+<p><img src="https://s2.loli.net/2021/12/20/3g1jYSGKBIy8mPz.png" alt="image-20211220125705358"></p>
+<p>选择 <strong>Windows</strong> 下载 <strong>Installer</strong> （两个都行），然后安装一路下一步（<strong><font color="red">最好不要改位置</font></strong>），之后它应该会出现在这里：</p>
+<p><img src="https://s2.loli.net/2021/12/20/WkLvt9oUKZN5HrQ.png" alt="image-20211220125920800"></p>
+<p>打开看一看里面的结构：</p>
+<pre><code class="hljs"><span class="hljs-keyword">jdk-17.0.1
+</span>    ├─<span class="hljs-keyword">bin
+</span>    ├─conf
+    ├─include
+    ├─<span class="hljs-keyword">jmods
+</span>    ├─legal
+    └─lib
+</code></pre>
+<p><code><span class="hljs-built_in">bin</span>/</code> 目录下是可执行文件，其中就包含我们会经常使用到的：</p>
+<ul>
+<li><strong>编译器</strong> <code>javac.<span class="hljs-keyword">exe</span></code></li>
+<li><strong>JVM虚拟机</strong>
+<ul>
+<li><code>java.<span class="hljs-keyword">exe</span></code></li>
+<li><code>javaw.<span class="hljs-keyword">exe</span></code> w代表windows，不会显示控制台内容（在运行有 图形用户界面 <strong>Graphical User Interface(GUI)</strong> 的程序时就不会出现控制台的黑框。</li>
+</ul>
+</li>
+</ul>
+<p>此时打开 <strong>Cmd</strong> 或 <strong>PowerShell</strong>，输入 <code>java <span class="hljs-comment">--version</span></code>，应该会得到如下内容：</p>
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> C:\Users\azurice&gt; java -<span class="hljs-literal">-version</span>
+java <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span> <span class="hljs-number">2021</span><span class="hljs-literal">-10</span><span class="hljs-literal">-19</span> LTS
+Java(TM) SE Runtime Environment (build <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span>+<span class="hljs-number">12</span><span class="hljs-literal">-LTS</span><span class="hljs-literal">-39</span>)
+Java HotSpot(TM) <span class="hljs-number">64</span><span class="hljs-literal">-Bit</span> Server VM (build <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span>+<span class="hljs-number">12</span><span class="hljs-literal">-LTS</span><span class="hljs-literal">-39</span>, mixed mode, sharing)
+</code></pre>
+<blockquote>
+<ul>
+<li>
+<p>打开 <strong>Cmd</strong> 方法</p>
+<p><strong>Windows + R</strong> 输入 <code><span class="hljs-keyword">cmd</span></code> 确定。</p>
+<p><img src="https://s2.loli.net/2021/12/20/gD9UuKGCMzONrdY.png" alt="image-20211220131212661"></p>
+</li>
+<li>
+<p>打开 <strong>PowerShell</strong> 方法</p>
+<p><strong>Windows + R</strong> 输入 <code><span class="hljs-attribute">powershell</span></code> 确定。</p>
+<p><img src="https://s2.loli.net/2021/12/20/sdFzLpDqRBNgwyM.png" alt="image-20211220131508026"></p>
+</li>
+</ul>
+</blockquote>
+<p>如果没有，提示不是命令或无法识别的话还需要配置环境变量：</p>
+<blockquote>
+<p>在终端输入命令运行一个程序的时候，计算机会在当前目录去查找对应的可执行文件。</p>
+<p>例如如果当前目录有一个 <code><span class="hljs-keyword">nb</span>.<span class="hljs-keyword">exe</span></code>，在 <strong>Cmd</strong> 中输入 <code><span class="hljs-attribute">nb</span></code> 或 <code><span class="hljs-keyword">nb</span>.<span class="hljs-keyword">exe</span></code>（<strong>PowerShell</strong> 中为 <code><span class="hljs-string">./nb</span></code> 或 <code>./<span class="hljs-keyword">nb</span>.<span class="hljs-keyword">exe</span></code>）的时候会在当前目录去查找并运行，找不到就会报错。</p>
+</blockquote>
+<blockquote>
+<p>环境变量中的 <code><span class="hljs-keyword">Path</span></code> 就包含很多路径，使计算机也在这些路径中进行查找。</p>
+</blockquote>
+<p>自行百度查找 <code>修改环境变量</code>，打开下面的界面，编辑 <code><span class="hljs-keyword">Path</span></code> 添加刚刚的 <code><span class="hljs-built_in">bin</span>/</code> 目录</p>
+<p><img src="https://s2.loli.net/2021/12/20/IHQWmjg3woapZv4.png" alt="image-20211220133734103"></p>
+<p><img src="https://s2.loli.net/2021/12/20/KMmNaoUgYsdXbl3.png" alt="image-20211220133900272"></p>
+<p>然后一路确定，重启一下大概就好了。</p>
+<h2>🐳、宕开一笔 小试一下</h2>
+<p>找个地方新建一个 <code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span>java</code>，输入以下内容：</p>
+<pre><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Hello World&quot;</span>);
+    }
+}
+</code></pre>
+<p>之后保存。</p>
+<p>在文件所在位置打开 <strong>Cmd</strong> 或 <strong>PowerShell</strong>（Win10）：</p>
+<blockquote>
+<p>如果你是 <strong>Win11</strong> 的话，可以直接打开特别特别特别好用的 <strong>Windows Terminal</strong> 来使用 <strong>Cmd</strong> 或 <strong>PowerShell</strong>。</p>
+<p>（Windows Terminal 和 Cmd 或 PowerShell并不是一个东西，Terminal更像是个外壳，内容是后者，具体详细知识见 <a href="">Shell 与 Terminal 的区别</a>【还没写】）。</p>
+</blockquote>
+<p>然后介绍一些基础命令来切换当前目录到文件所在目录：</p>
+<ul>
+<li><code>盘符</code> 来切换到对应盘符下</li>
+<li><code><span class="hljs-built_in">cd</span> xxx</code> 来切换到xxx目录</li>
+<li><code><span class="hljs-built_in">dir</span></code> 列出当前目录下的文件</li>
+</ul>
+<p><img src="https://s2.loli.net/2021/12/20/I74vNM9pZHBOg1s.png" alt="image-20211220131830155"></p>
+<blockquote>
+<p>目录、文件名什么的不用手动打完的，可以输一个 <code><span class="hljs-keyword">code</span></code> 甚至 <code><span class="hljs-attribute">cod</span></code>，按几下 tab键，就可以自动补全</p>
+</blockquote>
+<blockquote>
+<p>🎈当然也有快捷的直接在目录打开的方法：</p>
+<p><img src="https://s2.loli.net/2021/12/20/KZOw2lIhpSeGz4B.png" alt="image-20211220132041841"><br>
+直接在这里输入 <code><span class="hljs-keyword">cmd</span></code> 或 <code><span class="hljs-attribute">powershell</span></code> 回车就可以啦。</p>
+</blockquote>
+<blockquote>
+<p>🎈对于 <code><span class="hljs-attribute">powershell</span></code> 也可以按着 Shift 右键当前目录的空白处：</p>
+<p><img src="https://s2.loli.net/2021/12/20/ntaEFMbz9oUcrPl.png" alt="image-20211220132205237"></p>
+</blockquote>
+<blockquote>
+<p>🎈🎈🎈当然，<strong>Win11</strong> 的 <strong>Windows Terminal</strong> 最方便，直接右键空白处：</p>
+<p><img src="https://s2.loli.net/2021/12/20/5PsUSbhMO4CGzeF.png" alt="image-20211220132316671"></p>
+</blockquote>
+<p>打开以后我们来 <strong>编译</strong> 并 <strong>运行</strong> <code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span>java</code>：</p>
+<blockquote>
+<p>注意下面执行的命令是 <code><span class="hljs-attribute">PS</span> xxxxxx&gt;</code> 后面的内容！</p>
+</blockquote>
+<ol>
+<li>
+<p>编译</p>
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; javac .\HelloWorld.java
+</code></pre>
+<p>你会发现多了一个 <code>.<span class="hljs-built_in">class</span></code> 字节码文件</p>
+<p><img src="https://s2.loli.net/2021/12/20/D7fSqrF5gjIWwTn.png" alt="image-20211220132622235"></p>
+</li>
+<li>
+<p>运行</p>
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; java HelloWorld
+</code></pre>
+<p>得到输出：</p>
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; java HelloWorld
+Hello World
+</code></pre>
+</li>
+</ol>
+<p>到这里,大概应该已经对 <strong>Java语言</strong> 有所了解了。</p>
+<p>接下来推荐几款 集成开发环境 <strong>Integrated Development Environment(IDE)</strong>，当然你要是想 <strong>繁华落尽见真淳</strong> 文本编辑器 + 命令行也不错，<strong>比如我这种 NeoVim 忠诚教徒</strong>。</p>
+<p>不过对于比较大的项目，当然还是 <strong>IDE</strong> 配置成本低一些，所以我的 <strong>NeoVim</strong> 主要写 <strong>C</strong> 或小体量项目。</p>
+<h2>二、开发环境配置 - 下</h2>
+<p>我就只推荐一个 —— <strong>IntelliJ IDEA</strong>。</p>
+<p><strong>Jetbrain全家桶yyds</strong></p>
+<p>下载页面：<a href="https://www.jetbrains.com/zh-cn/idea/download/#section=windows">下载 IntelliJ IDEA：JetBrains 功能强大、符合人体工程学的 Java IDE</a></p>
+<p>注意要下载 <strong>Community</strong> 版本（除非你有钱，或者你像我一样申请了学生包✈️）</p>
+<p>安装依旧一路下一步，这里建议把这个勾上，蛮实用的：</p>
+<img src="https://s2.loli.net/2021/12/20/9yqfL7nWuB3gJYt.png" alt="image-20211220135921541" style="zoom:80%;" />
+<h2>三、IntelliJ IDEA 的使用</h2>
+<h3>3.1 创建项目</h3>
+<p><img src="https://s2.loli.net/2021/12/20/fSI7ymBMaHXTPLN.png" alt="image-20211220142847296"></p>
+<p>创建一个 <code><span class="hljs-attribute">HelloWorld</span></code> 项目：</p>
+<img src="https://s2.loli.net/2021/12/20/enxZHNriCD5S2b1.png" alt="image-20211220143356158" style="zoom:67%;" />
+<p><strong>Base package</strong> 暂时先不用管，以后会讲。</p>
+<img src="https://s2.loli.net/2021/12/20/BFpWUQ35cZ1zxOE.png" alt="image-20211220143905509" style="zoom:67%;" />
+<p>创建完成：</p>
+<p><img src="https://s2.loli.net/2021/12/20/ZMSYw2j7fmJi5cy.png" alt="image-20211220143948720"></p>
+<p>看一下目录结构：</p>
+<pre><code class="hljs">HelloWorld
+    ├─.idea
+    ├─src
+    │   └─com
+    │       └─azurice
+    │       	└─<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Main</span>.</span></span>java
+    └─<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span>iml
+</code></pre>
+<ul>
+<li>
+<p><code><span class="hljs-title">.idea/</span></code> 目录</p>
+<p><strong>IntelliJ IDEA</strong> 的项目相关文件，不用管</p>
+</li>
+<li>
+<p><code><span class="hljs-attribute">src</span></code> 目录</p>
+<p>存放源码的目录</p>
+</li>
+<li>
+<p><code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span>iml</code> 文件</p>
+<p>项目相关文件，不用管</p>
+</li>
+</ul>
+<h3>3.2 运行</h3>
+<p><img src="https://s2.loli.net/2021/12/20/GpUX74VosjqF1H2.png" alt="image-20211220144400314"></p>
+<p><img src="https://s2.loli.net/2021/12/20/uFPgvXlD1qoaSNM.png" alt="image-20211220144443543"></p>
+<p>会在内置的终端运行：</p>
+<p><img src="https://s2.loli.net/2021/12/20/aGYVtxguUT28dC3.png" alt="image-20211220144630401"></p>
+<p>有些时候并不好用。。。（比如调试CSI序列等内容时）</p>
+<h3>3.3 调试</h3>
+<p><img src="https://s2.loli.net/2021/12/20/S32kbnjJ4DA5xf9.png" alt="image-20211220145012949"></p>
+<hr>
+<p>那么，这篇大概就这样了？</p>
+<p>一会见！</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    一、CMake.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-12-09 11:20:11 · 发布于 · 2021-12-09 10:17:39
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>一、map</h1>
+<h2>1. 作用模式前缀</h2>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>作用模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>普通、可视、选择和操作符等待</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">n</span></code></td>
+<td>普通</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">v</span></code></td>
+<td>可视和选择</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">s</span></code></td>
+<td>选择</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">x</span></code></td>
+<td>可视</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">o</span></code></td>
+<td>操作符等待</td>
+</tr>
+<tr>
+<td><code><span class="hljs-addition">!</span></code></td>
+<td>插入和命令行</td>
+</tr>
+<tr>
+<td><code><span class="hljs-selector-tag">i</span></code></td>
+<td>插入</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">l</span></code></td>
+<td>插入、命令行和 Lang-Arg 模式</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">c</span></code></td>
+<td>命令行</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">t</span></code></td>
+<td>内置终端</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 其他前缀</h2>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><span class="hljs-attribute">nore</span></code></td>
+<td>不递归</td>
+</tr>
+<tr>
+<td><code><span class="hljs-attribute">un</span></code></td>
+<td>取消映射</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>取消所有映射</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="hljs">These names <span class="hljs-keyword">for</span> <span class="hljs-built_in">keys</span> are used in the documentation.  They can also <span class="hljs-keyword">be</span> used
+with the <span class="hljs-string">&quot;:map&quot;</span> <span class="hljs-keyword">command</span>.
+
+notation	meaning		    equivalent	decimal value(s)	~
+-----------------------------------------------------------------------
+<span class="hljs-symbol">&lt;Nul&gt;</span>		zero			CTRL-@	  <span class="hljs-number">0</span> (stored <span class="hljs-keyword">as</span> <span class="hljs-number">10</span>) *<span class="hljs-symbol">&lt;Nul&gt;</span>*
+<span class="hljs-symbol">&lt;BS&gt;</span>		backspace		CTRL-H	  <span class="hljs-number">8</span>	*backspace*
+<span class="hljs-symbol">&lt;Tab&gt;</span>		<span class="hljs-keyword">tab</span>				CTRL-I	  <span class="hljs-number">9</span>	*<span class="hljs-keyword">tab</span>* *Tab*
+							*linefeed*
+<span class="hljs-symbol">&lt;NL&gt;</span>		linefeed		CTRL-J	 <span class="hljs-number">10</span> (used <span class="hljs-keyword">for</span> <span class="hljs-symbol">&lt;Nul&gt;</span>)
+<span class="hljs-symbol">&lt;CR&gt;</span>		carriage <span class="hljs-keyword">return</span>	CTRL-M	 <span class="hljs-number">13</span>	*carriage-<span class="hljs-keyword">return</span>*
+<span class="hljs-symbol">&lt;Return&gt;</span>	same <span class="hljs-keyword">as</span> <span class="hljs-symbol">&lt;CR&gt;</span>				*<span class="hljs-symbol">&lt;Return&gt;</span>*
+<span class="hljs-symbol">&lt;Enter&gt;</span>		same <span class="hljs-keyword">as</span> <span class="hljs-symbol">&lt;CR&gt;</span>				*<span class="hljs-symbol">&lt;Enter&gt;</span>*
+<span class="hljs-symbol">&lt;Esc&gt;</span>		<span class="hljs-built_in">escape</span>			CTRL-[	 <span class="hljs-number">27</span>	*<span class="hljs-built_in">escape</span>* *<span class="hljs-symbol">&lt;Esc&gt;</span>*
+<span class="hljs-symbol">&lt;Space&gt;</span>		space				 <span class="hljs-number">32</span>	*space*
+<span class="hljs-symbol">&lt;lt&gt;</span>		less-than		&lt;	 <span class="hljs-number">60</span>	*<span class="hljs-symbol">&lt;lt&gt;</span>*
+<span class="hljs-symbol">&lt;Bslash&gt;</span>	backslash		\	 <span class="hljs-number">92</span>	*backslash* *<span class="hljs-symbol">&lt;Bslash&gt;</span>*
+<span class="hljs-symbol">&lt;Bar&gt;</span>		<span class="hljs-keyword">vertical</span> bar		|	<span class="hljs-number">124</span>	*<span class="hljs-symbol">&lt;Bar&gt;</span>*
+<span class="hljs-symbol">&lt;Del&gt;</span>		<span class="hljs-keyword">delete</span>				<span class="hljs-number">127</span>
+<span class="hljs-symbol">&lt;CSI&gt;</span>		<span class="hljs-keyword">command</span> sequence <span class="hljs-keyword">intro</span>  ALT-Esc <span class="hljs-number">155</span>	*<span class="hljs-symbol">&lt;CSI&gt;</span>*
+<span class="hljs-symbol">&lt;xCSI&gt;</span>		CSI when typed in the GUI		*<span class="hljs-symbol">&lt;xCSI&gt;</span>*
+
+<span class="hljs-symbol">&lt;EOL&gt;</span>		end-of-<span class="hljs-built_in">line</span> (can <span class="hljs-keyword">be</span> <span class="hljs-symbol">&lt;CR&gt;</span>, <span class="hljs-symbol">&lt;NL&gt;</span> <span class="hljs-built_in">or</span> <span class="hljs-symbol">&lt;CR&gt;</span><span class="hljs-symbol">&lt;NL&gt;</span>,
+		depends <span class="hljs-keyword">on</span> <span class="hljs-built_in">system</span> <span class="hljs-built_in">and</span> <span class="hljs-string">&#x27;fileformat&#x27;</span>)	*<span class="hljs-symbol">&lt;EOL&gt;</span>*
+<span class="hljs-symbol">&lt;Ignore&gt;</span>	cancel wait-<span class="hljs-keyword">for</span>-character		*<span class="hljs-symbol">&lt;Ignore&gt;</span>*
+<span class="hljs-symbol">&lt;NOP&gt;</span>		<span class="hljs-keyword">no</span>-op: <span class="hljs-keyword">do</span> nothing (useful in mappings)	*<span class="hljs-symbol">&lt;Nop&gt;</span>*
+
+<span class="hljs-symbol">&lt;Up&gt;</span>		<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">up</span>			*<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">up</span>* *cursor_up*
+<span class="hljs-symbol">&lt;Down&gt;</span>		<span class="hljs-built_in">cursor</span>-down			*<span class="hljs-built_in">cursor</span>-down* *cursor_down*
+<span class="hljs-symbol">&lt;Left&gt;</span>		<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>			*<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>* *cursor_left*
+<span class="hljs-symbol">&lt;Right&gt;</span>		<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>			*<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>* *cursor_right*
+<span class="hljs-symbol">&lt;S-Up&gt;</span>		shift-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">up</span>
+<span class="hljs-symbol">&lt;S-Down&gt;</span>	shift-<span class="hljs-built_in">cursor</span>-down
+<span class="hljs-symbol">&lt;S-Left&gt;</span>	shift-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>
+<span class="hljs-symbol">&lt;S-Right&gt;</span>	shift-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>
+<span class="hljs-symbol">&lt;C-Left&gt;</span>	control-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>
+<span class="hljs-symbol">&lt;C-Right&gt;</span>	control-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>
+<span class="hljs-symbol">&lt;F1&gt;</span> - <span class="hljs-symbol">&lt;F12&gt;</span>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keys</span> 1 <span class="hljs-title">to</span> 12		*<span class="hljs-title">function_key</span>* *<span class="hljs-title">function</span>-<span class="hljs-title">key</span>*</span>
+<span class="hljs-symbol">&lt;S-F1&gt;</span> - <span class="hljs-symbol">&lt;S-F12&gt;</span> shift-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keys</span> 1 <span class="hljs-title">to</span> 12	*&lt;<span class="hljs-title">S</span>-<span class="hljs-title">F1</span>&gt;*</span>
+<span class="hljs-symbol">&lt;Help&gt;</span>		<span class="hljs-keyword">help</span> key
+<span class="hljs-symbol">&lt;Undo&gt;</span>		<span class="hljs-keyword">undo</span> key
+<span class="hljs-symbol">&lt;Insert&gt;</span>	<span class="hljs-keyword">insert</span> key
+<span class="hljs-symbol">&lt;Home&gt;</span>		home							*home*
+<span class="hljs-symbol">&lt;End&gt;</span>		end								*end*
+<span class="hljs-symbol">&lt;PageUp&gt;</span>	page-<span class="hljs-keyword">up</span>							*page_up* *page-<span class="hljs-keyword">up</span>*
+<span class="hljs-symbol">&lt;PageDown&gt;</span>	page-down						*page_down* *page-down*
+<span class="hljs-symbol">&lt;kUp&gt;</span>		keypad <span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">up</span>				*keypad-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">up</span>*
+<span class="hljs-symbol">&lt;kDown&gt;</span>		keypad <span class="hljs-built_in">cursor</span>-down				*keypad-<span class="hljs-built_in">cursor</span>-down*
+<span class="hljs-symbol">&lt;kLeft&gt;</span>		keypad <span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>				*keypad-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">left</span>*
+<span class="hljs-symbol">&lt;kRight&gt;</span>	keypad <span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>				*keypad-<span class="hljs-built_in">cursor</span>-<span class="hljs-keyword">right</span>*
+<span class="hljs-symbol">&lt;kHome&gt;</span>		keypad home (upper <span class="hljs-keyword">left</span>)		*keypad-home*
+<span class="hljs-symbol">&lt;kEnd&gt;</span>		keypad end (lower <span class="hljs-keyword">left</span>)			*keypad-end*
+<span class="hljs-symbol">&lt;kOrigin&gt;</span>	keypad origin (middle)			*keypad-origin*
+<span class="hljs-symbol">&lt;kPageUp&gt;</span>	keypad page-<span class="hljs-keyword">up</span> (upper <span class="hljs-keyword">right</span>)	*keypad-page-<span class="hljs-keyword">up</span>*
+<span class="hljs-symbol">&lt;kPageDown&gt;</span>	keypad page-down (lower <span class="hljs-keyword">right</span>)	*keypad-page-down*
+<span class="hljs-symbol">&lt;kDel&gt;</span>		keypad <span class="hljs-keyword">delete</span> 					*keypad-<span class="hljs-keyword">delete</span>*
+<span class="hljs-symbol">&lt;kPlus&gt;</span>		keypad +						*keypad-plus*
+<span class="hljs-symbol">&lt;kMinus&gt;</span>	keypad -						*keypad-minus*
+<span class="hljs-symbol">&lt;kMultiply&gt;</span>	keypad *						*keypad-multiply*
+<span class="hljs-symbol">&lt;kDivide&gt;</span>	keypad /						*keypad-divide*
+<span class="hljs-symbol">&lt;kPoint&gt;</span>	keypad .						*keypad-point*
+<span class="hljs-symbol">&lt;kComma&gt;</span>	keypad ,						*keypad-comma*
+<span class="hljs-symbol">&lt;kEqual&gt;</span>	keypad =						*keypad-equal*
+<span class="hljs-symbol">&lt;kEnter&gt;</span>	keypad Enter					*keypad-enter*
+<span class="hljs-symbol">&lt;k0&gt;</span> - <span class="hljs-symbol">&lt;k9&gt;</span>	keypad <span class="hljs-number">0</span> <span class="hljs-keyword">to</span> <span class="hljs-number">9</span>					*keypad-<span class="hljs-number">0</span>* *keypad-<span class="hljs-number">9</span>*
+&lt;S-…&gt;		shift-key						*shift* *&lt;S-*
+&lt;C-…&gt;		control-key						*control* *ctrl* *&lt;C-*
+&lt;M-…&gt;		alt-key <span class="hljs-built_in">or</span> meta-key				*META* *ALT* *&lt;M-*
+&lt;A-…&gt;		same <span class="hljs-keyword">as</span> &lt;M-…&gt;					*&lt;A-*
+&lt;D-…&gt;		<span class="hljs-keyword">command</span>-key <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;super&quot;</span> key		*&lt;D-*
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

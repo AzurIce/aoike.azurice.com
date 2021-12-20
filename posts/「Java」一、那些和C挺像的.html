@@ -1,0 +1,221 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Aoike青池</title>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://aoike.azurice.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>-->
+<!--<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    「Java」一、那些和C挺像的.md
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        修改于 · 2021-12-20 03:54:35 · 发布于 · 2021-12-20 02:51:10
+                    </time>
+                </div>
+                <div class="post-content">
+                    <h1>「Java」一、那些和C挺像的</h1>
+<h2>一、基础数据类型</h2>
+<p>整数：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>类型名</th>
+<th>大小(Byte)</th>
+<th>数据范围</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte（💥标准C没有💥）</td>
+<td>字节型</td>
+<td>1</td>
+<td>-128 ~ 127</td>
+<td>0</td>
+</tr>
+<tr>
+<td>short</td>
+<td>短整型</td>
+<td>2</td>
+<td>-32768 ~ 32767</td>
+<td>0</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整型</td>
+<td>4</td>
+<td>-2147483648 ~ 2147483647</td>
+<td>0</td>
+</tr>
+<tr>
+<td>long</td>
+<td>长整型</td>
+<td>8</td>
+<td>-9223372036854774808～9223372036854774807</td>
+<td>0L</td>
+</tr>
+</tbody>
+</table>
+<p>小数：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>类型名</th>
+<th>大小(Byte)</th>
+<th>数据范围</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>浮点型</td>
+<td>4</td>
+<td>3.402823e+38～1.401298e-45</td>
+<td>0.0f</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度浮点型</td>
+<td>8</td>
+<td>1.797693e+308～4.9000000e-324</td>
+<td>0.0d</td>
+</tr>
+</tbody>
+</table>
+<p>字符：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>类型名</th>
+<th>大小(Byte)</th>
+<th>数据范围</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>字符型</td>
+<td>1</td>
+<td><code>&#x27;\u<span class="hljs-number">0000</span>&#x27;</code>（0） 到 <code>&#x27;\uffff&#x27;</code>（65535）</td>
+<td><code>&#x27;\u<span class="hljs-number">0000</span>&#x27;</code>（空格）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💥 <strong>java</strong> 中的 <strong>字符</strong> 是一个 <strong>16位Unicode字符</strong>。💥</p>
+<p>有关字符编码，见这篇 <a href="">字符编码</a> 【还没写】</p>
+</blockquote>
+<p>布尔型：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>类型名</th>
+<th>大小(Byte)</th>
+<th>数据</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean（💥标准C没有💥）</td>
+<td>布尔型</td>
+<td>是个谜，不过挺小</td>
+<td><code><span class="hljs-literal">true</span></code> 或 <code><span class="hljs-literal">false</span></code></td>
+<td><code><span class="hljs-literal">false</span></code></td>
+</tr>
+</tbody>
+</table>
+<h2>二、运算符</h2>
+<h3>2.1 算数运算符</h3>
+<p>同 <strong>C/C++。</strong></p>
+<h3>2.2 关系运算符</h3>
+<p>同 <strong>C/C++。</strong></p>
+<h3>2.3 位运算符</h3>
+<p>同 <strong>C/C++</strong>，多了一个 <code><span class="hljs-meta">&gt;&gt;&gt;</span></code> 就是左边会补零的按位右移。</p>
+<blockquote>
+<p>什么？你没学？快滚去把 C语言的位运算看了！传送门：<a href="">嘿嘿还没写</a></p>
+</blockquote>
+<h3>2.4 逻辑运算符</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<blockquote>
+<p>同样有短路效应</p>
+</blockquote>
+<h3>2.5 赋值运算符</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h3>2.6 三目运算符</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h2>三、选择语句</h2>
+<h3>3.1 if 语句</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h3>3.2 switch 语句</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<p>但是！！！有一点区别！！！</p>
+<pre><code class="hljs language-java"><span class="hljs-keyword">switch</span>(expression){
+	<span class="hljs-keyword">case</span> value :
+        <span class="hljs-comment">// statement</span>
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> value :
+        <span class="hljs-comment">// statement</span>
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span> :
+        <span class="hljs-comment">// statement</span>
+}
+</code></pre>
+<ul>
+<li>💥<strong>Java7</strong> 起 <strong>expression</strong> 的值可以是字符串类型的，对应的 <strong>value</strong> 也应该是常量。💥</li>
+</ul>
+<blockquote>
+<p>？？但是在基础数据类型里不是没有字符串么？？</p>
+<p><strong>不要着急，后面会讲</strong></p>
+</blockquote>
+<h2>四、循环语句</h2>
+<h3>4.1 for 语句</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h3>4.2 while 语句</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h3>4.3 do ... while 语句</h3>
+<p>同 <strong>C/C++</strong>。</p>
+<h2>五、“函数”</h2>
+<p>定义的框架是一样的，不过在 Java 里，它们并不是一样的东西，以后慢慢讲。</p>
+<hr>
+<p>差不多这些？</p>
+<p>其他的数组啊、文件输入输出啊、字符串啊，什么的，慢慢讲吧。</p>
+
+                </div>
+            </article>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
