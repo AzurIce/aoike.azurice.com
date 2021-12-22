@@ -19,25 +19,30 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    「基础算法」快速排序.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-09-27 03:46:11 · 发布于 · 2021-09-23 07:11:35
-                    </time>
-                </div>
-                <div class="post-content">
-                    <hr>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        「基础算法」快速排序.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-09-27 03:46:11 · 发布于 · 2021-09-23 07:11:35
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <hr>
 <p>title: 「基础算法」快速排序<br>
 date: 2021-08-27 14:58:31<br>
 categories: OI<br>
@@ -50,9 +55,9 @@ tags:</p>
 <hr>
 <h2>「基础算法」快速排序</h2>
 <h3>板子：</h3>
-<pre><code class="hljs language-C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span>
+<pre><code class="hljs language-C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream></span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio></span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib></span></span>
 
 <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAXN (int)(1E6 + 7)</span>
 
@@ -60,7 +65,7 @@ tags:</p>
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">qRead</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;x)</span> </span>{
 	<span class="hljs-keyword">char</span> c; x = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span> ((c = <span class="hljs-built_in">getchar</span>()) &lt; <span class="hljs-string">&#x27;0&#x27;</span> || c &gt; <span class="hljs-string">&#x27;9&#x27;</span>);
+    <span class="hljs-keyword">while</span> ((c = <span class="hljs-built_in">getchar</span>()) &lt; <span class="hljs-string">&#x27;0&#x27;</span> || c > <span class="hljs-string">&#x27;9&#x27;</span>);
     <span class="hljs-keyword">while</span> (<span class="hljs-string">&#x27;0&#x27;</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">&#x27;9&#x27;</span>) {
         x = x*<span class="hljs-number">10</span> + c - <span class="hljs-string">&#x27;0&#x27;</span>;
         c = <span class="hljs-built_in">getchar</span>();
@@ -73,7 +78,7 @@ tags:</p>
     <span class="hljs-keyword">int</span> i = l<span class="hljs-number">-1</span>, j = r+<span class="hljs-number">1</span>;
     <span class="hljs-keyword">while</span> (i &lt; j) {
         <span class="hljs-keyword">do</span> i++; <span class="hljs-keyword">while</span> (a[i] &lt; x);
-        <span class="hljs-keyword">do</span> j--; <span class="hljs-keyword">while</span> (a[j] &gt; x);
+        <span class="hljs-keyword">do</span> j--; <span class="hljs-keyword">while</span> (a[j] > x);
         <span class="hljs-keyword">if</span> (i &lt; j) <span class="hljs-built_in">swap</span>(a[i], a[j]);
     }
     <span class="hljs-built_in">qSort</span>(a, l, j);
@@ -101,11 +106,11 @@ tags:</p>
 </li>
 </ol>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>

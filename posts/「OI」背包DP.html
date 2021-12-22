@@ -19,25 +19,30 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    「OI」背包DP.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-07 12:06:52 · 发布于 · 2021-11-06 03:41:00
-                    </time>
-                </div>
-                <div class="post-content">
-                    <h1>「OI」背包DP</h1>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        「OI」背包DP.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-11-07 12:06:52 · 发布于 · 2021-11-06 03:41:00
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <h1>「OI」背包DP</h1>
 <h2>一、01背包</h2>
 <blockquote>
 <p>每个物品只能选 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>∼</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 \sim 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mrel">∼</span><span class="mord mathrm">1</span></span></span></span> 个</p>
@@ -54,7 +59,7 @@ f[i][j] = \max\{f[i-1][j], f[i-1][j-v_i] + w_i\}
 }
 </code></pre>
 <p>优化为一维：</p>
-<pre><code class="hljs language-c++"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = N; i &gt;= <span class="hljs-number">1</span>; i--) {
+<pre><code class="hljs language-c++"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = N; i >= <span class="hljs-number">1</span>; i--) {
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= N; j++) {
 		f[j] = <span class="hljs-built_in">max</span>(f[j], f[j-v[i]]);
 	}
@@ -123,7 +128,7 @@ f[i][j] = \max\{f[i][j], f[i][j-v_i] + w_i\}
             f[i][j] = <span class="hljs-built_in">max</span>(f[i][j],f[i<span class="hljs-number">-1</span>][j-k*v[i]] + k*w[i]);
 </code></pre>
 <h3>2. 优化</h3>
-<h4>1&gt; 二进制优化（倍增思想合并物品，转化为01背包）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NV\log_2S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span></h4>
+<h4>1> 二进制优化（倍增思想合并物品，转化为01背包）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>N</mi><mi>V</mi><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(NV\log_2S)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="vlist"><span style="top:0.24444em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathit" style="margin-right:0.05764em;">S</span><span class="mclose">)</span></span></span></span></h4>
 <p><img src="https://cdn.nlark.com/yuque/__latex/a208f8be2e425f060124e300f6192b78.svg" alt="img"></p>
 <p>可借助倍增的思想，优化一个log级别。</p>
 <p>可以想到将取的次数用若干<strong>不重复</strong>的数的<strong>和</strong>来表示，并保证用这些数的和能够表示出<img src="https://cdn.nlark.com/yuque/__latex/c07d887f87395dd856bd4e374c6bd7c6.svg" alt="img">中任意一个数。</p>
@@ -148,7 +153,7 @@ f[i][j] = \max\{f[i][j], f[i][j-v_i] + w_i\}
         w[cnt]   = _w*k;
         s -= k; k &lt;&lt;= <span class="hljs-number">1</span>;
     }
-    <span class="hljs-keyword">if</span>(s &gt; <span class="hljs-number">0</span>){
+    <span class="hljs-keyword">if</span>(s > <span class="hljs-number">0</span>){
         v[++cnt] = _v*s;
         w[cnt]   = _w*s;
     }
@@ -161,11 +166,11 @@ f[i][j] = \max\{f[i][j], f[i][j-v_i] + w_i\}
 <h2>1. 朴素算法</h2>
 <h2>2. 优化</h2>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>

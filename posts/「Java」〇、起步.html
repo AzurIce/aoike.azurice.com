@@ -19,34 +19,77 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    「Java」〇、起步.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-12-20 02:53:08 · 发布于 · 2021-12-20 11:49:12
-                    </time>
-                </div>
-                <div class="post-content">
-                    <h1>「Java」〇 、起步</h1>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        「Java」〇、起步.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-12-22 11:58:01 · 发布于 · 2021-12-20 11:49:12
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <h1>「Java」〇 、起步</h1>
 <h2>一、Java 与 C 的不同</h2>
 <p>先来看看一个 <strong>C语言程序</strong> 从编写到运行所经历的过程：</p>
-<pre>ReferenceError: document is not defined</pre><p><strong>源代码</strong> 编译为 <strong>汇编代码</strong> 再汇编为 <strong>机器码</strong> 再链接为最终的 <strong>可执行程序</strong>。</p>
+<div class="mermaid">flowchart LR
+	subgraph 源代码
+        A[main.c]
+        a[utils.c]
+    end
+    
+    A --预处理--> B[main.i]
+    a --预处理--> b[utils.i]
+    
+	subgraph 汇编代码
+        C[main.c]
+        c[utils.c]
+    end
+    
+    B --编译--> C
+    b --编译--> c
+    
+	subgraph 机器码
+        D[main.o]
+        d[utils.o]
+    end
+    
+    C --汇编--> D
+    c --汇编--> d
+	机器码 --链接--> 可执行程序
+	可执行程序 --> z([运行])
+</div>
+<p><strong>源代码</strong> 编译为 <strong>汇编代码</strong> 再汇编为 <strong>机器码</strong> 再链接为最终的 <strong>可执行程序</strong>。</p>
 <p>不同平台（如 Max, Windows, Linux...）所识别的机器语言是不同的。</p>
 <p><strong>C语言程序</strong> 在不同平台运行的实现方式是 <strong>针对不同平台进行特定的编译操作</strong> 得到对应平台的机器码，即 <strong><font color="red">到处编译，到处运行</font></strong>。</p>
 <p><strong>Java</strong> 是 <strong>跨平台</strong> 的语言，是无论对于什么目标平台都编译为统一的字节码，而在不同的平台上引入一个虚拟机来执行这些字节码（将这些字节码“翻译”为对应平台的机器码并执行），即 <strong><font color="red">一次编译，到处运行</font></strong>，而这个虚拟机有一个名字 —— <strong>Java Virtual Machine(JVM)</strong>。</p>
 <p>不过这样也有不方便的缺点，即要想运行就需要有 <strong>JVM</strong> 环境。</p>
 <p>以下是一个 <strong>Java语言程序</strong> 从编写到运行所经历的过程：</p>
-<pre>ReferenceError: document is not defined</pre><p>因此，开发一个 <strong>Java语言程序</strong> 所需要的东西就很清晰了：</p>
+<div class="mermaid">flowchart LR
+	subgraph 源代码
+		A[.java]
+	end
+	
+	subgraph 字节码
+		A --编译--> B[.class]
+	end
+	
+	字节码 --> z([通过JVM运行])
+</div>
+<p>因此，开发一个 <strong>Java语言程序</strong> 所需要的东西就很清晰了：</p>
 <ol>
 <li>编译器</li>
 <li>虚拟机</li>
@@ -60,7 +103,7 @@
 <h2>二、开发环境配置 - 上</h2>
 <p><strong>Java</strong> 最初的开发公司是 <strong>Sun公司</strong> 后来被 <strong>甲骨文(Oracle)公司</strong> 收购，这是 <strong>Oracle官网</strong> ：</p>
 <p><a href="https://www.oracle.com/index.html">Oracle | Cloud Applications and Cloud Platform</a></p>
-<p>在其中可以找到 <strong>JDK</strong> 的下载页面（Products -&gt; Java -&gt; Download Java）：</p>
+<p>在其中可以找到 <strong>JDK</strong> 的下载页面（Products -> Java -> Download Java）：</p>
 <p><a href="https://www.oracle.com/java/technologies/downloads/">Java Downloads | Oracle</a></p>
 <p>在这里，很多 <strong>Java</strong> 版本并没有被显示出来，目前出现在页面中可以下载的 <strong>Java8</strong>, <strong>Java11</strong> 和 <strong>Java17</strong> 是一些长期支持 <strong>Long-Term Support(LTS)</strong> 的版本。</p>
 <blockquote>
@@ -91,7 +134,7 @@
 </li>
 </ul>
 <p>此时打开 <strong>Cmd</strong> 或 <strong>PowerShell</strong>，输入 <code>java <span class="hljs-comment">--version</span></code>，应该会得到如下内容：</p>
-<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> C:\Users\azurice&gt; java -<span class="hljs-literal">-version</span>
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> C:\Users\azurice> java -<span class="hljs-literal">-version</span>
 java <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span> <span class="hljs-number">2021</span><span class="hljs-literal">-10</span><span class="hljs-literal">-19</span> LTS
 Java(TM) SE Runtime Environment (build <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span>+<span class="hljs-number">12</span><span class="hljs-literal">-LTS</span><span class="hljs-literal">-39</span>)
 Java HotSpot(TM) <span class="hljs-number">64</span><span class="hljs-literal">-Bit</span> Server VM (build <span class="hljs-number">17.0</span>.<span class="hljs-number">1</span>+<span class="hljs-number">12</span><span class="hljs-literal">-LTS</span><span class="hljs-literal">-39</span>, mixed mode, sharing)
@@ -161,22 +204,22 @@ Java HotSpot(TM) <span class="hljs-number">64</span><span class="hljs-literal">-
 </blockquote>
 <p>打开以后我们来 <strong>编译</strong> 并 <strong>运行</strong> <code><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span>java</code>：</p>
 <blockquote>
-<p>注意下面执行的命令是 <code><span class="hljs-attribute">PS</span> xxxxxx&gt;</code> 后面的内容！</p>
+<p>注意下面执行的命令是 <code><span class="hljs-attribute">PS</span> xxxxxx></code> 后面的内容！</p>
 </blockquote>
 <ol>
 <li>
 <p>编译</p>
-<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; javac .\HelloWorld.java
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java> javac .\HelloWorld.java
 </code></pre>
 <p>你会发现多了一个 <code>.<span class="hljs-built_in">class</span></code> 字节码文件</p>
 <p><img src="https://s2.loli.net/2021/12/20/D7fSqrF5gjIWwTn.png" alt="image-20211220132622235"></p>
 </li>
 <li>
 <p>运行</p>
-<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; java HelloWorld
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java> java HelloWorld
 </code></pre>
 <p>得到输出：</p>
-<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java&gt; java HelloWorld
+<pre><code class="hljs language-powershell"><span class="hljs-built_in">PS</span> F:\Codes\Java> java HelloWorld
 Hello World
 </code></pre>
 </li>
@@ -235,11 +278,11 @@ Hello World
 <p>那么，这篇大概就这样了？</p>
 <p>一会见！</p>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>

@@ -19,25 +19,30 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    「C语言」二、分支结构.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-10-18 10:29:26 · 发布于 · 2021-10-02 09:49:55
-                    </time>
-                </div>
-                <div class="post-content">
-                    <hr>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        「C语言」二、分支结构.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-10-18 10:29:26 · 发布于 · 2021-10-02 09:49:55
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <hr>
 <p>title: 「C语言」二、分支结构<br>
 date: 2021-09-18 17:47:18<br>
 categories: C<br>
@@ -58,7 +63,7 @@ tags:</p>
 </thead>
 <tbody>
 <tr>
-<td><code><span class="hljs-meta">&gt;</span></code></td>
+<td><code><span class="hljs-meta">></span></code></td>
 <td>大于</td>
 </tr>
 <tr>
@@ -66,7 +71,7 @@ tags:</p>
 <td>小于</td>
 </tr>
 <tr>
-<td><code><span class="hljs-meta">&gt;</span><span class="bash">=</span></code></td>
+<td><code><span class="hljs-meta">></span><span class="bash">=</span></code></td>
 <td>大于等于</td>
 </tr>
 <tr>
@@ -214,11 +219,11 @@ tags:</p>
 <p>输入：两个整数 <code><span class="hljs-selector-tag">a</span></code> ，<code><span class="hljs-selector-tag">b</span></code></p>
 <p>输出：<code>x <span class="hljs-keyword">is</span> bigger</code> ，其中 <code><span class="hljs-attribute">x</span></code> 为代表更大的一个的数的字母（ <code><span class="hljs-selector-tag">a</span></code> 或 <code><span class="hljs-selector-tag">b</span></code> ）</p>
 </blockquote>
-<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
     <span class="hljs-keyword">int</span> a, b; <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>, &amp;a, &amp;b);
-    <span class="hljs-keyword">if</span> (a &gt; b) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a&quot;</span>);
+    <span class="hljs-keyword">if</span> (a > b) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a&quot;</span>);
     <span class="hljs-keyword">else</span>       <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;b&quot;</span>);
     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; is bigger.\n&quot;</span>);
 }
@@ -227,7 +232,7 @@ tags:</p>
 <p>输入：一个整数 <code><span class="hljs-attribute">y</span></code> 表示年份</p>
 <p>输出：判断 <code><span class="hljs-attribute">y</span></code> 是否为闰年，是则输出 <code><span class="hljs-literal">yes</span></code>  否则输出 <code><span class="hljs-literal">no</span></code></p>
 </blockquote>
-<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-comment">// 闰年判断：是 4 的倍数，且不是 100 的倍数 或者 是 400 的倍数</span>
 
@@ -258,11 +263,11 @@ tags:</p>
 </blockquote>
 <p>（懒得写太详细了）</p>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>

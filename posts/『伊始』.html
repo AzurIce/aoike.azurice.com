@@ -19,25 +19,30 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    『伊始』.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-09-20 01:49:43 · 发布于 · 2021-09-23 07:12:38
-                    </time>
-                </div>
-                <div class="post-content">
-                    <hr>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        『伊始』.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-09-20 01:49:43 · 发布于 · 2021-09-23 07:12:38
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <hr>
 <h2>title: 『伊始』<br>
 date: 2021-08-27 10:47:18<br>
 categories: OI<br>
@@ -74,7 +79,7 @@ tags:<br>
 </li>
 <li>
 <p><s>在 Sublime Text 中添加 Build System</s></p>
-<p><s>Tools -&gt; Build System -&gt; New Build System</s></p>
+<p><s>Tools -> Build System -> New Build System</s></p>
 </li>
 </ol>
 <h3>一、Neovim 的 C/C++ 环境配置</h3>
@@ -109,13 +114,13 @@ tags:<br>
 <ol>
 <li>
 <p>初始化 Hexo 目录</p>
-<pre><code class="hljs language-bash">hexo init &lt;folder&gt;
-<span class="hljs-built_in">cd</span> &lt;folder&gt;
+<pre><code class="hljs language-bash">hexo init &lt;folder>
+<span class="hljs-built_in">cd</span> &lt;folder>
 yarn
 </code></pre>
 <blockquote>
 <p>生成的目录如下：</p>
-<pre><code class="hljs language-C">&lt;folder&gt;
+<pre><code class="hljs language-C">&lt;folder>
     ├── _config.yml   <span class="hljs-comment">// 网站的配置信息</span>
     ├── package.json
     ├── scaffolds     <span class="hljs-comment">// 模板文件夹</span>
@@ -209,7 +214,7 @@ SDL_IM_MODULE <span class="hljs-attribute">DEFAULT</span>=fcitx
 <pre><code class="hljs language-bash">sudo pacman -U xxx.tar.zst
 </code></pre>
 <h4>9. 雷蛇驱动配置软件</h4>
-<p>到 pamac 程序中，首选项 -&gt; 高级 -&gt; AUR 中启用AUR支持。</p>
+<p>到 pamac 程序中，首选项 -> 高级 -> AUR 中启用AUR支持。</p>
 <p>搜索 openrazer-meta并将其安装（应该会自动安装 openrazer-driver-dkms, openrazer-daemon, python-openrazer）几个包。</p>
 <p>在终端中输入</p>
 <pre><code class="hljs language-bash">sudo gpasswd -a <span class="hljs-variable">$USER</span> plugdev
@@ -259,11 +264,11 @@ reboot
 <p>附上官方 github wiki 上的 troubleshooting 页面：<a href="https://github.com/openrazer/openrazer/wiki/Troubleshooting">Troubleshooting · openrazer/openrazer Wiki (github.com)</a></p>
 <p>随后搜索 razergenie 并将其安装，并重启（有问题就重启试试），可以进行正常配置。</p>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>

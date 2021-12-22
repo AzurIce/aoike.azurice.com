@@ -19,25 +19,30 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
-<div class="main gt-bg-theme-color-first">
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    「C语言」文件.md
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        修改于 · 2021-11-11 12:49:45 · 发布于 · 2021-11-11 12:49:45
-                    </time>
-                </div>
-                <div class="post-content">
-                    <h1>「C语言」文件</h1>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <div class="main gt-bg-theme-color-first">
+
+        <div class="post-container">
+            <div class="post-detail gt-bg-theme-color-second">
+                <article class="gt-post-content">
+                    <h2 class="post-title">
+                        「C语言」文件.md
+                    </h2>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            修改于 · 2021-11-11 12:49:45 · 发布于 · 2021-11-11 12:49:45
+                        </time>
+                    </div>
+                    <div class="post-content">
+                        <h1>「C语言」文件</h1>
 <h2>〇、引入</h2>
 <p>假如有一个函数 <code><span class="hljs-variable">void</span> <span class="hljs-function"><span class="hljs-title">printValue</span>()</span></code> ，怎么在这个函数中访问到外部的一个变量呢？<br>
 我们使通过一个指针变量来访问的：</p>
@@ -49,7 +54,7 @@
 <p>文件也是如此，在程序外部有一个文件，我们也可以通过一个类似的 <code><span class="hljs-keyword">FILE</span>*</code> 型指针变量来访问到文件。</p>
 <h2>一、输入/输出流 与 <code><span class="hljs-keyword">FILE</span> *</code></h2>
 <blockquote>
-<p>在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中</p>
+<p>在 <code><span class="hljs-section">&lt;stdio.h></span></code> 中</p>
 </blockquote>
 <pre><code class="hljs language-c">FILE *fp; <span class="hljs-comment">// 声明了一个名为 fp 的 FILE* 类型指针变量</span>
 </code></pre>
@@ -200,7 +205,7 @@
 <p>返回值同理，The number of objects written successfully, which may be less than <code><span class="hljs-built_in">count</span></code> if an error occurs.</p>
 <p>If <code>size</code> or <code><span class="hljs-built_in">count</span></code> is zero, <code><span class="hljs-attribute">fwrite</span></code> returns zero and performs no other action.</p>
 <h3>2.2 基础读与基础写 <code><span class="hljs-attribute">r</span></code> <code><span class="hljs-attribute">w</span></code></h3>
-<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
     FILE *srcFile, *dstFile;
@@ -220,11 +225,11 @@
 }
 </code></pre>
 <p><code><span class="hljs-attribute">getc</span></code> 在读到文件末尾后再读就会会失败，会返回 <code><span class="hljs-attribute">EOF</span></code> (End Of File)。</p>
-<p><code><span class="hljs-attribute">EOF</span></code> 是一个常量，值为 <code><span class="hljs-deletion">-1</span></code>，被定义在在 <code><span class="hljs-section">&lt;stdio.h&gt;</span></code> 中：</p>
+<p><code><span class="hljs-attribute">EOF</span></code> 是一个常量，值为 <code><span class="hljs-deletion">-1</span></code>，被定义在在 <code><span class="hljs-section">&lt;stdio.h></span></code> 中：</p>
 <pre><code class="hljs language-C"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> EOF (-1)</span>
 </code></pre>
 <h3>2.3 二进制读与二进制写 <code><span class="hljs-attribute">rb</span></code> <code><span class="hljs-attribute">wb</span></code></h3>
-<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
     FILE *srcFile, *dstFile;
@@ -317,7 +322,7 @@ Hello world!
 NB!</span>
 </code></pre>
 <p>运行此程序，清晰地显示出了读入前后文件位置指针的变化：</p>
-<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
     FILE *fp = fopen(<span class="hljs-string">&quot;txtt.txt&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);
@@ -367,7 +372,7 @@ NB!</span>
 <p>这一点细节要时常注意，经常因为忽略 <code><span class="hljs-string">\r</span></code> 的存在而产生很多错误。</p>
 </blockquote>
 <p>再看下面这个以字符串读入的例子：</p>
-<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
     FILE *fp = fopen(<span class="hljs-string">&quot;txtt.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);
@@ -468,7 +473,7 @@ NB!</span>
 <p><code>w+</code> 当文件位置指针不在末尾时（文件位置指针所在位置已有内容时），输出会替换掉那个位置的内容。</p>
 <blockquote>
 <p>例：</p>
-<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h></span></span>
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
 	FILE *writeExtended = fopen(<span class="hljs-string">&quot;test.txt&quot;</span>, <span class="hljs-string">&quot;w+&quot;</span>);
@@ -500,11 +505,11 @@ Champion!!!!!!!
 <p>由题可知，不难发现，显然得到，略。</p>
 <p>发挥你的主观能动性吧。</p>
 
-                </div>
-            </article>
-        </div>
+                    </div>
+                </article>
+            </div>
 
+        </div>
     </div>
-</div>
 </body>
 </html>
